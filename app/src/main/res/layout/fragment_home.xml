@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="675dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ECECEC"
+    tools:context=".Fragment.HomeFragment">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="300dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="35dp"
+                    app:queryHint="Tìm kiếm"
+                    android:focusable="false"
+                    android:background="@drawable/bg_customsearch"
+                    android:theme="@style/MySearchViewStyle"
+                    app:iconifiedByDefault="true"/>
+            </LinearLayout>
+            <!--    <androidx.recyclerview.widget.RecyclerView-->
+            <!--        android:id="@+id/rcvadv"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txttale"
+                    android:layout_width="400dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="italic"
+                    android:textColor="@color/black"
+                    android:text="Sách" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="400dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="italic"
+                    android:textColor="@color/black"
+                    android:text="Truyện" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvtale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtLoadingData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang tải ....."
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="240dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:padding="10dp"
+        android:background="@drawable/bg_history"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="22dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Mã đơn hàng: "
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtmadon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:text="... "
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Họ tên: "
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txthoten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:text="... "
+                android:padding="5dp"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại: "
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtsdt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:padding="5dp"
+                android:text="... "
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ nhận hàng : "
+                android:paddingBottom="5dp"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtdiachi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:padding="5dp"
+                android:text="... "
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Sách: "
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtthucdon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:text="... "
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Ngày đặt hàng: "
+                android:paddingBottom ="5dp"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtngaydathang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:padding="5dp"
+                android:text="... "
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/txtline"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_custom_line"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#FA4D47"
+                android:text="Tổng tiền: "
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/txttongtien"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="2dp"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textColor="#FA4D47"
+                android:text="... "
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Thanh toán: "
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtthanhtoan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:text="... "
+                android:padding="5dp"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_delete" />
+    </LinearLayout>
+
+</LinearLayout>

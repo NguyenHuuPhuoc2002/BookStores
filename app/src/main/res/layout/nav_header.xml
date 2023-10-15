@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:background="@drawable/img_3">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:src="@drawable/img_4"
+        android:layout_gravity="left"
+        android:layout_marginStart="15dp"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="1dp"
+        tools:ignore="MissingClass,MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="left"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/txtemail"
+            android:layout_width="220dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:text="nguyenhuuphuoc@gmail.com"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+    </LinearLayout>
+</LinearLayout>

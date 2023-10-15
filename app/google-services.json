@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "434871254529",
+    "firebase_url": "https://bookstores-e0a67-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bookstores-e0a67",
+    "storage_bucket": "bookstores-e0a67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434871254529:android:09a0b562543164354e0a00",
+        "android_client_info": {
+          "package_name": "com.example.bookstores"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVXVSksyDODlZ_2sVWQKt4os7zxOH43VU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
