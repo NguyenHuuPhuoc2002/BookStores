@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -51,11 +54,27 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
             .load(current.bimg)
             .into(holder.imgv)
 
+        val edtQuantity = holder.itemView.findViewById<EditText>(R.id.edtQuantity)
+        edtQuantity.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+                val quantity = s.toString().toIntOrNull()
+                if (quantity != null) {
+                    updateBook(current.bid!!, current.btitle!!, current.bimg!!, current.bauthor!!, current.bnxb!!,
+                        current.bnumpages!!, current.bkindOfSach!!, current.bprice, quantity, current.bdetail!!)
+                }
+            }
+        })
+
+
         // Button Plus
         holder.btnPluss.setOnClickListener {
             val newAmount = current.bamount + 1
             updateBook(current.bid!!, current.btitle!!, current.bimg!!, current.bauthor!!, current.bnxb!!,
-                current.bnumpages!!, current.bkindOfSach!!, current.bprice!!, newAmount, current.bdetail!!)
+                current.bnumpages!!, current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!)
             current.bamount = newAmount
             holder.edtQuantity.text = newAmount.toString()
 

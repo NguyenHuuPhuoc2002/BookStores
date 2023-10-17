@@ -53,7 +53,6 @@ class CartFragment : Fragment() {
         mView.findViewById<Button>(R.id.btnabate).setOnClickListener {
             bottomSheet()
         }
-
         getSach()
 
         return mView
