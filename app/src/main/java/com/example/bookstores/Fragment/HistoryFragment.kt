@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bookstores.Adapter.RvAdapterHistory
+import com.example.bookstores.Activity.Adapter.RvAdapterHistory
 import com.example.bookstores.Model.BookHistoryModel
 import com.example.bookstores.R
 import com.google.firebase.database.DataSnapshot

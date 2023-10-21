@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="612dp"
     android:layout_marginTop="65dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
     android:orientation="vertical"
     tools:context=".Fragment.HomeFragment">
 

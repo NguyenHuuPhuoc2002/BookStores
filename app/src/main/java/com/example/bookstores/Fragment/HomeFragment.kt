@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +17,22 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.bookstores.Activity.DetailActivity
-import com.example.bookstores.Adapter.RvAdapter
+import com.example.bookstores.Activity.Adapter.RvAdapter
 import com.example.bookstores.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener
+import com.example.oder_food_app.Adapter.PhotoAdapter
+import com.example.oder_food_app.Adapter.PhotoModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import me.relex.circleindicator.CircleIndicator3
 import java.text.Normalizer
 
 class HomeFragment : Fragment() {
@@ -33,6 +41,12 @@ class HomeFragment : Fragment() {
     private lateinit var dbRef: DatabaseReference
     private lateinit var listBook: ArrayList<BookModel>
     private lateinit var listComic: ArrayList<BookModel>
+    private lateinit var mListPhoto: ArrayList<PhotoModel>
+    private lateinit var circleIndicator3: CircleIndicator3
+    private lateinit var viewPaperSlide: ViewPager2
+    private val autoScrollHandler = Handler(Looper.getMainLooper())
+    private var currentPage = 0
+    private val scrollDelay = 3000L
     private lateinit var mAdapterBook: RvAdapter
     private lateinit var mAdapterComic: RvAdapter
     private lateinit var filteredListBook: ArrayList<BookModel>
@@ -53,6 +67,7 @@ class HomeFragment : Fragment() {
         listComic = arrayListOf<BookModel>()
         getSach()
         Search_View()
+        Slide_ViewPager()
         return mView
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -192,6 +207,59 @@ class HomeFragment : Fragment() {
     private fun showKeyboard() {
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(view?.findViewById(R.id.search_view), InputMethodManager.SHOW_IMPLICIT)
+    }
+    private fun Slide_ViewPager(){
+        viewPaperSlide = mView.findViewById(R.id.view_paper_slide)
+        circleIndicator3 = mView.findViewById(R.id.circle_indicator)
+        mListPhoto = getListPhoto() as ArrayList<PhotoModel>
+        val adapterphoto = PhotoAdapter(mListPhoto)
+        viewPaperSlide.adapter = adapterphoto
+        circleIndicator3.setViewPager(viewPaperSlide)
+        //setting
+        viewPaperSlide.offscreenPageLimit = 3
+        viewPaperSlide.clipToPadding = false
+        viewPaperSlide.clipChildren = false
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer(0))
+        compositePageTransformer.addTransformer { page, position ->
+            val scale: Float
+            if (position < -1) { // Khi trang không hiển thị
+                scale = 0.85f // Đặt kích thước nhỏ
+            } else if (position <= 1) { // Khi trang hiển thị (trái và phải)
+                scale = 0.85f + (1 - Math.abs(position)) * 0.15f // Tính toán kích thước dựa trên vị trí
+            } else { // Khi trang không hiển thị
+                scale = 0.85f // Đặt kích thước nhỏ
+            }
+            // Đặt thuộc tính scaleX và scaleY của trang
+            page.scaleX = scale
+            page.scaleY = scale
+        }
+        viewPaperSlide.setPageTransformer(compositePageTransformer)
+        startAutoScroll()
+    }
+    private fun startAutoScroll() {
+        autoScrollHandler.postDelayed(object : Runnable {
+            override fun run() {
+                if (currentPage < getListPhoto().size) {
+                    viewPaperSlide.currentItem = currentPage
+                    currentPage++
+                } else {
+                    viewPaperSlide.currentItem = 0
+                    currentPage = 0
+                }
+
+                // Lặp lại việc tự động chuyển trang
+                autoScrollHandler.postDelayed(this, scrollDelay)
+            }
+        }, scrollDelay)
+    }
+    private fun getListPhoto(): List<PhotoModel> {
+        val list: MutableList<PhotoModel> = ArrayList()
+        list.add(PhotoModel(R.drawable.img_slide1))
+        list.add(PhotoModel(R.drawable.img_slide2))
+        list.add(PhotoModel(R.drawable.img_slide3))
+        list.add(PhotoModel(R.drawable.img_slide4))
+        return list
     }
 
 }

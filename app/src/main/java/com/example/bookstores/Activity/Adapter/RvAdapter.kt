@@ -1,4 +1,4 @@
-package com.example.bookstores.Adapter
+package com.example.bookstores.Activity.Adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

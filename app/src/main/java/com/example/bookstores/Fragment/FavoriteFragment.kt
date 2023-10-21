@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookstores.Activity.DetailActivity
-import com.example.bookstores.Adapter.RvAdapterFavourite
+import com.example.bookstores.Activity.Adapter.RvAdapterFavourite
 import com.example.bookstores.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener

@@ -10,14 +10,35 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:orientation="vertical">
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_paper_slide"
+                    android:background="@color/white"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="178dp"/>
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/circle_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="5dp"
+                    app:ci_drawable="@drawable/bg_indicator"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="75dp"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.SearchView
