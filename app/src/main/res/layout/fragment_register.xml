@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="110dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtEmailRegister"
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="72dp"
+                android:layout_marginTop="22dp"
                 android:orientation="vertical">
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSigUp"
@@ -102,12 +102,34 @@
 
                 <ImageView
                     android:id="@+id/txtback"
-                    android:layout_width="55dp"
+                    android:layout_width="70dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="12dp"
                     app:srcCompat="@drawable/img_2" />
 
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_fb"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/img_fb"
+                    app:civ_border_color="@color/white"
+                    android:layout_marginRight="100dp"
+                    tools:ignore="MissingClass,MissingConstraints" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_gg"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/img_gg"
+                    app:civ_border_color="@color/white"
+                    tools:ignore="MissingClass,MissingConstraints" />
             </LinearLayout>
         </LinearLayout>
         <TextView
@@ -116,7 +138,7 @@
             android:layout_height="wrap_content"
             android:textSize="37dp"
             android:layout_gravity="center"
-            android:layout_marginTop="-50dp"
+            android:layout_marginTop="-55dp"
             android:textColor="@color/black"
             android:textStyle="normal"
             android:text="Register" />

@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,9 +23,11 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.bookstores.Activity.DetailActivity
 import com.example.bookstores.Activity.Adapter.RvAdapter
+import com.example.bookstores.Activity.Adapter.RvAdapterAds
 import com.example.bookstores.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener
+import com.example.oder_food_app.Adapter.AdsModel
 import com.example.oder_food_app.Adapter.PhotoAdapter
 import com.example.oder_food_app.Adapter.PhotoModel
 import com.google.firebase.database.DataSnapshot
@@ -51,6 +54,7 @@ class HomeFragment : Fragment() {
     private lateinit var mAdapterComic: RvAdapter
     private lateinit var filteredListBook: ArrayList<BookModel>
     private lateinit var filteredListComic: ArrayList<BookModel>
+    private lateinit var mListAds: ArrayList<AdsModel>
     private var isClickLove : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,9 +69,11 @@ class HomeFragment : Fragment() {
 
         listBook = arrayListOf<BookModel>()
         listComic = arrayListOf<BookModel>()
+
         getSach()
-        Search_View()
-        Slide_ViewPager()
+        searchView()
+        slideViewPager()
+        adsAdapter()
         return mView
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,7 +121,7 @@ class HomeFragment : Fragment() {
             }
         })
     }
-    private fun Search_View() {
+    private fun searchView() {
         val searchView = mView.findViewById<SearchView>(R.id.search_view)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -208,7 +214,7 @@ class HomeFragment : Fragment() {
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(view?.findViewById(R.id.search_view), InputMethodManager.SHOW_IMPLICIT)
     }
-    private fun Slide_ViewPager(){
+    private fun slideViewPager(){
         viewPaperSlide = mView.findViewById(R.id.view_paper_slide)
         circleIndicator3 = mView.findViewById(R.id.circle_indicator)
         mListPhoto = getListPhoto() as ArrayList<PhotoModel>
@@ -237,6 +243,17 @@ class HomeFragment : Fragment() {
         viewPaperSlide.setPageTransformer(compositePageTransformer)
         startAutoScroll()
     }
+    @SuppressLint("CutPasteId")
+    private fun adsAdapter(){
+        val adapter = RvAdapterAds(getListAds() as ArrayList<AdsModel>)
+        mView.findViewById<RecyclerView>(R.id.rcvAds).adapter = adapter
+        mView.findViewById<RecyclerView>(R.id.rcvAds).layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
+        adapter.setOnItemClickListener(object : onItemClickListener{
+            override fun onItemClick(position: Int) {
+                Toast.makeText(context, "Bạn đã click vào ${getListAds()[position].title}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
     private fun startAutoScroll() {
         autoScrollHandler.postDelayed(object : Runnable {
             override fun run() {
@@ -261,5 +278,15 @@ class HomeFragment : Fragment() {
         list.add(PhotoModel(R.drawable.img_slide4))
         return list
     }
+    private fun getListAds(): List<AdsModel> {
+        val list: MutableList<AdsModel> = ArrayList()
+        list.add(AdsModel(R.drawable.img_freeship, "Miễn phí vận chuyển"))
+        list.add(AdsModel(R.drawable.img_sale, "Mã giảm giá"))
+        list.add(AdsModel(R.drawable.ic_calendar, "Vận chuyển 24h"))
+        list.add(AdsModel(R.drawable.ic_fire, "Hot"))
+        list.add(AdsModel(R.drawable.ic_smartphone, "Nạp thẻ"))
+        list.add(AdsModel(R.drawable.ic_more_horiz, "See more"))
 
+        return list
+    }
 }
