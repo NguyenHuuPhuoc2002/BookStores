@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:background="@drawable/img_3"
+    android:background="@color/white"
     android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,19 +14,37 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="40dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:text="Hello! New User" />
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/textViewf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="37dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-70dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:text="Login" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="70dp"
+            app:srcCompat="@drawable/img" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="500dp"
@@ -117,16 +135,16 @@
                 android:orientation="horizontal">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_fb"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/img_fb"
                     app:civ_border_color="@color/white"
-                    android:layout_marginRight="100dp"
+                    android:layout_marginRight="240dp"
                     tools:ignore="MissingClass,MissingConstraints" />
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_gg"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/img_gg"
                     app:civ_border_color="@color/white"
                     tools:ignore="MissingClass,MissingConstraints" />
@@ -138,17 +156,17 @@
             android:layout_height="wrap_content"
             android:textSize="37dp"
             android:layout_gravity="center"
-            android:layout_marginTop="-55dp"
+            android:layout_marginTop="-80dp"
             android:textColor="@color/black"
             android:textStyle="normal"
             android:text="Register" />
-        <ImageView
+        <!--<ImageView
             android:id="@+id/img"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="110dp"
             android:layout_gravity="center|top"
-            app:srcCompat="@drawable/img_4" />
+            app:srcCompat="@drawable/img_4" />-->
     </FrameLayout>
 
 </LinearLayout>
