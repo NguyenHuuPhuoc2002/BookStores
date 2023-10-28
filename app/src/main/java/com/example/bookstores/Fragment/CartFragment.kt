@@ -1,13 +1,17 @@
 package com.example.bookstores.Fragment
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,6 +39,7 @@ class CartFragment : Fragment() {
     private lateinit var dbRefHistory: DatabaseReference
     private lateinit var mAdapter: RvAdapterCart
     private lateinit var mList: ArrayList<BookCartModel>
+    private lateinit var dialogProgress: Dialog
     var sum = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +51,15 @@ class CartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val alertDialog = AlertDialog.Builder(context)
+        val progressBar = ProgressBar(context)
+
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đặt hàng !")
+        alertDialog.setCancelable(false)
+        dialogProgress = alertDialog.create()
+
         mView = inflater.inflate(R.layout.fragment_cart, container, false)
         dbRefHistory = FirebaseDatabase.getInstance().getReference("BookHistory")
         mList = arrayListOf<BookCartModel>()
@@ -70,6 +84,7 @@ class CartFragment : Fragment() {
         val edtmethod = bView.findViewById<EditText>(R.id.edtmethod)
         bView.findViewById<TextView>(R.id.txtsummoney_dialog).text = mView.findViewById<TextView>(R.id.txtsummoney).text.toString()
         bView.findViewById<Button>(R.id.btnabatedialog).setOnClickListener {
+            dialogProgress.show()
             if (edtname.text?.isEmpty() == true || edtsdt.text?.isEmpty() == true
                 || edtaddress.text?.isEmpty() == true || edtmethod.text?.isEmpty() == true
             ) {
@@ -86,30 +101,34 @@ class CartFragment : Fragment() {
                     edtmethod.error = "Vui lòng nhập phương thức thanh toán"
                 }
             } else {
-                val id = dbRefHistory.push().key
-                val maDon = taoMaDonHang()
-                val hoTen = edtname.text.toString()
-                val sdt = edtsdt.text.toString()
-                val diaChi = edtaddress.text.toString()
-                val cartItems = mutableListOf<String>()
-                for(i in mList){
-                    cartItems.add(i.btitle + " (" + i.bamount + ")")
-                }
-                val allBook = cartItems.joinToString(", ")
-                val calendar = Calendar.getInstance()
-                val currentDateTime = calendar.time.toString()
-                val tongTien = mView.findViewById<TextView>(R.id.txtsummoney).text.toString()
-                val thanhToan = edtmethod.text.toString()
-                val book = BookHistoryModel(
-                    id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
-                )
-                dbRefHistory.child(id!!).setValue(book)
-                Toast.makeText(requireContext(), "Đặt hàng thành công !", Toast.LENGTH_SHORT).show()
-                mList.clear()
-                dbRef.removeValue()
-                mAdapter.notifyDataSetChanged()
-                mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
-                dialog.dismiss()
+                val handler = android.os.Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    dialogProgress.dismiss()
+                    val id = dbRefHistory.push().key
+                    val maDon = taoMaDonHang()
+                    val hoTen = edtname.text.toString()
+                    val sdt = edtsdt.text.toString()
+                    val diaChi = edtaddress.text.toString()
+                    val cartItems = mutableListOf<String>()
+                    for(i in mList){
+                        cartItems.add(i.btitle + " (" + i.bamount + ")")
+                    }
+                    val allBook = cartItems.joinToString(", ")
+                    val calendar = Calendar.getInstance()
+                    val currentDateTime = calendar.time.toString()
+                    val tongTien = mView.findViewById<TextView>(R.id.txtsummoney).text.toString()
+                    val thanhToan = edtmethod.text.toString()
+                    val book = BookHistoryModel(
+                        id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
+                    )
+                    dbRefHistory.child(id!!).setValue(book)
+                    Toast.makeText(requireContext(), "Đặt hàng thành công !", Toast.LENGTH_SHORT).show()
+                    mList.clear()
+                    dbRef.removeValue()
+                    mAdapter.notifyDataSetChanged()
+                    mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
+                    dialog.dismiss()
+                }, 1200)
             }
         }
     }

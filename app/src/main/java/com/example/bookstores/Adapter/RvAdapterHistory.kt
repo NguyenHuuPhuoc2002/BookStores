@@ -2,11 +2,14 @@ package com.example.bookstores.Activity.Adapter
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.lang.ref.WeakReference
 
 class RvAdapterHistory(val listBook: ArrayList<BookHistoryModel>, private val activityRef:WeakReference<HistoryFragment>):RecyclerView.Adapter<RvAdapterHistory.BookHolder>() {
-
+    private lateinit var dialogProgress: Dialog
     inner class BookHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var btn_delete: ImageButton = itemView.findViewById(R.id.btn_delete)
         var txtmadon: TextView = itemView.findViewById(R.id.txtmadon)
@@ -59,10 +62,23 @@ class RvAdapterHistory(val listBook: ArrayList<BookHistoryModel>, private val ac
                 alertDialogBuilder.setTitle("Xác nhận xóa")
                 alertDialogBuilder.setMessage("Bạn có muốn xóa đơn hàng này không ?")
                 alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _:Int ->
-                    deleteItemData(currentItem.id, pos)
-                    Toast.makeText(holder.itemView.context, "Xóa thành công !", Toast.LENGTH_SHORT).show()
-                    notifyItemRemoved(position)
-                    dialog.dismiss()
+                    val alertDialog = AlertDialog.Builder(holder.itemView.context)
+                    val progressBar = ProgressBar(holder.itemView.context)
+
+                    alertDialog.setView(progressBar)
+                    alertDialog.setTitle("Đang xóa !")
+                    alertDialog.setCancelable(false)
+                    dialogProgress = alertDialog.create()
+                    dialogProgress.show()
+
+                    val handler = android.os.Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        deleteItemData(currentItem.id, pos)
+                        Toast.makeText(holder.itemView.context, "Xóa thành công !", Toast.LENGTH_SHORT).show()
+                        notifyItemRemoved(position)
+                        dialog.dismiss()
+                        dialogProgress.dismiss()
+                    }, 1000)
                 }
                 alertDialogBuilder.setNegativeButton("Không"){ dialog: DialogInterface, _:Int ->
                     dialog.dismiss()

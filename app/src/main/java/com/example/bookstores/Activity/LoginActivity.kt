@@ -1,10 +1,14 @@
 package com.example.bookstores.Activity
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -28,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var dbRef: DatabaseReference
     private lateinit var mList: ArrayList<LoginModel>
+    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +45,14 @@ class LoginActivity : AppCompatActivity() {
         fragmentManager = supportFragmentManager
         mList = arrayListOf<LoginModel>()
 
+        val alertDialog = AlertDialog.Builder(this)
+        val progressBar = ProgressBar(this)
+
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đăng nhập !")
+        alertDialog.setCancelable(false)
+        dialog = alertDialog.create()
+
         binding.txtregister.setOnClickListener {
             openFragment(RegisterFragment())
         }
@@ -47,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
             val edtEmail = binding.edtemail.text.toString()
             val edtPassWord = binding.edtpassword.text.toString()
             if (edtEmail.isEmpty() || edtPassWord.isEmpty()) {
+                dialog.dismiss()
                 if (binding.edtemail.text?.isEmpty() == true) {
                     binding.edtemail.error = "Vui lòng nhập địa chỉ email"
                 }
@@ -54,12 +68,18 @@ class LoginActivity : AppCompatActivity() {
                     binding.edtpassword.error = "Vui lòng nhập mật khẩu"
                 }
             }else {
+                dialog.show()
                 logIn(edtEmail, edtPassWord)
             }
         }
+        binding.txtForgetPass.setOnClickListener {
+            forgetPass()
+        }
     }
 
-
+    private fun forgetPass(){
+        Toast.makeText(this, "Quên mật khẩu à !", Toast.LENGTH_SHORT).show()
+    }
     private fun logIn(email: String, password: String) {
         dbRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -79,12 +99,14 @@ class LoginActivity : AppCompatActivity() {
                                 finish()
                                 return
                             } else {
+                                dialog.dismiss()
                                 binding.edtpassword.error = "Sai mật khẩu"
                             }
                         }
                     }
                 }
                 if (!emailMatched) {
+                    dialog.dismiss()
                     binding.edtemail.error = "Email không tồn tại" // Email không tồn tại
                 }
             }

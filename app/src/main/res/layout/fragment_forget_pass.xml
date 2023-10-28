@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@drawable/back01"
-    tools:context=".Activity.LoginActivity">
+    android:gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:id="@+id/fragment_container">
+        android:layout_gravity="center">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,108 +24,104 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:text="Welcome !" />
+                android:text="Change PassWord" />
+
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="70dp"
+            app:srcCompat="@drawable/logo" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:layout_gravity="center|bottom"
-
+            android:background="@drawable/bg_custom_login"
             android:orientation="vertical">
-
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="90dp"
-                android:layout_marginEnd="20dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtemail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:text="" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
-                app:passwordToggleEnabled="true">
-
+                android:layout_marginTop="110dp"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtpassword"
+                    android:id="@+id/edtEmailRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Mật khẩu"
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    android:hint="Email"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="15dp"
+                app:passwordToggleEnabled="true"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPasswordRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
                     android:inputType="textPassword"
-                    android:text="" />
-
+                    android:text=""
+                    android:hint="Mật khẩu cũ"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="15dp"
+                app:passwordToggleEnabled="true"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtRe_EnterPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:text=""
+                    android:hint="Nhập lại mật khẩu"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/txtForgetPass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:textSize="15dp"
-                    android:textColor="#023D6C"
-                    android:text="Quên mật khẩu ?" />
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="7dp"
-                    android:text="Nhớ mật khẩu" />
-            </LinearLayout>
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
                 android:gravity="center"
+                android:layout_marginTop="22dp"
                 android:orientation="vertical">
-
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnlogin"
+                    android:id="@+id/btnSigUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/bg_custombtnmua"
-                    android:text="Login"
+                    android:text="Sign Up"
                     android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/txtregister"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/txtback"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
                     android:layout_marginTop="12dp"
-                    android:text="Register"
-                    android:textColor="#023D6C"
-                    android:textSize="20dp" />
+                    app:srcCompat="@drawable/img_2" />
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_fb"
@@ -144,27 +139,24 @@
                     app:civ_border_color="@color/white"
                     tools:ignore="MissingClass,MissingConstraints" />
             </LinearLayout>
-
         </LinearLayout>
-
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="37dp"
             android:layout_gravity="center"
-            android:layout_marginTop="-100dp"
+            android:layout_marginTop="-80dp"
             android:textColor="@color/black"
             android:textStyle="normal"
-            android:text="Login" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:text="Forget Pass" />
+        <!--<ImageView
+            android:id="@+id/img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="110dp"
             android:layout_gravity="center|top"
-            android:layout_marginTop="70dp"
-            app:srcCompat="@drawable/logo" />
-
+            app:srcCompat="@drawable/img_4" />-->
     </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

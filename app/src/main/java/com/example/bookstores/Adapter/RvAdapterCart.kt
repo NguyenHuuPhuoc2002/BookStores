@@ -2,8 +2,11 @@ package com.example.bookstores.Activity.Adapter
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -13,18 +16,23 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.bookstores.Activity.LoginActivity
 import com.example.bookstores.Fragment.CartFragment
 import com.example.bookstores.Model.BookCartModel
 import com.example.bookstores.R
 import com.google.firebase.database.FirebaseDatabase
 import java.lang.ref.WeakReference
 import java.util.ArrayList
+import java.util.logging.Handler
 
 //, WeakReference(this@CartFragment) , private val context: Context
 class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val activityRef:WeakReference<CartFragment>): RecyclerView.Adapter<RvAdapterCart.ViewHolder>() {
+   private lateinit var dialogProgress: Dialog
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgv: ImageView = itemView.findViewById(R.id.imgcart)
         var txttitle: TextView = itemView.findViewById(R.id.txttitlecart)
@@ -77,12 +85,6 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
                 current.bnumpages!!, current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!)
             current.bamount = newAmount
             holder.edtQuantity.text = newAmount.toString()
-
-            /*val activity = activityRef.get()
-            if (activity != null) {
-                val newTotalPrice = activity.sum + listBook[position].bprice
-                activity.updatePrice(newTotalPrice)
-            }*/
         }
         // Button Minus
         holder.btnMinus.setOnClickListener {
@@ -102,9 +104,23 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
 
             alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
                 // Xử lý khi người dùng chọn "Có"
-                deleteItemFirebase(current.bid, position)
-                notifyItemRemoved(position)
-                dialog.dismiss()
+                val alertDialog = AlertDialog.Builder(holder.itemView.context)
+                val progressBar = ProgressBar(holder.itemView.context)
+
+                alertDialog.setView(progressBar)
+                alertDialog.setTitle("Đang xóa !")
+                alertDialog.setCancelable(false)
+                dialogProgress = alertDialog.create()
+                dialogProgress.show()
+
+                val handler = android.os.Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    deleteItemFirebase(current.bid, position)
+                    notifyItemRemoved(position)
+                    Toast.makeText(holder.itemView.context, "Xóa thành công !", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                    dialogProgress.dismiss()
+                }, 1000)
             }
 
             alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->

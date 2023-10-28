@@ -1,14 +1,18 @@
 package com.example.bookstores.Activity
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -44,13 +48,21 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private lateinit var dbRefHistory: DatabaseReference
     private lateinit var bView: View
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var taskViewModel: TaskViewModel
+    private lateinit var dialogProgress: Dialog
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val alertDialog = AlertDialog.Builder(this)
+        val progressBar = ProgressBar(this)
+
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đặt hàng !")
+        alertDialog.setCancelable(false)
+        dialogProgress = alertDialog.create()
 
         dbRefCart = FirebaseDatabase.getInstance().getReference("BookCart")
         dbRefFavourite = FirebaseDatabase.getInstance().getReference("BookFavourite")
@@ -105,6 +117,8 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val edtmethod = bView.findViewById<EditText>(R.id.edtmethod)
         bView.findViewById<TextView>(R.id.txtsummoney_dialog).text = findViewById<TextView>(R.id.txtprice).text.toString()
         bView.findViewById<Button>(R.id.btnabatedialog).setOnClickListener {
+            dialogProgress.show()
+
             if (edtname.text?.isEmpty() == true || edtsdt.text?.isEmpty() == true
                 || edtaddress.text?.isEmpty() == true || edtmethod.text?.isEmpty() == true
             ) {
@@ -121,22 +135,26 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     edtmethod.error = "Vui lòng nhập phương thức thanh toán"
                 }
             } else {
-                val id = dbRefHistory.push().key
-                val maDon = taoMaDonHang()
-                val hoTen = edtname.text.toString()
-                val sdt = edtsdt.text.toString()
-                val diaChi = edtaddress.text.toString()
-                val allBook = findViewById<TextView>(R.id.txttitle).text.toString()
-                val calendar = Calendar.getInstance()
-                val currentDateTime = calendar.time.toString()
-                val tongTien = findViewById<TextView>(R.id.txtprice).text.toString()
-                val thanhToan = edtmethod.text.toString()
-                val book = BookHistoryModel(
-                    id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
-                )
-                dbRefHistory.child(id!!).setValue(book)
-                Toast.makeText(this, "Đặt hàng thành công !", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
+                val handler = android.os.Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    dialogProgress.dismiss()
+                    val id = dbRefHistory.push().key
+                    val maDon = taoMaDonHang()
+                    val hoTen = edtname.text.toString()
+                    val sdt = edtsdt.text.toString()
+                    val diaChi = edtaddress.text.toString()
+                    val allBook = findViewById<TextView>(R.id.txttitle).text.toString()
+                    val calendar = Calendar.getInstance()
+                    val currentDateTime = calendar.time.toString()
+                    val tongTien = findViewById<TextView>(R.id.txtprice).text.toString()
+                    val thanhToan = edtmethod.text.toString()
+                    val book = BookHistoryModel(
+                        id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
+                    )
+                    dbRefHistory.child(id!!).setValue(book)
+                    Toast.makeText(this, "Đặt hàng thành công !", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }, 1200)
             }
         }
     }

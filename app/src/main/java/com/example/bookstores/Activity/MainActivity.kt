@@ -1,12 +1,18 @@
 package com.example.bookstores.Activity
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -35,12 +41,21 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ActivityMainBinding
+    private lateinit var dialog: Dialog
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val alertDialog = AlertDialog.Builder(this)
+        val progressBar = ProgressBar(this)
+
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đăng xuất !")
+        alertDialog.setCancelable(false)
+        dialog = alertDialog.create()
 
         val intent = intent
         val toast = intent.getStringExtra("Login")
@@ -95,8 +110,12 @@ class MainActivity : AppCompatActivity(){
             when(it.itemId){
                 R.id.nav_home -> openFragment(HomeFragment())
                 R.id.nav_out -> {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    dialog.show()
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    }, 1500)
                 }
             }
             binding.drawLayout.closeDrawer(GravityCompat.START)

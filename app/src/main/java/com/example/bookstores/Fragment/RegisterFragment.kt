@@ -1,10 +1,16 @@
 package com.example.bookstores.Fragment
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import com.example.bookstores.Model.LoginModel
@@ -21,6 +27,7 @@ class RegisterFragment : Fragment() {
     private lateinit var fragmentManager: FragmentManager
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var dbRef: DatabaseReference
+    private lateinit var dialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +39,25 @@ class RegisterFragment : Fragment() {
         firebaseDatabase = FirebaseDatabase.getInstance()
         dbRef = firebaseDatabase.reference.child("Account")
 
+        val alertDialog = AlertDialog.Builder(context)
+        val progressBar = ProgressBar(context)
+
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đăng kí !")
+        alertDialog.setCancelable(false)
+        dialog = alertDialog.create()
+
         binding.btnSigUp.setOnClickListener {
+            dialog.show()
             val email = binding.edtEmailRegister.text.toString()
             val passWord = binding.edtPasswordRegister.text.toString()
             Register(email, passWord)
+            view?.postDelayed({
+                dialog.dismiss()
+                Toast.makeText(context, "Đăng kí thành công!", Toast.LENGTH_SHORT).show()
+                fragmentManager.popBackStack()
+            }, 1500)
+
         }
         binding.txtback.setOnClickListener {
             fragmentManager.popBackStack()
@@ -68,11 +90,10 @@ class RegisterFragment : Fragment() {
                             edtReEnterPassWord.error = "Mật khẩu không khớp"
                         }
                     } else{
+
                         val id = dbRef.push().key
                         val logIn = LoginModel(id, email, password)
                         dbRef.child(id!!).setValue(logIn)
-                        Toast.makeText(context, "Đăng kí thành công !", Toast.LENGTH_SHORT).show()
-                        fragmentManager.popBackStack()
                     }
                 }
             }
