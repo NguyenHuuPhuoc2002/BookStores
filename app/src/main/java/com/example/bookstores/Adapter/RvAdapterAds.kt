@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bookstores.Model.BookModel
+import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener
 import com.example.oder_food_app.Adapter.AdsModel

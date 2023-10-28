@@ -24,7 +24,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.bookstores.Activity.DetailActivity
 import com.example.bookstores.Activity.Adapter.RvAdapter
 import com.example.bookstores.Activity.Adapter.RvAdapterAds
-import com.example.bookstores.Model.BookModel
+import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener
 import com.example.oder_food_app.Adapter.AdsModel
@@ -265,7 +265,6 @@ class HomeFragment : Fragment() {
                     currentPage = 0
                 }
 
-                // Lặp lại việc tự động chuyển trang
                 autoScrollHandler.postDelayed(this, scrollDelay)
             }
         }, scrollDelay)

@@ -17,8 +17,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookstores.Activity.Adapter.RvAdapterCart
-import com.example.bookstores.Model.BookCartModel
-import com.example.bookstores.Model.BookHistoryModel
+import com.example.bookstores.Activity.MainActivity
+import com.example.bookstores.interfaces.Model.BookCartModel
+import com.example.bookstores.interfaces.Model.BookHistoryModel
 import com.example.bookstores.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DataSnapshot
@@ -78,6 +79,7 @@ class CartFragment : Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(bView)
         dialog.show()
+
         val edtname = bView.findViewById<EditText>(R.id.edtname)
         val edtsdt = bView.findViewById<EditText>(R.id.edtsdt)
         val edtaddress = bView.findViewById<EditText>(R.id.edtaddress)
@@ -88,6 +90,7 @@ class CartFragment : Fragment() {
             if (edtname.text?.isEmpty() == true || edtsdt.text?.isEmpty() == true
                 || edtaddress.text?.isEmpty() == true || edtmethod.text?.isEmpty() == true
             ) {
+                dialogProgress.dismiss()
                 if (edtname.text?.isEmpty() == true) {
                     edtname.error = "Vui lòng nhập họ tên"
                 }

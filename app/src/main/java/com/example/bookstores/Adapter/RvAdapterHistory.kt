@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookstores.Fragment.HistoryFragment
-import com.example.bookstores.Model.BookHistoryModel
+import com.example.bookstores.interfaces.Model.BookHistoryModel
 import com.example.bookstores.R
 import com.google.firebase.database.FirebaseDatabase
 import java.lang.ref.WeakReference

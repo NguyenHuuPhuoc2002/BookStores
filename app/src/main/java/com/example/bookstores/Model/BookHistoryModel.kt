@@ -1,4 +1,4 @@
-package com.example.bookstores.Model
+package com.example.bookstores.interfaces.Model
 
 class BookHistoryModel(
     var id: String? = null,

@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bookstores.Activity.LoginActivity
 import com.example.bookstores.Fragment.CartFragment
-import com.example.bookstores.Model.BookCartModel
+import com.example.bookstores.interfaces.Model.BookCartModel
 import com.example.bookstores.R
 import com.google.firebase.database.FirebaseDatabase
 import java.lang.ref.WeakReference

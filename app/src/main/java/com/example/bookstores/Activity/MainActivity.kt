@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -26,7 +27,7 @@ import com.example.bookstores.Fragment.FavoriteFragment
 import com.example.bookstores.Fragment.HistoryFragment
 import com.example.bookstores.Fragment.HomeFragment
 import com.example.bookstores.Fragment.RegisterFragment
-import com.example.bookstores.Model.BookModel
+import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityMainBinding
 import com.example.bookstores.databinding.FragmentRegisterBinding
@@ -57,6 +58,8 @@ class MainActivity : AppCompatActivity(){
         alertDialog.setCancelable(false)
         dialog = alertDialog.create()
 
+        binding.txtClearAll.visibility = View.GONE
+
         val intent = intent
         val toast = intent.getStringExtra("Login")
         val email = intent.getStringExtra("email")
@@ -72,18 +75,22 @@ class MainActivity : AppCompatActivity(){
                 R.id.bt_home -> {
                     openFragment(HomeFragment())
                     findViewById<TextView>(R.id.txtbook).text = "BookStores"
+                    binding.txtClearAll.visibility = View.VISIBLE
                 }
                 R.id.bt_cart -> {
                     openFragment(CartFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Giỏ hàng"
+                    binding.txtClearAll.visibility = View.VISIBLE
                 }
                 R.id.bt_history -> {
                     openFragment(HistoryFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Lịch sử"
+                    binding.txtClearAll.visibility = View.VISIBLE
                 }
                 R.id.bt_favourite -> {
                     openFragment(FavoriteFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Yêu thích"
+                    binding.txtClearAll.visibility = View.VISIBLE
                 }
             }
             true

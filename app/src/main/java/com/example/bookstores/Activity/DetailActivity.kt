@@ -20,10 +20,10 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.example.bookstores.Fragment.HomeFragment
-import com.example.bookstores.Model.BookCartModel
-import com.example.bookstores.Model.BookHistoryModel
-import com.example.bookstores.Model.BookModel
-import com.example.bookstores.Model.TaskViewModel
+import com.example.bookstores.interfaces.Model.BookCartModel
+import com.example.bookstores.interfaces.Model.BookHistoryModel
+import com.example.bookstores.interfaces.Model.BookModel
+import com.example.bookstores.interfaces.Model.TaskViewModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityDetailBinding
 import com.example.bookstores.databinding.ActivityMainBinding
@@ -118,10 +118,10 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         bView.findViewById<TextView>(R.id.txtsummoney_dialog).text = findViewById<TextView>(R.id.txtprice).text.toString()
         bView.findViewById<Button>(R.id.btnabatedialog).setOnClickListener {
             dialogProgress.show()
-
             if (edtname.text?.isEmpty() == true || edtsdt.text?.isEmpty() == true
                 || edtaddress.text?.isEmpty() == true || edtmethod.text?.isEmpty() == true
             ) {
+                dialogProgress.dismiss()
                 if (edtname.text?.isEmpty() == true) {
                     edtname.error = "Vui lòng nhập họ tên"
                 }

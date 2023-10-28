@@ -1,4 +1,4 @@
-package com.example.bookstores.Model
+package com.example.bookstores.interfaces.Model
 
 class LoginModel(
     var id: String? = null,
