@@ -3,20 +3,15 @@ package com.example.bookstores.Activity
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
-import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -26,11 +21,9 @@ import com.example.bookstores.Fragment.CartFragment
 import com.example.bookstores.Fragment.FavoriteFragment
 import com.example.bookstores.Fragment.HistoryFragment
 import com.example.bookstores.Fragment.HomeFragment
-import com.example.bookstores.Fragment.RegisterFragment
 import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityMainBinding
-import com.example.bookstores.databinding.FragmentRegisterBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -38,7 +31,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ActivityMainBinding
@@ -58,7 +51,9 @@ class MainActivity : AppCompatActivity(){
         alertDialog.setCancelable(false)
         dialog = alertDialog.create()
 
-        binding.txtClearAll.visibility = View.GONE
+        binding.txtClearAllFavourite.visibility = View.GONE
+        binding.txtClearAllCart.visibility = View.GONE
+        binding.txtClearAllHistory.visibility = View.GONE
 
         val intent = intent
         val toast = intent.getStringExtra("Login")
@@ -75,22 +70,30 @@ class MainActivity : AppCompatActivity(){
                 R.id.bt_home -> {
                     openFragment(HomeFragment())
                     findViewById<TextView>(R.id.txtbook).text = "BookStores"
-                    binding.txtClearAll.visibility = View.VISIBLE
+                    binding.txtClearAllFavourite.visibility = View.GONE
+                    binding.txtClearAllCart.visibility = View.GONE
+                    binding.txtClearAllHistory.visibility = View.GONE
                 }
                 R.id.bt_cart -> {
                     openFragment(CartFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Giỏ hàng"
-                    binding.txtClearAll.visibility = View.VISIBLE
+                    binding.txtClearAllCart.visibility = View.VISIBLE
+                    binding.txtClearAllFavourite.visibility = View.GONE
+                    binding.txtClearAllHistory.visibility = View.GONE
                 }
                 R.id.bt_history -> {
                     openFragment(HistoryFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Lịch sử"
-                    binding.txtClearAll.visibility = View.VISIBLE
+                    binding.txtClearAllHistory.visibility = View.VISIBLE
+                    binding.txtClearAllFavourite.visibility = View.GONE
+                    binding.txtClearAllCart.visibility = View.GONE
                 }
                 R.id.bt_favourite -> {
                     openFragment(FavoriteFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Yêu thích"
-                    binding.txtClearAll.visibility = View.VISIBLE
+                    binding.txtClearAllFavourite.visibility = View.VISIBLE
+                    binding.txtClearAllHistory.visibility = View.GONE
+                    binding.txtClearAllCart.visibility = View.GONE
                 }
             }
             true
@@ -140,6 +143,20 @@ class MainActivity : AppCompatActivity(){
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
+    }
+    fun txtClearCart(): TextView {
+        val txtClearCart = findViewById<TextView>(R.id.txtClearAllCart)
+        return txtClearCart
+    }
+
+    fun txtClearHistory(): TextView {
+        val txtClearHistory = findViewById<TextView>(R.id.txtClearAllHistory)
+        return txtClearHistory
+    }
+
+    fun txtClearFavourite(): TextView {
+        val txtClearFavourite = findViewById<TextView>(R.id.txtClearAllFavourite)
+        return txtClearFavourite
     }
 
     private fun addDatta(){
@@ -237,3 +254,5 @@ class MainActivity : AppCompatActivity(){
         }
     }
 }
+
+

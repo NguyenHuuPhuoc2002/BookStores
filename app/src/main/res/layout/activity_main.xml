@@ -42,16 +42,43 @@
                     app:layout_constraintStart_toEndOf="@+id/img_nav"
                     tools:ignore="MissingConstraints" />
 
-                <TextView
-                    android:id="@+id/txtClearAll"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Xóa tất cả"
+                    android:gravity="right"
                     android:layout_marginEnd="20dp"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints">
+                    <TextView
+                        android:id="@+id/txtClearAllFavourite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xóa tất cả"
+
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/txtClearAllCart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xóa tất cả"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/txtClearAllHistory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xóa tất cả"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="MissingConstraints" />
+                </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 

@@ -3,6 +3,7 @@ package com.example.bookstores.Fragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Looper
 import androidx.fragment.app.Fragment
@@ -41,6 +42,7 @@ class CartFragment : Fragment() {
     private lateinit var mAdapter: RvAdapterCart
     private lateinit var mList: ArrayList<BookCartModel>
     private lateinit var dialogProgress: Dialog
+    private lateinit var activityRef: WeakReference<MainActivity>
     var sum = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,14 +67,60 @@ class CartFragment : Fragment() {
         dbRefHistory = FirebaseDatabase.getInstance().getReference("BookHistory")
         mList = arrayListOf<BookCartModel>()
 
+
         mView.findViewById<Button>(R.id.btnabate).setOnClickListener {
-            bottomSheet()
+            if(mList.size >= 1){
+                bottomSheet()
+            }else{
+                Toast.makeText(requireActivity(), "Vui lòng thêm sách vào giỏ trước khi thành toán !", Toast.LENGTH_SHORT).show()
+            }
         }
         getSach()
+        clearAll()
 
         return mView
     }
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
+    private fun clearAll(){
+        activityRef = WeakReference(requireActivity() as MainActivity)
+        val activity = activityRef.get()
+        if (activity != null) {
+            val txtClear = activity.txtClearCart()
+            txtClear.setOnClickListener {
+                    if(mList.size >= 1){
+                    val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+                    alertDialogBuilder.setTitle("Xác nhận xóa")
+                    alertDialogBuilder.setMessage("Bạn có muốn xóa hết không?")
 
+                    alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
+                        // Xử lý khi người dùng chọn "Có"
+                        dialogProgress.setTitle("Đang xóa !")
+                        dialogProgress.setCancelable(false)
+                        dialogProgress.show()
+
+                        val handler = android.os.Handler(Looper.getMainLooper())
+                        handler.postDelayed({
+                            dbRef.removeValue()
+                            mList.clear()
+                            mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
+                            mAdapter.notifyDataSetChanged()
+                            Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                            dialogProgress.dismiss()
+                        }, 1000)
+                    }
+
+                    alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->
+                        // Xử lý khi người dùng chọn "Không"
+                        dialog.dismiss()
+                    }
+                    alertDialogBuilder.setCancelable(false)
+                    val alertDialog = alertDialogBuilder.create()
+                    alertDialog.show()
+                }
+            }
+        }
+    }
     @SuppressLint("NotifyDataSetChanged", "CutPasteId", "SetTextI18n")
     private fun bottomSheet() {
         bView = layoutInflater.inflate(R.layout.fragment_new_task_sheet, null)
@@ -159,8 +207,9 @@ class CartFragment : Fragment() {
                     mView.findViewById<RecyclerView>(R.id.rcvcart).adapter = mAdapter
                     mView.findViewById<RecyclerView>(R.id.rcvcart).layoutManager =
                         GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
-                    mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.GONE
+
                 }
+                mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
