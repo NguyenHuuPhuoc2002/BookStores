@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Looper
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -66,7 +68,6 @@ class CartFragment : Fragment() {
         mView = inflater.inflate(R.layout.fragment_cart, container, false)
         dbRefHistory = FirebaseDatabase.getInstance().getReference("BookHistory")
         mList = arrayListOf<BookCartModel>()
-
 
         mView.findViewById<Button>(R.id.btnabate).setOnClickListener {
             if(mList.size >= 1){

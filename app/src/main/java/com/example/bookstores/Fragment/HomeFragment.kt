@@ -137,6 +137,7 @@ class HomeFragment : Fragment() {
 
     private fun filtererList(query: String?) {
         if (query != null) {
+            //chuyển hóa chuỗi loại bỏ dấu để so sánh
             val normalizedQuery = removeDiacritics(query.toLowerCase())
             filteredListBook = ArrayList()
             filteredListComic = ArrayList()
