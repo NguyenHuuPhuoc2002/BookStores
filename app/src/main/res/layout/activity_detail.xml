@@ -113,7 +113,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/orange"
                             android:text="Title" />
                     </LinearLayout>
                     <LinearLayout
@@ -133,7 +133,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
                             android:paddingTop="2dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/orange"
                             android:text="Tác giả" />
                     </LinearLayout>
                     <LinearLayout
@@ -153,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
                             android:paddingTop="2dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/orange"
                             android:text="Nhà xuất bản" />
                     </LinearLayout>
                     <LinearLayout
@@ -173,7 +173,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
                             android:paddingTop="2dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/orange"
                             android:text="Số trang" />
                     </LinearLayout>
                     <LinearLayout
@@ -193,7 +193,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
                             android:paddingTop="2dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/orange"
                             android:text="Loại" />
                     </LinearLayout>
                     <LinearLayout
@@ -212,7 +212,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/orange"
                             android:paddingTop="2dp"
                             android:text="Price" />
                     </LinearLayout>

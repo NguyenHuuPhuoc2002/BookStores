@@ -178,7 +178,7 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textColor="#FA4D47"
+                android:textColor="@color/orange"
                 android:text="Tổng tiền: "
                 android:textSize="18dp" />
 
@@ -191,7 +191,7 @@
                 android:paddingStart="2dp"
                 android:textStyle="bold"
                 android:padding="5dp"
-                android:textColor="#FA4D47"
+                android:textColor="@color/orange"
                 android:text="... "
                 android:textSize="18dp" />
         </LinearLayout>
