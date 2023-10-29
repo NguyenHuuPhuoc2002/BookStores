@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                     binding.imgClearAllFavourite.visibility = View.GONE
                     binding.imgClearAllCart.visibility = View.GONE
                     binding.imgClearAllHistory.visibility = View.GONE
+                    binding.txtclearall.visibility = View.GONE
                 }
                 R.id.bt_cart -> {
                     openFragment(CartFragment())
