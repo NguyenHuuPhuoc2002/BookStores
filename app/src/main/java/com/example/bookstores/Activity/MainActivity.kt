@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -51,9 +52,9 @@ class MainActivity : AppCompatActivity() {
         alertDialog.setCancelable(false)
         dialog = alertDialog.create()
 
-        binding.txtClearAllFavourite.visibility = View.GONE
-        binding.txtClearAllCart.visibility = View.GONE
-        binding.txtClearAllHistory.visibility = View.GONE
+        binding.imgClearAllFavourite.visibility = View.GONE
+        binding.imgClearAllCart.visibility = View.GONE
+        binding.imgClearAllHistory.visibility = View.GONE
 
         val intent = intent
         val toast = intent.getStringExtra("Login")
@@ -70,30 +71,33 @@ class MainActivity : AppCompatActivity() {
                 R.id.bt_home -> {
                     openFragment(HomeFragment())
                     findViewById<TextView>(R.id.txtbook).text = "BookStores"
-                    binding.txtClearAllFavourite.visibility = View.GONE
-                    binding.txtClearAllCart.visibility = View.GONE
-                    binding.txtClearAllHistory.visibility = View.GONE
+                    binding.imgClearAllFavourite.visibility = View.GONE
+                    binding.imgClearAllCart.visibility = View.GONE
+                    binding.imgClearAllHistory.visibility = View.GONE
                 }
                 R.id.bt_cart -> {
                     openFragment(CartFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Giỏ hàng"
-                    binding.txtClearAllCart.visibility = View.VISIBLE
-                    binding.txtClearAllFavourite.visibility = View.GONE
-                    binding.txtClearAllHistory.visibility = View.GONE
+                    binding.imgClearAllCart.visibility = View.VISIBLE
+                    binding.imgClearAllFavourite.visibility = View.GONE
+                    binding.imgClearAllHistory.visibility = View.GONE
+                    binding.txtclearall.visibility = View.VISIBLE
                 }
                 R.id.bt_history -> {
                     openFragment(HistoryFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Lịch sử"
-                    binding.txtClearAllHistory.visibility = View.VISIBLE
-                    binding.txtClearAllFavourite.visibility = View.GONE
-                    binding.txtClearAllCart.visibility = View.GONE
+                    binding.imgClearAllHistory.visibility = View.VISIBLE
+                    binding.imgClearAllFavourite.visibility = View.GONE
+                    binding.imgClearAllCart.visibility = View.GONE
+                    binding.txtclearall.visibility = View.VISIBLE
                 }
                 R.id.bt_favourite -> {
                     openFragment(FavoriteFragment())
                     findViewById<TextView>(R.id.txtbook).text = "Yêu thích"
-                    binding.txtClearAllFavourite.visibility = View.VISIBLE
-                    binding.txtClearAllHistory.visibility = View.GONE
-                    binding.txtClearAllCart.visibility = View.GONE
+                    binding.imgClearAllFavourite.visibility = View.VISIBLE
+                    binding.imgClearAllHistory.visibility = View.GONE
+                    binding.imgClearAllCart.visibility = View.GONE
+                    binding.txtclearall.visibility = View.VISIBLE
                 }
             }
             true
@@ -144,18 +148,18 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
     }
-    fun txtClearCart(): TextView {
-        val txtClearCart = findViewById<TextView>(R.id.txtClearAllCart)
+    fun txtClearCart(): ImageView {
+        val txtClearCart = findViewById<ImageView>(R.id.imgClearAllCart)
         return txtClearCart
     }
 
-    fun txtClearHistory(): TextView {
-        val txtClearHistory = findViewById<TextView>(R.id.txtClearAllHistory)
+    fun txtClearHistory(): ImageView {
+        val txtClearHistory = findViewById<ImageView>(R.id.imgClearAllHistory)
         return txtClearHistory
     }
 
-    fun txtClearFavourite(): TextView {
-        val txtClearFavourite = findViewById<TextView>(R.id.txtClearAllFavourite)
+    fun txtClearFavourite(): ImageView {
+        val txtClearFavourite = findViewById<ImageView>(R.id.imgClearAllFavourite)
         return txtClearFavourite
     }
 

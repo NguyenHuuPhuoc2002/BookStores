@@ -20,7 +20,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
@@ -41,45 +41,60 @@
                     android:layout_marginLeft="15dp"
                     app:layout_constraintStart_toEndOf="@+id/img_nav"
                     tools:ignore="MissingConstraints" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:layout_marginEnd="20dp"
-                    tools:ignore="MissingConstraints">
-                    <TextView
-                        android:id="@+id/txtClearAllFavourite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xóa tất cả"
-
-                        android:textColor="@color/black"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:ignore="MissingConstraints" />
-
-                    <TextView
-                        android:id="@+id/txtClearAllCart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xóa tất cả"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:ignore="MissingConstraints" />
-
-                    <TextView
-                        android:id="@+id/txtClearAllHistory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xóa tất cả"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:ignore="MissingConstraints" />
-                </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginEnd="20dp"
+                tools:ignore="MissingConstraints">
+                   <ImageView
+                       android:id="@+id/imgClearAllFavourite"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@drawable/ic_delete"
+                       android:textColor="@color/black"
+                       android:textSize="20dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       tools:ignore="MissingConstraints" />
+
+                   <ImageView
+                       android:id="@+id/imgClearAllCart"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@drawable/ic_delete"
+                       android:textColor="@color/black"
+                       android:textSize="20dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       tools:ignore="MissingConstraints" />
+
+                   <ImageView
+                       android:id="@+id/imgClearAllHistory"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@drawable/ic_delete"
+                       android:textColor="@color/black"
+                       android:textSize="20dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       tools:ignore="MissingConstraints" />
+
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/txtclearall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xóa tất cả"
+                android:textSize="15dp"
+                android:visibility="gone"
+                android:textColor="@color/black" />
+        </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
