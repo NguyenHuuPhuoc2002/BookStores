@@ -4,10 +4,12 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -75,6 +77,34 @@ class LoginActivity : AppCompatActivity() {
         binding.txtForgetPass.setOnClickListener {
             forgetPass()
         }
+
+        //checkbox remember password
+        val preferences: SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
+        val checkbox: String? = preferences.getString("remember", "")
+        if (checkbox == "true") {
+            val email: String? = preferences.getString("email", "")
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.putExtra("Login", "Đăng nhập thành công !")
+            intent.putExtra("email", email)
+            startActivity(intent)
+        } else if (checkbox == "false") {
+        }
+
+        binding.cbRember.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) {
+                val edtEmail = binding.edtemail.text.toString()
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putString("remember", "true")
+                editor.putString("email", edtEmail)
+                editor.apply()
+            } else if (!isChecked) {
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.putString("remember", "false")
+                editor.remove("email")
+                editor.apply()
+            }
+        }
+
     }
 
     private fun forgetPass(){

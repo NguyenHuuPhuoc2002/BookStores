@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -128,9 +129,13 @@ class MainActivity : AppCompatActivity() {
                     dialog.show()
                     val handler = Handler(Looper.getMainLooper())
                     handler.postDelayed({
+                        val preferences : SharedPreferences = getSharedPreferences("checkbox", MODE_PRIVATE)
+                        val editor :SharedPreferences.Editor = preferences.edit()
+                        editor.putString("remember", "false")
+                        editor.apply()
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
-                    }, 1500)
+                    }, 1200)
                 }
             }
             binding.drawLayout.closeDrawer(GravityCompat.START)

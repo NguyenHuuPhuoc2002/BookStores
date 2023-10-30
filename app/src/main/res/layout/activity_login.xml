@@ -88,7 +88,7 @@
                     android:textColor="#023D6C"
                     android:text="Quên mật khẩu ?" />
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/cbRember"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
