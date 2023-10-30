@@ -119,12 +119,11 @@
                 android:id="@+id/txtLoadingData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đang tải ....."
+                android:text="Đang tải....."
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:layout_marginTop="240dp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:visibility="gone" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
