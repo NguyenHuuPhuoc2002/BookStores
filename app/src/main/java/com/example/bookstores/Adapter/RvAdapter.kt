@@ -71,7 +71,7 @@ class RvAdapter (private var listBook: List<BookModel>): RecyclerView.Adapter<Rv
                         val bPrice = listBook[position].bprice
                         val bDetail = listBook[position].bdetail
 
-                        val book = BookModel(bId, bTitle, bImage, bAuthor, bNxb, bLoai, bNumpages, bPrice, bDetail)
+                        val book = BookModel(bId, bTitle, bImage, bAuthor, bNxb, bNumpages,bLoai, bPrice, bDetail)
                         dbRefFavourite.child(bId!!).setValue(book)
                     }
                 }
