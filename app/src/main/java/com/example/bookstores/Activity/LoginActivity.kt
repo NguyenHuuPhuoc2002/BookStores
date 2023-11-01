@@ -12,10 +12,12 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.bookstores.Fragment.ForgotFragment
 import com.example.bookstores.Fragment.RegisterFragment
 import com.example.bookstores.interfaces.Model.LoginModel
 import com.example.bookstores.R
@@ -75,6 +77,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         binding.txtForgetPass.setOnClickListener {
+            binding.txtregister.isEnabled = false
+            binding.btnlogin.isEnabled = false
             forgetPass()
         }
 
@@ -106,9 +110,17 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+    fun txtRegister(): TextView{
+        val txtRegister = binding.txtregister
+        return txtRegister
+    }
 
+    fun btnLogin(): TextView{
+        val btnLogin = binding.btnlogin
+        return btnLogin
+    }
     private fun forgetPass(){
-        Toast.makeText(this, "Quên mật khẩu à !", Toast.LENGTH_SHORT).show()
+        openFragment(ForgotFragment())
     }
     private fun logIn(email: String, password: String) {
        firebaseAuth.signInWithEmailAndPassword(email, password)

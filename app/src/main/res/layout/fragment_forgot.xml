@@ -5,28 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:background="@color/white"
+    android:background="@drawable/back01"
     android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="Change PassWord" />
-
-        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView"
@@ -39,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:layout_gravity="center|bottom"
-            android:background="@drawable/bg_custom_login"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -49,47 +32,13 @@
                 android:layout_marginTop="110dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtEmailRegister"
+                    android:id="@+id/edtEmailForgot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textEmailAddress"
                     android:text=""
                     android:hint="Email"/>
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="15dp"
-                app:passwordToggleEnabled="true"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPasswordRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPassword"
-                    android:text=""
-                    android:hint="Mật khẩu cũ"/>
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="15dp"
-                app:passwordToggleEnabled="true"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtRe_EnterPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPassword"
-                    android:text=""
-                    android:hint="Nhập lại mật khẩu"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -99,13 +48,13 @@
                 android:layout_marginTop="22dp"
                 android:orientation="vertical">
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnSigUp"
+                    android:id="@+id/btnReset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/bg_custombtnmua"
-                    android:text="Sign Up"
+                    android:text="Reset"
                     android:textColor="@color/white" />
 
                 <ImageView
@@ -121,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="110dp"
                 android:orientation="horizontal">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_fb"
@@ -149,7 +98,7 @@
             android:layout_marginTop="-80dp"
             android:textColor="@color/black"
             android:textStyle="normal"
-            android:text="Forget Pass" />
+            android:text="Reset Password" />
         <!--<ImageView
             android:id="@+id/img"
             android:layout_width="200dp"
