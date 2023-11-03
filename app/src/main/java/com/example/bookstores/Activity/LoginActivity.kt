@@ -138,11 +138,12 @@ class LoginActivity : AppCompatActivity() {
            }
     }
 
-    private fun openFragment(fragment: Fragment){
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+    private fun openFragment(fragment: Fragment) {
+        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.endter_from_right, R.anim.exit_to_right, R.anim.endter_from_right, R.anim.exit_to_right)
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
-
     }
+
 }

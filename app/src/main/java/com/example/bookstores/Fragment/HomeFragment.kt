@@ -59,6 +59,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -187,6 +188,8 @@ class HomeFragment : Fragment() {
                 bundle.putInt("pos", originalPosition)
                 intent.putExtras(bundle)
                 startActivity(intent)
+                val fragmentTransaction = parentFragmentManager.beginTransaction()
+
             }
         })
         mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.GONE
@@ -201,7 +204,7 @@ class HomeFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 val clickedFood = filteredListComic[position]
                 val originalPosition = listComic.indexOf(clickedFood)
-                val intent = Intent(context, DetailActivity::class.java )
+                val intent = Intent(requireActivity(), DetailActivity::class.java )
                 val bundle = Bundle()
                 val bookList = ArrayList<Parcelable>(listComic)
                 bundle.putParcelableArrayList("bookList", bookList)

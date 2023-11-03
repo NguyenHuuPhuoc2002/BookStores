@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
+import com.example.bookstores.R
 import com.example.bookstores.interfaces.Model.LoginModel
 import com.example.bookstores.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -55,6 +56,8 @@ class RegisterFragment : Fragment() {
         binding.txtback.setOnClickListener {
             fragmentManager.popBackStack()
         }
+
+
         return binding.root
     }
     private fun Register(email: String, password: String) {

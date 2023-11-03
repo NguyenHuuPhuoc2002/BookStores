@@ -55,7 +55,6 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val alertDialog = AlertDialog.Builder(this)
         val progressBar = ProgressBar(this)
 

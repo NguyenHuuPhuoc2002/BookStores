@@ -88,6 +88,7 @@ class ForgotFragment : Fragment() {
                 btnLogin.isEnabled = true
             }
             fragmentManager.popBackStack()
+
         }
         return binding.root
     }

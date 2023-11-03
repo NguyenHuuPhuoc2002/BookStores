@@ -62,7 +62,7 @@
                     android:layout_width="70dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="12dp"
-                    app:srcCompat="@drawable/img_2" />
+                    app:srcCompat="@drawable/ic_back" />
 
             </LinearLayout>
 
