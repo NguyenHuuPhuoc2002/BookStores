@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
             <com.example.bookstores.custom_textview.Regular
                 android:id="@+id/textView2"
@@ -26,21 +27,37 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:text="Welcome !" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/logo" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:layout_gravity="center|bottom"
-
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="37dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:text="Login" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -146,25 +163,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="37dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="-100dp"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            android:text="Login" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center|top"
-            android:layout_marginTop="70dp"
-            app:srcCompat="@drawable/logo" />
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

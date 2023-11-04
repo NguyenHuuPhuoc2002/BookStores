@@ -80,12 +80,15 @@ class ForgotFragment : Fragment() {
 
 
         binding.txtback.setOnClickListener {
+            //lấy view từ MainActivity
             val activity = activityRef.get()
             if (activity != null) {
-                val txtClear = activity.txtRegister()
+                val txtRegister = activity.txtRegister()
                 val btnLogin = activity.btnLogin()
-                txtClear.isEnabled = true
+                val txtForgetPass = activity.txtFogotPass()
+                txtRegister.isEnabled = true
                 btnLogin.isEnabled = true
+                txtForgetPass.isEnabled = true
             }
             fragmentManager.popBackStack()
 

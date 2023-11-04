@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.FrameLayout
 import android.widget.ProgressBar
@@ -58,6 +59,9 @@ class LoginActivity : AppCompatActivity() {
         dialog = alertDialog.create()
 
         binding.txtregister.setOnClickListener {
+            binding.btnlogin.isEnabled = false
+            binding.txtForgetPass.isEnabled = false
+            binding.txtregister.isEnabled = false
             openFragment(RegisterFragment())
         }
         binding.btnlogin.setOnClickListener {
@@ -79,7 +83,8 @@ class LoginActivity : AppCompatActivity() {
         binding.txtForgetPass.setOnClickListener {
             binding.txtregister.isEnabled = false
             binding.btnlogin.isEnabled = false
-            forgetPass()
+            binding.txtForgetPass.isEnabled = false
+            forgotPass()
         }
 
         //checkbox remember password
@@ -115,11 +120,16 @@ class LoginActivity : AppCompatActivity() {
         return txtRegister
     }
 
-    fun btnLogin(): TextView{
+    fun btnLogin(): Button{
         val btnLogin = binding.btnlogin
         return btnLogin
     }
-    private fun forgetPass(){
+
+    fun txtFogotPass(): TextView{
+        val txtFogotPass = binding.txtForgetPass
+        return txtFogotPass
+    }
+    private fun forgotPass(){
         openFragment(ForgotFragment())
     }
     private fun logIn(email: String, password: String) {

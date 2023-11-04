@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
+import com.example.bookstores.Activity.LoginActivity
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.Model.LoginModel
 import com.example.bookstores.databinding.FragmentRegisterBinding
@@ -23,12 +24,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.lang.ref.WeakReference
 
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var fragmentManager: FragmentManager
     private lateinit var dialog: Dialog
+    private lateinit var activityRef: WeakReference<LoginActivity>
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
@@ -37,7 +40,7 @@ class RegisterFragment : Fragment() {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         fragmentManager = parentFragmentManager
-
+        activityRef = WeakReference(requireActivity() as LoginActivity)
         firebaseAuth = FirebaseAuth.getInstance()
 
         val alertDialog = AlertDialog.Builder(context)
@@ -48,12 +51,28 @@ class RegisterFragment : Fragment() {
         alertDialog.setCancelable(false)
         dialog = alertDialog.create()
 
+        //lấy view từ MainActivity
+        val activity = activityRef.get()
+        val txtRegister = activity?.txtRegister()
+        val btnLogin = activity?.btnLogin()
+        val txtForgotPass = activity?.txtFogotPass()
+
         binding.btnSigUp.setOnClickListener {
             val email = binding.edtEmailRegister.text.toString()
             val password = binding.edtPasswordRegister.text.toString()
             Register(email, password)
+            if (activity != null) {
+                txtRegister?.isEnabled = true
+                btnLogin?.isEnabled = true
+                txtForgotPass?.isEnabled = true
+            }
         }
         binding.txtback.setOnClickListener {
+            if (activity != null) {
+                txtRegister?.isEnabled = true
+                btnLogin?.isEnabled = true
+                txtForgotPass?.isEnabled = true
+            }
             fragmentManager.popBackStack()
         }
 
