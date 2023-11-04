@@ -133,7 +133,7 @@
                     android:backgroundTint="@color/white"
                     android:elevation="8dp"
                     android:src="@drawable/ic_add"
-                    android:layout_marginTop="665dp"
+                    android:layout_marginTop="720dp"
                     app:borderWidth="1dp"
                     android:layout_gravity="center"
                     app:maxImageSize="35dp"

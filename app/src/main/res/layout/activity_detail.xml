@@ -217,6 +217,31 @@
                             android:text="Price" />
                     </LinearLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnbuy"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_custombtnmua"
+                        android:textSize="20dp"
+                        android:textColor="@color/white"
+                        android:text="Mua" />
+                    <ImageView
+                        android:id="@+id/imgaddcart"
+                        android:layout_width="50dp"
+                        android:layout_height="44dp"
+                        android:padding="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_custombtnmua"
+                        android:src="@drawable/ic_cartt" />
+                </LinearLayout>
                 <androidx.appcompat.widget.AppCompatCheckedTextView
                     android:id="@+id/txtline"
                     android:background="@drawable/bg_custom_line"
@@ -248,7 +273,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="5dp"
-                        android:paddingBottom="60dp"
+                        android:paddingBottom="20dp"
                         android:textSize="22dp"
                         android:textColor="@color/black"
                         android:text="Chi Tiết" />
@@ -256,32 +281,7 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="7dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnbuy"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_custombtnmua"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:text="Mua" />
-            <ImageView
-                android:id="@+id/imgaddcart"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:padding="5dp"
-                android:layout_marginStart="15dp"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_custombtnmua"
-                android:src="@drawable/ic_cartt" />
-        </LinearLayout>
+
 
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
