@@ -34,7 +34,7 @@ import java.util.ArrayList
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    lateinit var binding: ActivityLoginBinding
     private lateinit var fragmentManager: FragmentManager
     private lateinit var mList: ArrayList<LoginModel>
     private lateinit var firebaseAuth: FirebaseAuth
@@ -115,20 +115,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-    fun txtRegister(): TextView{
-        val txtRegister = binding.txtregister
-        return txtRegister
-    }
 
-    fun btnLogin(): Button{
-        val btnLogin = binding.btnlogin
-        return btnLogin
-    }
-
-    fun txtFogotPass(): TextView{
-        val txtFogotPass = binding.txtForgetPass
-        return txtFogotPass
-    }
     private fun forgotPass(){
         openFragment(ForgotFragment())
     }

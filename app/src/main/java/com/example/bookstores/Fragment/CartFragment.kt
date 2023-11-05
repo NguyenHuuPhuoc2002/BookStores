@@ -45,6 +45,7 @@ class CartFragment : Fragment() {
     private lateinit var mList: ArrayList<BookCartModel>
     private lateinit var dialogProgress: Dialog
     private lateinit var activityRef: WeakReference<MainActivity>
+    private var activity: MainActivity? = null
     var sum = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,41 +85,39 @@ class CartFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun clearAll(){
         activityRef = WeakReference(requireActivity() as MainActivity)
-        val activity = activityRef.get()
-        if (activity != null) {
-            val txtClear = activity.txtClearCart()
-            txtClear.setOnClickListener {
-                    if(mList.size >= 1){
-                    val alertDialogBuilder = AlertDialog.Builder(requireActivity())
-                    alertDialogBuilder.setTitle("Xác nhận xóa")
-                    alertDialogBuilder.setMessage("Bạn có muốn xóa hết không?")
+        activity = activityRef.get()
+        activity?.binding?.imgClearAllCart?.setOnClickListener {
+            if(mList.size >= 1){
+                val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+                alertDialogBuilder.setTitle("Xác nhận xóa")
+                alertDialogBuilder.setMessage("Bạn có muốn xóa hết không?")
 
-                    alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
-                        // Xử lý khi người dùng chọn "Có"
-                        dialogProgress.setTitle("Đang xóa !")
-                        dialogProgress.setCancelable(false)
-                        dialogProgress.show()
+                alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
+                    // Xử lý khi người dùng chọn "Có"
+                    dialogProgress.setTitle("Đang xóa !")
+                    dialogProgress.setCancelable(false)
+                    dialogProgress.show()
 
-                        val handler = android.os.Handler(Looper.getMainLooper())
-                        handler.postDelayed({
-                            dbRef.removeValue()
-                            mList.clear()
-                            mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
-                            mAdapter.notifyDataSetChanged()
-                            Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
-                            dialog.dismiss()
-                            dialogProgress.dismiss()
-                        }, 1000)
-                    }
-
-                    alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->
-                        // Xử lý khi người dùng chọn "Không"
+                    val handler = android.os.Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        dbRef.removeValue()
+                        mList.clear()
+                        mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
+                        activity?.binding?.txtNumCart?.text = "0"
+                        mAdapter.notifyDataSetChanged()
+                        Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
-                    }
-                    alertDialogBuilder.setCancelable(false)
-                    val alertDialog = alertDialogBuilder.create()
-                    alertDialog.show()
+                        dialogProgress.dismiss()
+                    }, 1000)
                 }
+
+                alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->
+                    // Xử lý khi người dùng chọn "Không"
+                    dialog.dismiss()
+                }
+                alertDialogBuilder.setCancelable(false)
+                val alertDialog = alertDialogBuilder.create()
+                alertDialog.show()
             }
         }
     }
@@ -175,6 +174,7 @@ class CartFragment : Fragment() {
                     )
                     dbRefHistory.child(id!!).setValue(book)
                     Toast.makeText(requireContext(), "Đặt hàng thành công !", Toast.LENGTH_SHORT).show()
+                    activity?.binding?.txtNumCart?.text = "0"
                     mList.clear()
                     dbRef.removeValue()
                     mAdapter.notifyDataSetChanged()
@@ -202,7 +202,6 @@ class CartFragment : Fragment() {
                         }
                     }
                     sumAbate()
-                    //, WeakReference(requireActivity()), requireContext()
                     mAdapter = RvAdapterCart(mList, WeakReference(this@CartFragment))
                     mView.findViewById<RecyclerView>(R.id.rcvcart).visibility = View.VISIBLE
                     mView.findViewById<RecyclerView>(R.id.rcvcart).adapter = mAdapter
@@ -218,6 +217,7 @@ class CartFragment : Fragment() {
             }
         })
     }
+
 
     @SuppressLint("SetTextI18n")
     fun sumAbate() {

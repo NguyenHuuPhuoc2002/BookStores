@@ -262,18 +262,23 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     // Lưu trạng thái yêu thích của cuốn sách
     @SuppressLint("SetTextI18n")
     private fun initData() {
-        Glide.with(applicationContext)
-            .load(listBook[pos].bimg) // Đường dẫn URL của hình ảnh
-            .into(findViewById<ImageView>(R.id.imgdetail))
-        findViewById<TextView>(R.id.txttitle).text = listBook[pos].btitle.toString()
-        findViewById<TextView>(R.id.txtauthor).text = listBook[pos].bauthor.toString()
-        findViewById<TextView>(R.id.txtnxb).text = listBook[pos].bnxb.toString()
-        findViewById<TextView>(R.id.txtnumpages).text = listBook[pos].bnumpages.toString()
-        findViewById<TextView>(R.id.txtloai).text = listBook[pos].bkindOfSach.toString()
-        findViewById<TextView>(R.id.txtprice).text = listBook[pos].bprice.toString() + "00 VNĐ"
-        findViewById<TextView>(R.id.txtdetail).text = listBook[pos].bdetail.toString()
-        findViewById<TextView>(R.id.txtdetailtitle).text = "Tóm Tắt Nội Dung"
+        if (listBook.isNotEmpty() && pos >= 0 && pos < listBook.size) {
+            Glide.with(applicationContext)
+                .load(listBook[pos].bimg) // Đường dẫn URL của hình ảnh
+                .into(findViewById<ImageView>(R.id.imgdetail))
+            findViewById<TextView>(R.id.txttitle).text = listBook[pos].btitle.toString()
+            findViewById<TextView>(R.id.txtauthor).text = listBook[pos].bauthor.toString()
+            findViewById<TextView>(R.id.txtnxb).text = listBook[pos].bnxb.toString()
+            findViewById<TextView>(R.id.txtnumpages).text = listBook[pos].bnumpages.toString()
+            findViewById<TextView>(R.id.txtloai).text = listBook[pos].bkindOfSach.toString()
+            findViewById<TextView>(R.id.txtprice).text = listBook[pos].bprice.toString() + "00 VNĐ"
+            findViewById<TextView>(R.id.txtdetail).text = listBook[pos].bdetail.toString()
+            findViewById<TextView>(R.id.txtdetailtitle).text = "Tóm Tắt Nội Dung"
+        } else {
+
+        }
     }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){

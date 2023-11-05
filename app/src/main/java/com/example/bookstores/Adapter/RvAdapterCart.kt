@@ -22,6 +22,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bookstores.Activity.LoginActivity
+import com.example.bookstores.Activity.MainActivity
 import com.example.bookstores.Fragment.CartFragment
 import com.example.bookstores.interfaces.Model.BookCartModel
 import com.example.bookstores.R
@@ -31,8 +32,9 @@ import java.util.ArrayList
 import java.util.logging.Handler
 
 //, WeakReference(this@CartFragment) , private val context: Context
-class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val activityRef:WeakReference<CartFragment>): RecyclerView.Adapter<RvAdapterCart.ViewHolder>() {
+class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val fragmentRef:WeakReference<CartFragment>): RecyclerView.Adapter<RvAdapterCart.ViewHolder>() {
    private lateinit var dialogProgress: Dialog
+    private lateinit var activityRef: WeakReference<MainActivity>
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgv: ImageView = itemView.findViewById(R.id.imgcart)
         var txttitle: TextView = itemView.findViewById(R.id.txttitlecart)
@@ -55,6 +57,7 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = listBook[position]
+        activityRef = WeakReference(holder.itemView.context as MainActivity)
         holder.txttitle.text = current.btitle
         holder.txtprice.text = "${current.bprice}00 VNĐ"
         holder.edtQuantity.text = current.bamount.toString()
@@ -139,14 +142,16 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
         if(listBook.size < 1){
             val dbRef = FirebaseDatabase.getInstance().getReference("BookCart").child(id!!)
             dbRef.removeValue()
+
             val activity = activityRef.get()
-            if (activity != null) {
+            val fragment = fragmentRef.get()
+            if (fragment != null) {
                 val newTotalPrice = 0.0
-                activity.updatePrice(newTotalPrice)
+                fragment.updatePrice(newTotalPrice)
+                activity?.binding?.txtNumCart?.text = "0"
+                notifyDataSetChanged()
             }
-            if (pos != null) {
-               notifyDataSetChanged()
-            }
+            notifyDataSetChanged()
         }else{
             val dbRef = FirebaseDatabase.getInstance().getReference("BookCart").child(id!!)
             dbRef.removeValue()

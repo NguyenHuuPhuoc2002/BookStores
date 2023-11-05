@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -19,6 +20,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.bookstores.Activity.Adapter.RvAdapterCart
+import com.example.bookstores.Activity.Adapter.RvAdapterFavourite
 import com.example.bookstores.Fragment.CartFragment
 import com.example.bookstores.Fragment.FavoriteFragment
 import com.example.bookstores.Fragment.HistoryFragment
@@ -26,24 +31,35 @@ import com.example.bookstores.Fragment.HomeFragment
 import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityMainBinding
+import com.example.bookstores.interfaces.Model.BookCartModel
+import com.example.bookstores.interfaces.onItemClickListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var fragmentManager: FragmentManager
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private lateinit var dialog: Dialog
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var mListFav: ArrayList<BookModel>
+    private lateinit var mListCart: ArrayList<BookCartModel>
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        mListFav = arrayListOf()
+        mListCart = arrayListOf()
 
         val alertDialog = AlertDialog.Builder(this)
         val progressBar = ProgressBar(this)
@@ -56,6 +72,8 @@ class MainActivity : AppCompatActivity() {
         binding.imgClearAllFavourite.visibility = View.GONE
         binding.imgClearAllCart.visibility = View.GONE
         binding.imgClearAllHistory.visibility = View.GONE
+//        binding.txtNumCart.visibility = View.GONE
+//        binding.txtNumFav.visibility = View.GONE
 
         val intent = intent
         val toast = intent.getStringExtra("Login")
@@ -112,6 +130,8 @@ class MainActivity : AppCompatActivity() {
         addDatta()
         btnimgNavigation()
         Navigation()
+        getSachFav()
+        getSachCart()
     }
 
     override fun onBackPressed(){
@@ -120,6 +140,51 @@ class MainActivity : AppCompatActivity() {
         }else{
             super.getOnBackPressedDispatcher().onBackPressed()
         }
+    }
+    private fun getSachFav() {
+        dbRef = FirebaseDatabase.getInstance().getReference("BookFavourite")
+        dbRef.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("CutPasteId")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                mListFav.clear()
+                if (snapshot.exists()) {
+                    for (book in snapshot.children) {
+                        val bookData = book.getValue(BookModel::class.java)
+                        if (bookData != null) {
+                            mListFav.add(bookData)
+                        }
+                    }
+                    binding.txtNumFav.text = mListFav.size.toString()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun getSachCart() {
+        dbRef = FirebaseDatabase.getInstance().getReference("BookCart")
+        dbRef.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("CutPasteId")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                mListCart.clear()
+                if (snapshot.exists()) {
+                    for (book in snapshot.children) {
+                        val bookData = book.getValue(BookCartModel::class.java)
+                        if (bookData != null) {
+                            mListCart.add(bookData)
+                        }
+                    }
+                    binding.txtNumCart.text = mListCart.size.toString()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
     }
     private fun Navigation(){
         findViewById<NavigationView>(R.id.navigation_drawer).setNavigationItemSelectedListener {
@@ -154,20 +219,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
     }
-    fun txtClearCart(): ImageView {
-        val txtClearCart = findViewById<ImageView>(R.id.imgClearAllCart)
-        return txtClearCart
-    }
 
-    fun txtClearHistory(): ImageView {
-        val txtClearHistory = findViewById<ImageView>(R.id.imgClearAllHistory)
-        return txtClearHistory
-    }
-
-    fun txtClearFavourite(): ImageView {
-        val txtClearFavourite = findViewById<ImageView>(R.id.imgClearAllFavourite)
-        return txtClearFavourite
-    }
 
     private fun addDatta(){
         val database = Firebase.database

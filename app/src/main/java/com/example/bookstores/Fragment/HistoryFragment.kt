@@ -43,6 +43,7 @@ class HistoryFragment : Fragment() {
     ): View? {
         mView = inflater.inflate(R.layout.fragment_history, container, false)
         mList = arrayListOf<BookHistoryModel>()
+        activityRef = WeakReference(requireActivity() as MainActivity)
 
         val alertDialog = AlertDialog.Builder(context)
         val progressBar = ProgressBar(context)
@@ -60,46 +61,42 @@ class HistoryFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun clearAll(){
-        activityRef = WeakReference(requireActivity() as MainActivity)
         val activity = activityRef.get()
-        if (activity != null) {
-            val txtClear = activity.txtClearHistory()
-            txtClear.setOnClickListener {
-                if(mList.size >= 1){
-                    val alertDialogBuilder = AlertDialog.Builder(requireActivity())
-                    alertDialogBuilder.setTitle("Xác nhận xóa")
-                    alertDialogBuilder.setMessage("Bạn có muốn xóa hết không?")
+        activity?.binding?.imgClearAllHistory?.setOnClickListener {
+            if(mList.size >= 1){
+                val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+                alertDialogBuilder.setTitle("Xác nhận xóa")
+                alertDialogBuilder.setMessage("Bạn có muốn xóa hết không?")
 
-                    alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
-                        // Xử lý khi người dùng chọn "Có"
-                        val alertDialog = AlertDialog.Builder(requireActivity())
-                        val progressBar = ProgressBar(requireActivity())
+                alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
+                    // Xử lý khi người dùng chọn "Có"
+                    val alertDialog = AlertDialog.Builder(requireActivity())
+                    val progressBar = ProgressBar(requireActivity())
 
-                        alertDialog.setView(progressBar)
-                        alertDialog.setTitle("Đang xóa !")
-                        alertDialog.setCancelable(false)
-                        dialogProgress = alertDialog.create()
-                        dialogProgress.show()
+                    alertDialog.setView(progressBar)
+                    alertDialog.setTitle("Đang xóa !")
+                    alertDialog.setCancelable(false)
+                    dialogProgress = alertDialog.create()
+                    dialogProgress.show()
 
-                        val handler = android.os.Handler(Looper.getMainLooper())
-                        handler.postDelayed({
-                            dbRef.removeValue()
-                            mList.clear()
-                            mAdapter.notifyDataSetChanged()
-                            Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
-                            dialog.dismiss()
-                            dialogProgress.dismiss()
-                        }, 1000)
-                    }
-
-                    alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->
-                        // Xử lý khi người dùng chọn "Không"
+                    val handler = android.os.Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        dbRef.removeValue()
+                        mList.clear()
+                        mAdapter.notifyDataSetChanged()
+                        Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
-                    }
-                    alertDialogBuilder.setCancelable(false)
-                    val alertDialog = alertDialogBuilder.create()
-                    alertDialog.show()
+                        dialogProgress.dismiss()
+                    }, 1000)
                 }
+
+                alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->
+                    // Xử lý khi người dùng chọn "Không"
+                    dialog.dismiss()
+                }
+                alertDialogBuilder.setCancelable(false)
+                val alertDialog = alertDialogBuilder.create()
+                alertDialog.show()
             }
         }
     }

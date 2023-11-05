@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.os.Parcelable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class FavoriteFragment : Fragment() {
     private lateinit var mAdapter: RvAdapterFavourite
     private lateinit var dialogProgress: Dialog
     private lateinit var activityRef: WeakReference<MainActivity>
+    private var activity: MainActivity? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -48,10 +50,10 @@ class FavoriteFragment : Fragment() {
     ): View? {
         mView = inflater.inflate(R.layout.fragment_favourite, container, false)
         mList = arrayListOf<BookModel>()
+        activityRef = WeakReference(requireActivity() as MainActivity)
 
         val alertDialog = AlertDialog.Builder(context)
         val progressBar = ProgressBar(context)
-
         alertDialog.setView(progressBar)
         alertDialog.setTitle("Đang Xóa !")
         alertDialog.setCancelable(false)
@@ -64,46 +66,44 @@ class FavoriteFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun clearAll(){
-        activityRef = WeakReference(requireActivity() as MainActivity)
-        val activity = activityRef.get()
-        if (activity != null) {
-            val txtClear = activity.txtClearFavourite()
-            txtClear.setOnClickListener {
-                if(mList.size >= 1){
-                    val alertDialogBuilder = AlertDialog.Builder(requireActivity())
-                    alertDialogBuilder.setTitle("Xác nhận xóa")
-                    alertDialogBuilder.setMessage("Bạn có muốn xóa hết không?")
+        activity = activityRef.get()
+        activity?.binding?.imgClearAllFavourite?.setOnClickListener {
+            if(mList.size >= 1){
+                val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+                alertDialogBuilder.setTitle("Xác nhận xóa")
+                alertDialogBuilder.setMessage("Bạn có muốn xóa hết không?")
 
-                    alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
-                        // Xử lý khi người dùng chọn "Có"
-                        val alertDialog = AlertDialog.Builder(requireActivity())
-                        val progressBar = ProgressBar(requireActivity())
+                alertDialogBuilder.setPositiveButton("Có") { dialog: DialogInterface, _: Int ->
 
-                        alertDialog.setView(progressBar)
-                        alertDialog.setTitle("Đang xóa !")
-                        alertDialog.setCancelable(false)
-                        dialogProgress = alertDialog.create()
-                        dialogProgress.show()
+                    // Xử lý khi người dùng chọn "Có"
+                    val alertDialog = AlertDialog.Builder(requireActivity())
+                    val progressBar = ProgressBar(requireActivity())
 
-                        val handler = android.os.Handler(Looper.getMainLooper())
-                        handler.postDelayed({
-                            dbRef.removeValue()
-                            mList.clear()
-                            mAdapter.notifyDataSetChanged()
-                            Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
-                            dialog.dismiss()
-                            dialogProgress.dismiss()
-                        }, 1000)
-                    }
+                    alertDialog.setView(progressBar)
+                    alertDialog.setTitle("Đang xóa !")
+                    alertDialog.setCancelable(false)
+                    dialogProgress = alertDialog.create()
+                    dialogProgress.show()
 
-                    alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->
-                        // Xử lý khi người dùng chọn "Không"
+                    val handler = android.os.Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        activity?.binding?.txtNumFav?.text = "0"
+                        dbRef.removeValue()
+                        mList.clear()
+                        mAdapter.notifyDataSetChanged()
+                        Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
-                    }
-                    alertDialogBuilder.setCancelable(false)
-                    val alertDialog = alertDialogBuilder.create()
-                    alertDialog.show()
+                        dialogProgress.dismiss()
+                    }, 1000)
                 }
+
+                alertDialogBuilder.setNegativeButton("Không") { dialog: DialogInterface, _: Int ->
+                    // Xử lý khi người dùng chọn "Không"
+                    dialog.dismiss()
+                }
+                alertDialogBuilder.setCancelable(false)
+                val alertDialog = alertDialogBuilder.create()
+                alertDialog.show()
             }
         }
     }
@@ -123,6 +123,7 @@ class FavoriteFragment : Fragment() {
                             mList.add(bookData)
                         }
                     }
+
                     mAdapter = RvAdapterFavourite(mList)
                     mView.findViewById<RecyclerView>(R.id.rcvfavourite).visibility = View.VISIBLE
                     mView.findViewById<RecyclerView>(R.id.rcvfavourite).adapter = mAdapter

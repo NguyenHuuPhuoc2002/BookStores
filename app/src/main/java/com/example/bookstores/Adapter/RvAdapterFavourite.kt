@@ -17,16 +17,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.bookstores.Activity.MainActivity
 import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.lang.ref.WeakReference
 
 class RvAdapterFavourite (private var listBook: List<BookModel>): RecyclerView.Adapter<RvAdapterFavourite.ViewHolder>(){
     private lateinit var mListener: onItemClickListener
     private lateinit var dbRef: DatabaseReference
     private lateinit var dialogProgress: Dialog
+    private lateinit var activityRef: WeakReference<MainActivity>
     fun setOnItemClickListener(clickListener: onItemClickListener) {
         mListener = clickListener
     }
@@ -54,6 +57,7 @@ class RvAdapterFavourite (private var listBook: List<BookModel>): RecyclerView.A
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = listBook[position]
+        activityRef = WeakReference(holder.itemView.context as MainActivity)
         holder.txttitle.text = listBook[position].btitle
 
         Glide.with(holder.itemView.context)
@@ -96,7 +100,18 @@ class RvAdapterFavourite (private var listBook: List<BookModel>): RecyclerView.A
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun deleteItemFirebase(id: String?, pos: Int?) {
-        dbRef = FirebaseDatabase.getInstance().getReference("BookFavourite").child(id!!)
-        dbRef.removeValue()
+        if(listBook.isEmpty()){
+            dbRef = FirebaseDatabase.getInstance().getReference("BookFavourite").child(id!!)
+            dbRef.removeValue()
+            val activity = activityRef.get()
+            if (activity != null) {
+                activity.binding.txtNumFav.text = "0"
+                notifyDataSetChanged()
+            }
+            notifyDataSetChanged()
+        }else{
+            dbRef = FirebaseDatabase.getInstance().getReference("BookFavourite").child(id!!)
+            dbRef.removeValue()
+        }
     }
 }

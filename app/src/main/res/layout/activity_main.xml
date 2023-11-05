@@ -123,6 +123,30 @@
                         app:itemTextColor="@color/custom_color_navigation"
                         app:labelVisibilityMode="labeled"
                         app:menu="@menu/bottom_menu" />
+                    <TextView
+                        android:id="@+id/txtNumCart"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="280dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_customnumberproduct"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="7dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/txtNumFav"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="122dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_customnumberproduct"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="7dp"
+                        android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -133,7 +157,7 @@
                     android:backgroundTint="@color/white"
                     android:elevation="8dp"
                     android:src="@drawable/ic_add"
-                    android:layout_marginTop="665dp"
+                    android:layout_marginTop="650dp"
                     app:borderWidth="1dp"
                     android:layout_gravity="center"
                     app:maxImageSize="35dp"

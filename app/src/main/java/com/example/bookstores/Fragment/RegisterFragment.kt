@@ -53,25 +53,22 @@ class RegisterFragment : Fragment() {
 
         //lấy view từ MainActivity
         val activity = activityRef.get()
-        val txtRegister = activity?.txtRegister()
-        val btnLogin = activity?.btnLogin()
-        val txtForgotPass = activity?.txtFogotPass()
 
         binding.btnSigUp.setOnClickListener {
             val email = binding.edtEmailRegister.text.toString()
             val password = binding.edtPasswordRegister.text.toString()
             Register(email, password)
             if (activity != null) {
-                txtRegister?.isEnabled = true
-                btnLogin?.isEnabled = true
-                txtForgotPass?.isEnabled = true
+                activity.binding.txtregister.isEnabled = true
+                activity.binding.btnlogin.isEnabled = true
+                activity.binding.txtForgetPass.isEnabled = true
             }
         }
         binding.txtback.setOnClickListener {
             if (activity != null) {
-                txtRegister?.isEnabled = true
-                btnLogin?.isEnabled = true
-                txtForgotPass?.isEnabled = true
+                activity.binding.txtregister.isEnabled = true
+                activity.binding.btnlogin.isEnabled = true
+                activity.binding.txtForgetPass.isEnabled = true
             }
             fragmentManager.popBackStack()
         }
