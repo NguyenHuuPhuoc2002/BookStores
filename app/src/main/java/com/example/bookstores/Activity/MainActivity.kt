@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                     binding.imgClearAllCart.visibility = View.GONE
                     binding.imgClearAllHistory.visibility = View.GONE
                     binding.txtclearall.visibility = View.GONE
+                    binding.imgBell.visibility = View.VISIBLE
                 }
                 R.id.bt_cart -> {
                     openFragment(CartFragment())
@@ -102,6 +103,7 @@ class MainActivity : AppCompatActivity() {
                     binding.imgClearAllFavourite.visibility = View.GONE
                     binding.imgClearAllHistory.visibility = View.GONE
                     binding.txtclearall.visibility = View.VISIBLE
+                    binding.imgBell.visibility = View.GONE
                 }
                 R.id.bt_history -> {
                     openFragment(HistoryFragment())
@@ -110,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                     binding.imgClearAllFavourite.visibility = View.GONE
                     binding.imgClearAllCart.visibility = View.GONE
                     binding.txtclearall.visibility = View.VISIBLE
+                    binding.imgBell.visibility = View.GONE
                 }
                 R.id.bt_favourite -> {
                     openFragment(FavoriteFragment())
@@ -118,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                     binding.imgClearAllHistory.visibility = View.GONE
                     binding.imgClearAllCart.visibility = View.GONE
                     binding.txtclearall.visibility = View.VISIBLE
+                    binding.imgBell.visibility = View.GONE
                 }
             }
             true

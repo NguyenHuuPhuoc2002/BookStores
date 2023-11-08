@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="37dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:textColor="@color/black"
                 android:textStyle="normal"
                 android:text="Login" />
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -76,6 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="32"
                 android:layout_marginEnd="20dp"
                 app:passwordToggleEnabled="true">
 
@@ -84,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:maxLength="32"
                     android:hint="Mật khẩu"
                     android:inputType="textPassword"
                     android:text="" />

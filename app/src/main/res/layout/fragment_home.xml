@@ -17,11 +17,21 @@
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:orientation="vertical">
-
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="35dp"
+                android:layout_marginBottom="15dp"
+                app:queryHint="Tìm kiếm"
+                android:layout_marginTop="80dp"
+                android:focusable="false"
+                android:background="@drawable/bg_customsearch"
+                android:theme="@style/MySearchViewStyle"
+                app:iconifiedByDefault="true"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
                 android:orientation="vertical">
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/view_paper_slide"
@@ -45,27 +55,8 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="5dp"/>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                android:orientation="horizontal">
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_view"
-                    android:layout_width="300dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="35dp"
-                    app:queryHint="Tìm kiếm"
-                    android:focusable="false"
-                    android:background="@drawable/bg_customsearch"
-                    android:theme="@style/MySearchViewStyle"
-                    app:iconifiedByDefault="true"/>
-            </LinearLayout>
-            <!--    <androidx.recyclerview.widget.RecyclerView-->
-            <!--        android:id="@+id/rcvadv"-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="wrap_content" />-->
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

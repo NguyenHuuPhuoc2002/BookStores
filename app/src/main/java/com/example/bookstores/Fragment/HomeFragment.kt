@@ -174,21 +174,20 @@ class HomeFragment : Fragment() {
     private fun bookAdapter(){
         mAdapterBook = RvAdapter(listBook)
         mView.findViewById<RecyclerView>(R.id.rcvbook).adapter = mAdapterBook
-        mView.findViewById<RecyclerView>(R.id.rcvbook).layoutManager = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL,false)
+        mView.findViewById<RecyclerView>(R.id.rcvbook).layoutManager = GridLayoutManager(requireActivity(), 1, GridLayoutManager.HORIZONTAL,false)
         mView.findViewById<RecyclerView>(R.id.rcvbook).visibility = View.VISIBLE
         //code lắng nghe sự kiện
         mAdapterBook.setOnItemClickListener(object : onItemClickListener {
             override fun onItemClick(position: Int) {
                 val clickedFood = filteredListBook[position]
                 val originalPosition = listBook.indexOf(clickedFood)
-                val intent = Intent(context, DetailActivity::class.java )
+                val intent = Intent(requireActivity(), DetailActivity::class.java )
                 val bundle = Bundle()
                 val bookList = ArrayList<Parcelable>(listBook)
                 bundle.putParcelableArrayList("bookList", bookList)
                 bundle.putInt("pos", originalPosition)
                 intent.putExtras(bundle)
                 startActivity(intent)
-                val fragmentTransaction = parentFragmentManager.beginTransaction()
 
             }
         })
@@ -198,7 +197,7 @@ class HomeFragment : Fragment() {
     private fun comicAdapter(){
         mAdapterComic = RvAdapter(listComic)
         mView.findViewById<RecyclerView>(R.id.rcvtale).adapter = mAdapterComic
-        mView.findViewById<RecyclerView>(R.id.rcvtale).layoutManager = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL,false)
+        mView.findViewById<RecyclerView>(R.id.rcvtale).layoutManager = GridLayoutManager(requireActivity(), 1, GridLayoutManager.HORIZONTAL,false)
         //code lắng nghe sự kiện
         mAdapterComic.setOnItemClickListener(object : onItemClickListener {
             override fun onItemClick(position: Int) {

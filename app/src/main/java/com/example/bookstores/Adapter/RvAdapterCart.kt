@@ -149,7 +149,6 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
                 val newTotalPrice = 0.0
                 fragment.updatePrice(newTotalPrice)
                 activity?.binding?.txtNumCart?.text = "0"
-                notifyDataSetChanged()
             }
             notifyDataSetChanged()
         }else{

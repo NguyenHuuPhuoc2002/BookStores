@@ -106,7 +106,6 @@ class RvAdapterFavourite (private var listBook: List<BookModel>): RecyclerView.A
             val activity = activityRef.get()
             if (activity != null) {
                 activity.binding.txtNumFav.text = "0"
-                notifyDataSetChanged()
             }
             notifyDataSetChanged()
         }else{
