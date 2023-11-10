@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
             <com.example.bookstores.custom_textview.Regular
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:text="Welcome !" />
@@ -50,7 +50,7 @@
                 android:layout_marginTop="15dp"
                 android:textColor="@color/black"
                 android:textStyle="normal"
-                android:text="Login" />
+                android:text="Đăng nhập" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:textSize="15dp"
-                    android:textColor="#023D6C"
+                    android:textColor="@color/black"
                     android:text="Quên mật khẩu ?" />
                 <CheckBox
                     android:id="@+id/cbRember"
@@ -113,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginLeft="100dp"
+                    android:textColor="@color/black"
                     android:layout_marginTop="7dp"
                     android:text="Nhớ mật khẩu" />
             </LinearLayout>
@@ -129,8 +130,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:textSize="15dp"
                     android:background="@drawable/bg_custombtnmua"
-                    android:text="Login"
+                    android:text="Đăng nhập"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -138,8 +140,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="Register"
-                    android:textColor="#023D6C"
+                    android:text="Đăng kí tại đây !"
+                    android:textColor="@color/black"
                     android:textSize="20dp" />
             </LinearLayout>
             <LinearLayout
@@ -148,6 +150,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:orientation="horizontal">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_fb"
                     android:layout_width="50dp"

@@ -70,7 +70,6 @@ class HomeFragment : Fragment() {
 
         listBook = arrayListOf<BookModel>()
         listComic = arrayListOf<BookModel>()
-
         getSach()
         searchView()
         slideViewPager()

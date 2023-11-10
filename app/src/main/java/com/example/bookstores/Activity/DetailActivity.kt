@@ -15,18 +15,18 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
-import com.example.bookstores.Fragment.HomeFragment
+import com.example.bookstores.Fragment.SuccessfulOrderFragment
 import com.example.bookstores.interfaces.Model.BookCartModel
 import com.example.bookstores.interfaces.Model.BookHistoryModel
 import com.example.bookstores.interfaces.Model.BookModel
-import com.example.bookstores.interfaces.Model.TaskViewModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityDetailBinding
-import com.example.bookstores.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
@@ -41,13 +41,14 @@ import kotlin.random.Random
 class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var listBook: ArrayList<BookModel>
     private var pos by Delegates.notNull<Int>()
+    private lateinit var fragmentManager: FragmentManager
     private var isClick : Boolean = false
     private var isClickLove : Boolean = false
     private lateinit var dbRefCart: DatabaseReference
     private lateinit var dbRefFavourite: DatabaseReference
     private lateinit var dbRefHistory: DatabaseReference
     private lateinit var bView: View
-    private lateinit var binding: ActivityDetailBinding
+    lateinit var binding: ActivityDetailBinding
     private lateinit var dialogProgress: Dialog
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
@@ -151,7 +152,11 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                         id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
                     )
                     dbRefHistory.child(id!!).setValue(book)
-                    Toast.makeText(this, "Đặt hàng thành công !", Toast.LENGTH_SHORT).show()
+                    openFragment(SuccessfulOrderFragment())
+                    binding.imgback.isEnabled = false
+                    binding.imgaddcart.isEnabled = false
+                    binding.btnbuy.isEnabled = false
+                    binding.imgNav.isEnabled = false
                     dialog.dismiss()
                 }, 1200)
             }
@@ -278,7 +283,14 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         }
     }
+    private fun openFragment(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(R.anim.endter_from_right, R.anim.exit_to_right, R.anim.endter_from_right, R.anim.exit_to_right)
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
 
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){

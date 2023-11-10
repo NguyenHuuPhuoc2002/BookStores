@@ -53,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:textSize="20dp"
                     android:background="@drawable/bg_custombtnmua"
                     android:text="Reset"
                     android:textColor="@color/white" />
@@ -98,7 +99,7 @@
             android:layout_marginTop="-80dp"
             android:textColor="@color/black"
             android:textStyle="normal"
-            android:text="Reset Password" />
+            android:text="Quên mật khẩu" />
         <!--<ImageView
             android:id="@+id/img"
             android:layout_width="200dp"

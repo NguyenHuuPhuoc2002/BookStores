@@ -1,9 +1,11 @@
 package com.example.bookstores.Fragment
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Looper
@@ -20,7 +22,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookstores.Activity.Adapter.RvAdapterCart
+import com.example.bookstores.Activity.DetailActivity
 import com.example.bookstores.Activity.MainActivity
+import com.example.bookstores.Activity.SuccesfulOrderActivity
 import com.example.bookstores.interfaces.Model.BookCartModel
 import com.example.bookstores.interfaces.Model.BookHistoryModel
 import com.example.bookstores.R
@@ -58,8 +62,8 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val alertDialog = AlertDialog.Builder(context)
-        val progressBar = ProgressBar(context)
+        val alertDialog = AlertDialog.Builder(requireActivity())
+        val progressBar = ProgressBar(requireActivity())
 
         alertDialog.setView(progressBar)
         alertDialog.setTitle("Đang đặt hàng !")
@@ -173,12 +177,18 @@ class CartFragment : Fragment() {
                         id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
                     )
                     dbRefHistory.child(id!!).setValue(book)
-                    Toast.makeText(requireContext(), "Đặt hàng thành công !", Toast.LENGTH_SHORT).show()
                     activity?.binding?.txtNumCart?.text = "0"
                     mList.clear()
                     dbRef.removeValue()
                     mAdapter.notifyDataSetChanged()
                     mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
+                    val intent = Intent(requireActivity(), SuccesfulOrderActivity::class.java )
+                    val options = ActivityOptions.makeCustomAnimation(
+                        requireActivity(),
+                        R.anim.endter_from_right,
+                        R.anim.exit_to_right
+                    )
+                    startActivity(intent, options.toBundle())
                     dialog.dismiss()
                 }, 1200)
             }

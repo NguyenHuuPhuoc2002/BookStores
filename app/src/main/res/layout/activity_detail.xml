@@ -8,282 +8,288 @@
     android:background="#ECECEC"
     android:id="@+id/draw_layout"
     tools:context=".Activity.DetailActivity">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/imgback"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/bg_custom_back"
-            android:elevation="10dp"
-            android:src="@drawable/ic_back" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/bg_custom_toolbar"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-                <LinearLayout
+            <ImageView
+                android:id="@+id/imgback"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/bg_custom_back"
+                android:elevation="10dp"
+                android:src="@drawable/ic_back" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:id="@+id/img_nav"
-                        android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@drawable/bg_custom_toolbar"
+                    android:elevation="4dp"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_dehaze" />
-                    <TextView
-                        android:id="@+id/txtbook"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:layout_marginStart="120dp"
-                        android:textSize="25dp"
-                        android:text="Chi tiết" />
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/img_nav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/ic_dehaze" />
+                        <TextView
+                            android:id="@+id/txtbook"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:gravity="center"
+                            android:layout_marginStart="120dp"
+                            android:textSize="25dp"
+                            android:text="Chi tiết" />
 
-                </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
-        </RelativeLayout>
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp">
-            <LinearLayout
+                    </LinearLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </RelativeLayout>
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="64dp">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    android:background="@drawable/bg_custom_item_cart"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="270dp"
+                        android:background="@drawable/bg_custom_item_cart"
+                        android:layout_margin="5dp"
                         android:gravity="center"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/imglove"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/imglove"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="200dp"
+                                android:layout_marginStart="-80dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_favorite_border" />
+
+                            <ImageView
+                                android:id="@+id/imgdetail"
+                                android:layout_width="180dp"
+                                android:layout_height="240dp"
+                                android:src="@drawable/img_3" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:orientation="vertical">
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="200dp"
-                            android:layout_marginStart="-80dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_favorite_border" />
-
-                        <ImageView
-                            android:id="@+id/imgdetail"
-                            android:layout_width="180dp"
-                            android:layout_height="240dp"
-                            android:src="@drawable/img_3" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="7dp"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="18dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/black"
-                            android:text="Tiêu đề: " />
-                        <TextView
-                            android:id="@+id/txttitle"
-                            android:layout_width="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:textColor="@color/black"
+                                android:text="Tiêu đề: " />
+                            <TextView
+                                android:id="@+id/txttitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/orange"
+                                android:text="Title" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:textColor="@color/orange"
-                            android:text="Title" />
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:textColor="@color/black"
+                                android:text="Tác giả: " />
+                            <TextView
+                                android:id="@+id/txtauthor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:paddingTop="2dp"
+                                android:textColor="@color/orange"
+                                android:text="Tác giả" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:textColor="@color/black"
+                                android:text="Nhà xuất bản: " />
+                            <TextView
+                                android:id="@+id/txtnxb"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:paddingTop="2dp"
+                                android:textColor="@color/orange"
+                                android:text="Nhà xuất bản" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:textColor="@color/black"
+                                android:text="Số trang: " />
+                            <TextView
+                                android:id="@+id/txtnumpages"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:paddingTop="2dp"
+                                android:textColor="@color/orange"
+                                android:text="Số trang" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:textColor="@color/black"
+                                android:text="Thể loại: " />
+                            <TextView
+                                android:id="@+id/txtloai"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:paddingTop="2dp"
+                                android:textColor="@color/orange"
+                                android:text="Loại" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textStyle="italic"
+                                android:textColor="@color/black"
+                                android:text="Giá: " />
+                            <TextView
+                                android:id="@+id/txtprice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/orange"
+                                android:paddingTop="2dp"
+                                android:text="Price" />
+                        </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/black"
-                            android:text="Tác giả: " />
-                        <TextView
-                            android:id="@+id/txtauthor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:paddingTop="2dp"
-                            android:textColor="@color/orange"
-                            android:text="Tác giả" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/black"
-                            android:text="Nhà xuất bản: " />
-                        <TextView
-                            android:id="@+id/txtnxb"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:paddingTop="2dp"
-                            android:textColor="@color/orange"
-                            android:text="Nhà xuất bản" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/black"
-                            android:text="Số trang: " />
-                        <TextView
-                            android:id="@+id/txtnumpages"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:paddingTop="2dp"
-                            android:textColor="@color/orange"
-                            android:text="Số trang" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/black"
-                            android:text="Thể loại: " />
-                        <TextView
-                            android:id="@+id/txtloai"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:paddingTop="2dp"
-                            android:textColor="@color/orange"
-                            android:text="Loại" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18dp"
-                            android:textStyle="italic"
-                            android:textColor="@color/black"
-                            android:text="Giá: " />
-                        <TextView
-                            android:id="@+id/txtprice"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:textColor="@color/orange"
-                            android:paddingTop="2dp"
-                            android:text="Price" />
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnbuy"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_custombtnmua"
-                        android:textSize="20dp"
-                        android:textColor="@color/white"
-                        android:text="Mua" />
-                    <ImageView
-                        android:id="@+id/imgaddcart"
-                        android:layout_width="50dp"
-                        android:layout_height="44dp"
-                        android:padding="5dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_custombtnmua"
-                        android:src="@drawable/ic_cartt" />
-                </LinearLayout>
-                <androidx.appcompat.widget.AppCompatCheckedTextView
-                    android:id="@+id/txtline"
-                    android:background="@drawable/bg_custom_line"
-                    android:textSize="22dp"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="6dp"
-                    android:layout_width="match_parent"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/txtdetailtitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:text="Chi Tiết" />
-                    <TextView
-                        android:id="@+id/txtdetail"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnbuy"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_custombtnmua"
+                            android:textSize="20dp"
+                            android:textColor="@color/white"
+                            android:text="Mua" />
+                        <ImageView
+                            android:id="@+id/imgaddcart"
+                            android:layout_width="50dp"
+                            android:layout_height="44dp"
+                            android:padding="5dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_custombtnmua"
+                            android:src="@drawable/ic_cartt" />
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatCheckedTextView
+                        android:id="@+id/txtline"
+                        android:background="@drawable/bg_custom_line"
+                        android:textSize="22dp"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_height="6dp"
+                        android:layout_width="match_parent"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:paddingBottom="20dp"
-                        android:textSize="22dp"
-                        android:textColor="@color/black"
-                        android:text="Chi Tiết" />
+                        android:paddingBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txtdetailtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="25dp"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:text="Chi Tiết" />
+                        <TextView
+                            android:id="@+id/txtdetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="5dp"
+                            android:paddingBottom="20dp"
+                            android:textSize="22dp"
+                            android:textColor="@color/black"
+                            android:text="Chi Tiết" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+    </FrameLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

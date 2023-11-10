@@ -6,6 +6,10 @@
     android:layout_marginTop="58dp"
     android:background="#ECECEC"
     tools:context=".Fragment.HomeFragment">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,5 +88,5 @@
                 android:textColor="@color/black"
                 android:visibility="gone" />
         </LinearLayout>
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </FrameLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

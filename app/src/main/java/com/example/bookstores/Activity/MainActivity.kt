@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.Parcelable
 import android.view.View
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -20,19 +18,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.bookstores.Activity.Adapter.RvAdapterCart
-import com.example.bookstores.Activity.Adapter.RvAdapterFavourite
 import com.example.bookstores.Fragment.CartFragment
 import com.example.bookstores.Fragment.FavoriteFragment
 import com.example.bookstores.Fragment.HistoryFragment
 import com.example.bookstores.Fragment.HomeFragment
+import com.example.bookstores.Fragment.SuccessfulOrderFragment
 import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityMainBinding
 import com.example.bookstores.interfaces.Model.BookCartModel
-import com.example.bookstores.interfaces.onItemClickListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,7 +35,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
 
@@ -128,9 +121,9 @@ class MainActivity : AppCompatActivity() {
         }
         fragmentManager = supportFragmentManager
         openFragment(HomeFragment())
-//        binding.fab.setOnClickListener {
-//            Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
-//        }
+        binding.fab.setOnClickListener {
+            openFragment(SuccessfulOrderFragment())
+        }
         addDatta()
         btnimgNavigation()
         Navigation()
