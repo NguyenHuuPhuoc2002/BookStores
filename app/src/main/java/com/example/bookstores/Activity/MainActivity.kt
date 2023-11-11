@@ -121,9 +121,9 @@ class MainActivity : AppCompatActivity() {
         }
         fragmentManager = supportFragmentManager
         openFragment(HomeFragment())
-        binding.fab.setOnClickListener {
-            openFragment(SuccessfulOrderFragment())
-        }
+//        binding.fab.setOnClickListener {
+//            openFragment(SuccessfulOrderFragment())
+//        }
         addDatta()
         btnimgNavigation()
         Navigation()

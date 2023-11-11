@@ -142,7 +142,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="7dp"
+                        android:textSize="9dp"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/txtNumFav"
@@ -154,7 +154,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="7dp"
+                        android:textSize="9dp"
                         android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
