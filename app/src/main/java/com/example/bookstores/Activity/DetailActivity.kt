@@ -34,7 +34,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import kotlin.properties.Delegates
 import kotlin.random.Random
 
@@ -144,8 +146,11 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     val sdt = edtsdt.text.toString()
                     val diaChi = edtaddress.text.toString()
                     val allBook = findViewById<TextView>(R.id.txttitle).text.toString()
-                    val calendar = Calendar.getInstance()
-                    val currentDateTime = calendar.time.toString()
+
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    val calendar = Calendar.getInstance().time
+                    val currentDateTime = dateFormat.format(calendar)
+
                     val tongTien = findViewById<TextView>(R.id.txtprice).text.toString()
                     val thanhToan = edtmethod.text.toString()
                     val book = BookHistoryModel(

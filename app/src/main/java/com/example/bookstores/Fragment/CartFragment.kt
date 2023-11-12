@@ -35,8 +35,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.lang.ref.WeakReference
+import java.text.SimpleDateFormat
 import java.util.ArrayList
 import java.util.Calendar
+import java.util.Locale
 import kotlin.random.Random
 
 class CartFragment : Fragment() {
@@ -169,8 +171,11 @@ class CartFragment : Fragment() {
                         cartItems.add(i.btitle + " (" + i.bamount + ")")
                     }
                     val allBook = cartItems.joinToString(", ")
-                    val calendar = Calendar.getInstance()
-                    val currentDateTime = calendar.time.toString()
+
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    val calendar = Calendar.getInstance().time
+                    val currentDateTime = dateFormat.format(calendar)
+
                     val tongTien = mView.findViewById<TextView>(R.id.txtsummoney).text.toString()
                     val thanhToan = edtmethod.text.toString()
                     val book = BookHistoryModel(

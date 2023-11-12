@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.lang.ref.WeakReference
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class HistoryFragment : Fragment() {
     private lateinit var mView: View
@@ -53,7 +55,7 @@ class HistoryFragment : Fragment() {
         alertDialog.setCancelable(false)
         dialogProgress = alertDialog.create()
 
-        getSach()
+        getHoaDon()
         clearAll()
 
         return mView
@@ -101,7 +103,7 @@ class HistoryFragment : Fragment() {
         }
     }
 
-    private fun getSach() {
+    private fun getHoaDon() {
         mView.findViewById<RecyclerView>(R.id.rcv_history).visibility = View.GONE
         mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.VISIBLE
 
@@ -117,6 +119,11 @@ class HistoryFragment : Fragment() {
                             mList.add(bookData)
                         }
                     }
+                    mList.sortByDescending { it.ngayDat?.let { it1 ->
+                        SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(
+                            it1
+                        )
+                    } }
                     mAdapter = RvAdapterHistory(mList,  WeakReference(this@HistoryFragment))
                     mView.findViewById<RecyclerView>(R.id.rcv_history).visibility = View.VISIBLE
                     mView.findViewById<RecyclerView>(R.id.rcv_history).adapter = mAdapter
