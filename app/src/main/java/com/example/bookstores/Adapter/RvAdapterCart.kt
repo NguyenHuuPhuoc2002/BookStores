@@ -60,6 +60,7 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
         val current = listBook[position]
         val getintent = (holder.itemView.context as? Activity)?.intent
         val email = getintent?.getStringExtra("email")
+        val email_title = email + current.btitle
         activityRef = WeakReference(holder.itemView.context as MainActivity)
         holder.txttitle.text = current.btitle
         holder.txtprice.text = "${current.bprice}00 VNĐ"
@@ -78,7 +79,7 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
                 val quantity = s.toString().toIntOrNull()
                 if (quantity != null) {
                     updateBook(current.bid!!, current.btitle!!, current.bimg!!, current.bauthor!!, current.bnxb!!,
-                        current.bnumpages!!, current.bkindOfSach!!, current.bprice, quantity, current.bdetail!!, email!!)
+                        current.bnumpages!!, current.bkindOfSach!!, current.bprice, quantity, current.bdetail!!, email_title)
                 }
             }
         })
@@ -88,7 +89,7 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
         holder.btnPluss.setOnClickListener {
             val newAmount = current.bamount + 1
             updateBook(current.bid!!, current.btitle!!, current.bimg!!, current.bauthor!!, current.bnxb!!,
-                current.bnumpages!!, current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!, email!!)
+                current.bnumpages!!, current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!, email_title)
             current.bamount = newAmount
             holder.edtQuantity.text = newAmount.toString()
         }
