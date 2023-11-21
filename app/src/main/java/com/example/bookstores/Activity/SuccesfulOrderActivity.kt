@@ -31,7 +31,11 @@ class SuccesfulOrderActivity : AppCompatActivity() {
         dialogProgress = alertDialog.create()
 
         findViewById<ImageView>(R.id.imgback).setOnClickListener {
-            finish()
+            dialogProgress.show()
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                finish()
+            }, 1200)
         }
 
         findViewById<RatingBar>(R.id.ratingBar).setOnRatingBarChangeListener { rBar, fl, b ->
