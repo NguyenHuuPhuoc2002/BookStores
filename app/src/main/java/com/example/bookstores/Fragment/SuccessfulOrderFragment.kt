@@ -47,7 +47,7 @@ class SuccessfulOrderFragment : Fragment() {
         val processBar = ProgressBar(requireActivity())
 
         alertDialog.setView(processBar)
-        alertDialog.setTitle("Đang gửi đánh giá")
+        alertDialog.setTitle("Đang gửi đánh giá !")
         alertDialog.setCancelable(false)
         dialogProgress = alertDialog.create()
 
@@ -69,7 +69,13 @@ class SuccessfulOrderFragment : Fragment() {
             activity?.binding?.imgaddcart?.isEnabled = true
             activity?.binding?.btnbuy?.isEnabled = true
             activity?.binding?.imgNav?.isEnabled = true
-            fragmentManager.popBackStack()
+            dialogProgress.show()
+            dialogProgress.setTitle("Chờ giây lát !")
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                fragmentManager.popBackStack()
+                dialogProgress.dismiss()
+            }, 500)
         }
 
         mView.findViewById<Button>(R.id.btnEvaluate).setOnClickListener {

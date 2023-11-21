@@ -26,16 +26,17 @@ class SuccesfulOrderActivity : AppCompatActivity() {
         val processBar = ProgressBar(this)
 
         alertDialog.setView(processBar)
-        alertDialog.setTitle("Đang gửi đánh giá")
+        alertDialog.setTitle("Đang gửi đánh giá !")
         alertDialog.setCancelable(false)
         dialogProgress = alertDialog.create()
 
         findViewById<ImageView>(R.id.imgback).setOnClickListener {
             dialogProgress.show()
+            dialogProgress.setTitle("Chờ giây lát !")
             val handler = Handler(Looper.getMainLooper())
             handler.postDelayed({
                 finish()
-            }, 1200)
+            }, 500)
         }
 
         findViewById<RatingBar>(R.id.ratingBar).setOnRatingBarChangeListener { rBar, fl, b ->
@@ -57,5 +58,9 @@ class SuccesfulOrderActivity : AppCompatActivity() {
                 finish()
             }, 1200)
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        dialogProgress.dismiss()
     }
 }

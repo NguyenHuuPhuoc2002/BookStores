@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -149,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                     for (book in snapshot.children) {
                         val bookData = book.getValue(BookModel::class.java)
                         if (bookData != null) {
-                            if(bookData.bemail.toString() == email + bookData.btitle)
+                            if(bookData.bemail.toString() == email + bookData.btitle.toString())
                             {
                                 mListFav.add(bookData)
                             }
@@ -175,7 +176,7 @@ class MainActivity : AppCompatActivity() {
                     for (book in snapshot.children) {
                         val bookData = book.getValue(BookCartModel::class.java)
                         if (bookData != null) {
-                            if(bookData.bemail.toString() == email + bookData.btitle)
+                            if(bookData.bemail.toString() == email + bookData.btitle.toString())
                             {
                                 mListCart.add(bookData)
                             }

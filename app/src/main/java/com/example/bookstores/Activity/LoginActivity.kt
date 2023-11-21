@@ -115,7 +115,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        dialog.dismiss()
+    }
     private fun forgotPass(){
         openFragment(ForgotFragment())
     }
