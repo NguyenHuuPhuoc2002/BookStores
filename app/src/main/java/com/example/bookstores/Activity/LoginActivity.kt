@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
             val email: String? = preferences.getString("email", "")
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.putExtra("Login", "Đăng nhập thành công !")
-            intent.putExtra("email", email)
+            intent.putExtra("email", email?.replace(".", ""))
             startActivity(intent)
         } else if (checkbox == "false") {
         }
