@@ -1,6 +1,7 @@
 package com.example.bookstores.Fragment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.Dialog
@@ -9,6 +10,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +47,7 @@ class CartFragment : Fragment() {
 
     private lateinit var mView: View
     private lateinit var bView: View
-    private lateinit var dbRef: DatabaseReference
+    private lateinit var dbRefCart: DatabaseReference
     private lateinit var dbRefHistory: DatabaseReference
     private lateinit var mAdapter: RvAdapterCart
     private lateinit var mList: ArrayList<BookCartModel>
@@ -74,6 +76,7 @@ class CartFragment : Fragment() {
 
         mView = inflater.inflate(R.layout.fragment_cart, container, false)
         dbRefHistory = FirebaseDatabase.getInstance().getReference("BookHistory")
+        dbRefCart = FirebaseDatabase.getInstance().getReference("BookCart")
         mList = arrayListOf<BookCartModel>()
 
         mView.findViewById<Button>(R.id.btnabate).setOnClickListener {
@@ -104,9 +107,24 @@ class CartFragment : Fragment() {
                     dialogProgress.setCancelable(false)
                     dialogProgress.show()
 
+                    val getintent = (context as? Activity)?.intent
+                    val email = getintent?.getStringExtra("email")
+
                     val handler = android.os.Handler(Looper.getMainLooper())
                     handler.postDelayed({
-                        dbRef.removeValue()
+                        for(ob in mList) {
+                            val valueRef = dbRefCart.orderByChild("bemail").equalTo(email + ob.btitle)
+                            valueRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    for (snapshot in dataSnapshot.children) {
+                                        snapshot.ref.removeValue()
+                                    }
+                                }
+
+                                override fun onCancelled(databaseError: DatabaseError) {
+                                }
+                            })
+                        }
                         mList.clear()
                         mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
                         activity?.binding?.txtNumCart?.text = "0"
@@ -167,7 +185,7 @@ class CartFragment : Fragment() {
                     val sdt = edtsdt.text.toString()
                     val diaChi = edtaddress.text.toString()
                     val cartItems = mutableListOf<String>()
-                    for(i in mList){
+                    for(i in mList) {
                         cartItems.add(i.btitle + " (" + i.bamount + ")")
                     }
                     val allBook = cartItems.joinToString(", ")
@@ -178,16 +196,31 @@ class CartFragment : Fragment() {
 
                     val tongTien = mView.findViewById<TextView>(R.id.txtsummoney).text.toString()
                     val thanhToan = edtmethod.text.toString()
+                    val getintent = (context as? Activity)?.intent
+                    val email = getintent?.getStringExtra("email")
                     val book = BookHistoryModel(
-                        id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
+                        id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan, email
                     )
+                    for(ob in mList) {
+                        val valueRef = dbRefCart.orderByChild("bemail").equalTo(email + ob.btitle)
+                        valueRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                for (snapshot in dataSnapshot.children) {
+                                    snapshot.ref.removeValue()
+                                }
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {
+                            }
+                        })
+                    }
                     dbRefHistory.child(id!!).setValue(book)
                     activity?.binding?.txtNumCart?.text = "0"
                     mList.clear()
-                    dbRef.removeValue()
                     mAdapter.notifyDataSetChanged()
                     mView.findViewById<TextView>(R.id.txtsummoney).text = "0.0 VNĐ"
-                    val intent = Intent(requireActivity(), SuccesfulOrderActivity::class.java )
+                    val intent =
+                        Intent(requireActivity(), SuccesfulOrderActivity::class.java)
                     val options = ActivityOptions.makeCustomAnimation(
                         requireActivity(),
                         R.anim.endter_from_right,
@@ -195,6 +228,7 @@ class CartFragment : Fragment() {
                     )
                     startActivity(intent, options.toBundle())
                     dialog.dismiss()
+
                 }, 1200)
             }
         }
@@ -204,8 +238,10 @@ class CartFragment : Fragment() {
         mView.findViewById<RecyclerView>(R.id.rcvcart).visibility = View.GONE
         mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.VISIBLE
 
-        dbRef = FirebaseDatabase.getInstance().getReference("BookCart")
-        dbRef.addValueEventListener(object : ValueEventListener {
+        val intent = (context as? Activity)?.intent
+        val email = intent?.getStringExtra("email")
+
+        dbRefCart.addValueEventListener(object : ValueEventListener {
             @SuppressLint("CutPasteId")
             override fun onDataChange(snapshot: DataSnapshot) {
                 mList.clear()
@@ -213,7 +249,9 @@ class CartFragment : Fragment() {
                     for (book in snapshot.children) {
                         val bookData = book.getValue(BookCartModel::class.java)
                         if (bookData != null) {
-                            mList.add(bookData)
+                            if(bookData.bemail.toString() == email.toString() + bookData.btitle.toString()){
+                                mList.add(bookData)
+                            }
                         }
                     }
                     sumAbate()

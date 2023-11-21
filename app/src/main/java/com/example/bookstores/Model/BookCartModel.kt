@@ -11,5 +11,6 @@ class BookCartModel(
     var bprice: Double = 0.0,
     var bamount: Int = 0,
     val bdetail: String? = null,
+    val bemail: String? = null,
 ){
 }

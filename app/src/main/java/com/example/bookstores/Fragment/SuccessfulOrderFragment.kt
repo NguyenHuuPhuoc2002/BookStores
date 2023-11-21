@@ -80,7 +80,8 @@ class SuccessfulOrderFragment : Fragment() {
                 activity?.binding?.imgaddcart?.isEnabled = true
                 activity?.binding?.btnbuy?.isEnabled = true
                 activity?.binding?.imgNav?.isEnabled = true
-                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                fragmentManager.popBackStack()
+                dialogProgress.dismiss()
             }, 1200)
         }
         return mView

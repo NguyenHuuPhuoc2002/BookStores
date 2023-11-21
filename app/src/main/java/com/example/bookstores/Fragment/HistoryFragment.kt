@@ -1,6 +1,7 @@
 package com.example.bookstores.Fragment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
@@ -81,14 +82,28 @@ class HistoryFragment : Fragment() {
                     dialogProgress = alertDialog.create()
                     dialogProgress.show()
 
+                    dbRef = FirebaseDatabase.getInstance().getReference("BookHistory")
+                    val getintent = (context as? Activity)?.intent
+                    val email = getintent?.getStringExtra("email")
+                    val valueRef = dbRef.orderByChild("email").equalTo(email)
+
                     val handler = android.os.Handler(Looper.getMainLooper())
                     handler.postDelayed({
-                        dbRef.removeValue()
-                        mList.clear()
-                        mAdapter.notifyDataSetChanged()
-                        Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
-                        dialog.dismiss()
-                        dialogProgress.dismiss()
+                        valueRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                for (snapshot in dataSnapshot.children) {
+                                    snapshot.ref.removeValue()
+                                }
+                                mList.clear()
+                                mAdapter.notifyDataSetChanged()
+                                Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
+                                dialog.dismiss()
+                                dialogProgress.dismiss()
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {
+                            }
+                        })
                     }, 1000)
                 }
 
@@ -106,7 +121,8 @@ class HistoryFragment : Fragment() {
     private fun getHoaDon() {
         mView.findViewById<RecyclerView>(R.id.rcv_history).visibility = View.GONE
         mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.VISIBLE
-
+        val getItent = (context as? Activity)?.intent
+        val email = getItent?.getStringExtra("email")
         dbRef = FirebaseDatabase.getInstance().getReference("BookHistory")
         dbRef.addValueEventListener(object : ValueEventListener{
             @SuppressLint("CutPasteId")
@@ -116,7 +132,9 @@ class HistoryFragment : Fragment() {
                     for(book in snapshot.children){
                         val bookData = book.getValue(BookHistoryModel::class.java)
                         if (bookData != null) {
-                            mList.add(bookData)
+                            if(bookData.email.toString() == email.toString()){
+                                mList.add(bookData)
+                            }
                         }
                     }
                     mList.sortByDescending { it.ngayDat?.let { it1 ->

@@ -10,5 +10,6 @@ class BookHistoryModel(
     var ngayDat: String? = null,
     var tongTien: String? = null,
     var thanhToan: String? = null,
+    var email: String? = null,
 ){
 }

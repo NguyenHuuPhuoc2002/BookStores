@@ -1,12 +1,14 @@
 package com.example.bookstores.Fragment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +57,7 @@ class HomeFragment : Fragment() {
     private lateinit var filteredListBook: ArrayList<BookModel>
     private lateinit var filteredListComic: ArrayList<BookModel>
     private lateinit var mListAds: ArrayList<AdsModel>
+    private var email: String? = null
     private var isClickLove : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +73,8 @@ class HomeFragment : Fragment() {
 
         listBook = arrayListOf<BookModel>()
         listComic = arrayListOf<BookModel>()
+        mAdapterBook = RvAdapter(listBook)
+        mAdapterComic = RvAdapter(listComic)
         getSach()
         searchView()
         slideViewPager()
@@ -180,10 +185,13 @@ class HomeFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 val clickedFood = filteredListBook[position]
                 val originalPosition = listBook.indexOf(clickedFood)
+                val getIntent = (context as? Activity)?.intent
+                val email = getIntent?.getStringExtra("email")
                 val intent = Intent(requireActivity(), DetailActivity::class.java )
                 val bundle = Bundle()
                 val bookList = ArrayList<Parcelable>(listBook)
                 bundle.putParcelableArrayList("bookList", bookList)
+                bundle.putString("email", email)
                 bundle.putInt("pos", originalPosition)
                 intent.putExtras(bundle)
                 startActivity(intent)
@@ -202,10 +210,13 @@ class HomeFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 val clickedFood = filteredListComic[position]
                 val originalPosition = listComic.indexOf(clickedFood)
+                val getIntent = (context as? Activity)?.intent
+                val email = getIntent?.getStringExtra("email")
                 val intent = Intent(requireActivity(), DetailActivity::class.java )
                 val bundle = Bundle()
                 val bookList = ArrayList<Parcelable>(listComic)
                 bundle.putParcelableArrayList("bookList", bookList)
+                bundle.putString("email", email)
                 bundle.putInt("pos", originalPosition)
                 intent.putExtras(bundle)
                 startActivity(intent)

@@ -1,6 +1,7 @@
 package com.example.bookstores.Activity.Adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -57,6 +58,8 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = listBook[position]
+        val getintent = (holder.itemView.context as? Activity)?.intent
+        val email = getintent?.getStringExtra("email")
         activityRef = WeakReference(holder.itemView.context as MainActivity)
         holder.txttitle.text = current.btitle
         holder.txtprice.text = "${current.bprice}00 VNĐ"
@@ -75,7 +78,7 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
                 val quantity = s.toString().toIntOrNull()
                 if (quantity != null) {
                     updateBook(current.bid!!, current.btitle!!, current.bimg!!, current.bauthor!!, current.bnxb!!,
-                        current.bnumpages!!, current.bkindOfSach!!, current.bprice, quantity, current.bdetail!!)
+                        current.bnumpages!!, current.bkindOfSach!!, current.bprice, quantity, current.bdetail!!, email!!)
                 }
             }
         })
@@ -85,7 +88,7 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
         holder.btnPluss.setOnClickListener {
             val newAmount = current.bamount + 1
             updateBook(current.bid!!, current.btitle!!, current.bimg!!, current.bauthor!!, current.bnxb!!,
-                current.bnumpages!!, current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!)
+                current.bnumpages!!, current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!, email!!)
             current.bamount = newAmount
             holder.edtQuantity.text = newAmount.toString()
         }
@@ -94,7 +97,7 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
             if(current.bamount  > 1){
                 val newAmount = current.bamount - 1
                 updateBook(current.bid!!, current.btitle!!, current.bimg!!, current.bauthor!!, current.bnxb!!, current.bnumpages!!,
-                    current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!)
+                    current.bkindOfSach!!, current.bprice, newAmount, current.bdetail!!, email!!)
                 current.bamount = newAmount
                 holder.edtQuantity.text = newAmount.toString()
             }
@@ -158,9 +161,9 @@ class RvAdapterCart(private val listBook: ArrayList<BookCartModel>, private val 
     }
 
     private fun updateBook(id: String, title: String, img: String, author: String, nxb: String, numpages: String,
-                           loai: String, price: Double, amount: Int, detail: String) {
+                           loai: String, price: Double, amount: Int, detail: String, email:String) {
         val dbRef = FirebaseDatabase.getInstance().getReference("BookCart").child(id)
-        val bookInfo = BookCartModel(id, title, img, author, nxb, numpages, loai, price, amount, detail)
+        val bookInfo = BookCartModel(id, title, img, author, nxb, numpages, loai, price, amount, detail, email)
         dbRef.setValue(bookInfo)
     }
 }

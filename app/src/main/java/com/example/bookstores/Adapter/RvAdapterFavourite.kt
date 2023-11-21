@@ -8,9 +8,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -18,8 +15,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bookstores.Activity.MainActivity
-import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
+import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.interfaces.onItemClickListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

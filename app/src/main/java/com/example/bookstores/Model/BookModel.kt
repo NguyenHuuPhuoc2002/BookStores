@@ -13,6 +13,7 @@ class BookModel(
     val bkindOfSach: String? = null,
     val bprice: Double = 0.0,
     val bdetail: String? = null,
+    val bemail: String? = null,
 ): Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -24,6 +25,7 @@ class BookModel(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         (parcel.readDouble() ?: "") as Double,
+        parcel.readString() ?: "",
         parcel.readString() ?: ""
     )
 
@@ -37,6 +39,7 @@ class BookModel(
         parcel.writeString(bkindOfSach)
         parcel.writeDouble(bprice)
         parcel.writeString(bdetail)
+        parcel.writeString(bemail)
     }
 
     override fun describeContents(): Int {

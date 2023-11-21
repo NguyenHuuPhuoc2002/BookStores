@@ -1,6 +1,7 @@
 package com.example.bookstores.Activity.Adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +14,12 @@ import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class RvAdapter (private var listBook: List<BookModel>): RecyclerView.Adapter<RvAdapter.ViewHolder>() {
 
     private lateinit var mListener: onItemClickListener
-
     fun setOnItemClickListener(clickListener: onItemClickListener){
         mListener = clickListener
     }
@@ -35,6 +34,7 @@ class RvAdapter (private var listBook: List<BookModel>): RecyclerView.Adapter<Rv
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_book_item, parent, false)
+
         return ViewHolder(itemView, mListener)
     }
 
@@ -55,15 +55,17 @@ class RvAdapter (private var listBook: List<BookModel>): RecyclerView.Adapter<Rv
         holder.itemView.findViewById<ImageView>(R.id.imglove).setOnClickListener {
             holder.itemView.findViewById<ImageView>(R.id.imglove).setImageResource(R.drawable.ic_favorite)
             val dbRefFavourite = FirebaseDatabase.getInstance().getReference("BookFavourite")
-            val bTitle = listBook[position].btitle
+            val getintent = (holder.itemView.context as? Activity)?.intent
+            val email = getintent?.getStringExtra("email")
+            val query = dbRefFavourite.orderByChild("bemail").equalTo(email + listBook[position].btitle)
 
-            val query = dbRefFavourite.orderByChild("btitle").equalTo(bTitle)
             query.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                     } else {
                         val bId = dbRefFavourite.push().key
                         val bImage = listBook[position].bimg
+                        val bTitle= listBook[position].btitle
                         val bAuthor = listBook[position].bauthor
                         val bNxb = listBook[position].bnxb
                         val bNumpages = listBook[position].bnumpages
@@ -71,7 +73,9 @@ class RvAdapter (private var listBook: List<BookModel>): RecyclerView.Adapter<Rv
                         val bPrice = listBook[position].bprice
                         val bDetail = listBook[position].bdetail
 
-                        val book = BookModel(bId, bTitle, bImage, bAuthor, bNxb, bNumpages,bLoai, bPrice, bDetail)
+                        val email_title = email + bTitle
+
+                        val book = BookModel(bId, bTitle, bImage, bAuthor, bNxb, bNumpages,bLoai, bPrice, bDetail, email_title)
                         dbRefFavourite.child(bId!!).setValue(book)
                     }
                 }

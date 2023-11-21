@@ -1,6 +1,7 @@
 package com.example.bookstores.Fragment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
@@ -85,10 +86,26 @@ class FavoriteFragment : Fragment() {
                     dialogProgress = alertDialog.create()
                     dialogProgress.show()
 
+                    dbRef = FirebaseDatabase.getInstance().getReference("BookFavourite")
+                    val getintent = (context as? Activity)?.intent
+                    val email = getintent?.getStringExtra("email")
+
                     val handler = android.os.Handler(Looper.getMainLooper())
                     handler.postDelayed({
+                        for(ob in mList) {
+                            val valueRef = dbRef.orderByChild("bemail").equalTo(email + ob.btitle)
+                            valueRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    for (snapshot in dataSnapshot.children) {
+                                        snapshot.ref.removeValue()
+                                    }
+                                }
+
+                                override fun onCancelled(databaseError: DatabaseError) {
+                                }
+                            })
+                        }
                         activity?.binding?.txtNumFav?.text = "0"
-                        dbRef.removeValue()
                         mList.clear()
                         mAdapter.notifyDataSetChanged()
                         Toast.makeText(requireActivity(), "Xóa thành công !", Toast.LENGTH_SHORT).show()
@@ -111,6 +128,9 @@ class FavoriteFragment : Fragment() {
         mView.findViewById<RecyclerView>(R.id.rcvfavourite).visibility = View.GONE
         mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.VISIBLE
 
+        val intent = (context as? Activity)?.intent
+        val email = intent?.getStringExtra("email")
+
         dbRef = FirebaseDatabase.getInstance().getReference("BookFavourite")
         dbRef.addValueEventListener(object : ValueEventListener{
             @SuppressLint("CutPasteId")
@@ -120,7 +140,9 @@ class FavoriteFragment : Fragment() {
                     for(book in snapshot.children){
                         val bookData = book.getValue(BookModel::class.java)
                         if (bookData != null) {
-                            mList.add(bookData)
+                           if(bookData.bemail.toString() == email.toString() + bookData.btitle.toString()){
+                               mList.add(bookData)
+                           }
                         }
                     }
 
@@ -133,7 +155,8 @@ class FavoriteFragment : Fragment() {
                             val intent = Intent(context, DetailActivity::class.java )
                             val bundle = Bundle()
                             val bookList = ArrayList<Parcelable>(mList)
-                            bundle.putParcelableArrayList("bookList", bookList)
+                            bundle.putParcelableArrayList("bookList", bookList )
+                            bundle.putString("email", email)
                             bundle.putInt("pos", position)
                             intent.putExtras(bundle)
                             startActivity(intent)

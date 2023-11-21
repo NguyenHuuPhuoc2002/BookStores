@@ -1,12 +1,14 @@
 package com.example.bookstores.Activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -14,12 +16,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.bookstores.Fragment.SuccessfulOrderFragment
 import com.example.bookstores.interfaces.Model.BookCartModel
@@ -153,9 +153,10 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
                     val tongTien = findViewById<TextView>(R.id.txtprice).text.toString()
                     val thanhToan = edtmethod.text.toString()
-                    val book = BookHistoryModel(
-                        id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan
-                    )
+                    val getintent = intent
+                    val email = getintent?.getStringExtra("email")
+
+                    val book = BookHistoryModel(id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan, email)
                     dbRefHistory.child(id!!).setValue(book)
                     openFragment(SuccessfulOrderFragment())
                     binding.imgback.isEnabled = false
@@ -182,30 +183,35 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 val bLoai = listBook[pos].bkindOfSach
                 val bPrice = listBook[pos].bprice
                 val bDetail = listBook[pos].bdetail
+                val email = intent.getStringExtra("email")
 
-                val book = BookCartModel(bId, bTitle, bImage, bAuthor, bNxb, bNumpages, bLoai, bPrice, 1, bDetail )
+                val email_title = email + bTitle
+                Log.d("email_title", email_title)
 
-                val query = dbRefCart.orderByChild("btitle").equalTo(listBook[pos].btitle)
+                val book = BookCartModel(bId, bTitle, bImage, bAuthor, bNxb, bNumpages, bLoai, bPrice, 1, bDetail, email_title)
 
-                query.addListenerForSingleValueEvent(object : ValueEventListener{
+                val query = dbRefCart.orderByChild("bemail").equalTo(email_title)
+
+                query.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if(snapshot.exists()){
-                            for (book in snapshot.children) {
-                                val bookData = book.getValue(BookCartModel::class.java)
+                        if (snapshot.exists()) {
+                            for (bookSnapshot in snapshot.children) {
+                                val bookData = bookSnapshot.getValue(BookCartModel::class.java)
                                 bookData?.let {
                                     val updatedAmount = it.bamount + 1
-                                    book.child("bamount").ref.setValue(updatedAmount)
-                                    return
+                                    bookSnapshot.ref.child("bamount").setValue(updatedAmount)
                                 }
                             }
-                        }else{
+                        } else {
                             dbRefCart.child(bId!!).setValue(book)
                         }
                     }
+
                     override fun onCancelled(error: DatabaseError) {
 
                     }
                 })
+
                 isClick = true
             }
         }
@@ -224,10 +230,12 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 val bLoai = listBook[pos].bkindOfSach
                 val bPrice = listBook[pos].bprice
                 val bDetail = listBook[pos].bdetail
+                val intent = intent
+                val email = intent.getStringExtra("email")
+                val email_title = email + bTitle
+                val book = BookModel(bId, bTitle, bImage, bAuthor, bNxb, bLoai, bNumpages, bPrice, bDetail, email_title)
 
-                val book = BookModel(bId, bTitle, bImage, bAuthor, bNxb, bLoai, bNumpages, bPrice, bDetail )
-
-                val query = dbRefFavourite.orderByChild("btitle").equalTo(listBook[pos].btitle)
+                val query = dbRefFavourite.orderByChild("bemail").equalTo(email + listBook[pos].btitle)
 
                 query.addListenerForSingleValueEvent(object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
