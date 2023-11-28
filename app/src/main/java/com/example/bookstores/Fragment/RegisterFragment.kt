@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import com.example.bookstores.Activity.LoginActivity
 import com.example.bookstores.R
@@ -72,8 +73,17 @@ class RegisterFragment : Fragment() {
             }
             fragmentManager.popBackStack()
         }
-
-
+        val callback = object : OnBackPressedCallback(true ) {
+            override fun handleOnBackPressed() {
+                if (activity != null) {
+                    activity.binding.txtregister.isEnabled = true
+                    activity.binding.btnlogin.isEnabled = true
+                    activity.binding.txtForgetPass.isEnabled = true
+                }
+                fragmentManager.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }
     private fun Register(email: String, password: String) {

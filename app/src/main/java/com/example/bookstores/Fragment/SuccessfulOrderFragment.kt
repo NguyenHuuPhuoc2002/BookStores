@@ -17,6 +17,7 @@ import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.bookstores.Activity.DetailActivity
@@ -90,6 +91,19 @@ class SuccessfulOrderFragment : Fragment() {
                 dialogProgress.dismiss()
             }, 1200)
         }
+
+        val callback = object : OnBackPressedCallback(true ) {
+            override fun handleOnBackPressed() {
+                if (activity != null) {
+                    activity.binding.imgback.isEnabled = true
+                    activity.binding.imgaddcart.isEnabled = true
+                    activity.binding.btnbuy.isEnabled = true
+                    activity.binding.imgNav.isEnabled = true
+                }
+                fragmentManager.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return mView
     }
 

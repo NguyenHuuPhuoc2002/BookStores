@@ -2,18 +2,11 @@ package com.example.bookstores.Activity
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
-import android.widget.Button
-import android.widget.CompoundButton
-import android.widget.FrameLayout
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -23,13 +16,7 @@ import com.example.bookstores.Fragment.RegisterFragment
 import com.example.bookstores.interfaces.Model.LoginModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityLoginBinding
-import com.example.bookstores.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import java.util.ArrayList
 
 class LoginActivity : AppCompatActivity() {
