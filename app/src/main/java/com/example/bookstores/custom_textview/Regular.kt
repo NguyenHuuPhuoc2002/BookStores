@@ -8,7 +8,6 @@ class Regular(context: Context, attrs: AttributeSet) : AppCompatTextView(context
     init {
         setFontTextView()
     }
-
     private fun setFontTextView() {
         val typeface: Typeface = Utils(context).getRegularTypeface()
         setTypeface(typeface)

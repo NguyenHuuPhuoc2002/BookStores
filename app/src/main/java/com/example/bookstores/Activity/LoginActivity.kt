@@ -57,10 +57,10 @@ class LoginActivity : AppCompatActivity() {
             if (edtEmail.isEmpty() || edtPassWord.isEmpty()) {
                 dialog.dismiss()
                 if (binding.edtemail.text?.isEmpty() == true) {
-                    binding.edtemail.error = "Vui lòng nhập địa chỉ email"
+                    binding.edtemail.error = "Vui lòng nhập địa chỉ email !"
                 }
                 if ( binding.edtpassword.text?.isEmpty() == true) {
-                    binding.edtpassword.error = "Vui lòng nhập mật khẩu"
+                    binding.edtpassword.error = "Vui lòng nhập mật khẩu ! "
                 }
             }else {
                 dialog.show()
@@ -82,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.putExtra("Login", "Đăng nhập thành công !")
             intent.putExtra("email", email?.replace(".", ""))
+            intent.putExtra("emailAcountTitle", email)
             startActivity(intent)
         } else if (checkbox == "false") {
         }
@@ -116,6 +117,7 @@ class LoginActivity : AppCompatActivity() {
                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                    intent.putExtra("Login", "Đăng nhập thành công !")
                    intent.putExtra("email", email.replace(".", ""))
+                   intent.putExtra("emailAcountTitle", email)
                    startActivity(intent)
                    finish()
                } else {

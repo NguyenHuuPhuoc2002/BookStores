@@ -4,24 +4,37 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.MultiAutoCompleteTextView
 import android.widget.ProgressBar
+import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.core.widget.NestedScrollView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.bookstores.Adapter.RvAdapterComment
 import com.example.bookstores.Fragment.SuccessfulOrderFragment
+import com.example.bookstores.Model.CommentModel
 import com.example.bookstores.interfaces.Model.BookCartModel
 import com.example.bookstores.interfaces.Model.BookHistoryModel
 import com.example.bookstores.interfaces.Model.BookModel
@@ -42,22 +55,35 @@ import kotlin.random.Random
 
 class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var listBook: ArrayList<BookModel>
+    private lateinit var listComment: ArrayList<CommentModel>
     private var pos by Delegates.notNull<Int>()
-    private lateinit var fragmentManager: FragmentManager
     private var isClick : Boolean = false
     private var isClickLove : Boolean = false
+    private var send: String? = null
+    private var message: String? = null
+    private var count = 0
     private lateinit var dbRefCart: DatabaseReference
     private lateinit var dbRefFavourite: DatabaseReference
+    private lateinit var dbRefComment: DatabaseReference
     private lateinit var dbRefHistory: DatabaseReference
     private lateinit var bView: View
+    private lateinit var contentText: TextView
+    private lateinit var readMore: TextView
+    private lateinit var hideLess: TextView
     lateinit var binding: ActivityDetailBinding
     private lateinit var dialogProgress: Dialog
+    private lateinit var edtMess: EditText
+    private lateinit var emailUser: String
+    private lateinit var mAdapter: RvAdapterComment
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        listComment = arrayListOf<CommentModel>()
         val alertDialog = AlertDialog.Builder(this)
         val progressBar = ProgressBar(this)
 
@@ -69,21 +95,85 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         dbRefCart = FirebaseDatabase.getInstance().getReference("BookCart")
         dbRefFavourite = FirebaseDatabase.getInstance().getReference("BookFavourite")
         dbRefHistory = FirebaseDatabase.getInstance().getReference("BookHistory")
+        dbRefComment = FirebaseDatabase.getInstance().getReference("Comment")
+
         val intent = intent
         val bundle = intent.extras
         if (bundle != null) {
             listBook = bundle.getParcelableArrayList<BookModel>("bookList") as ArrayList<BookModel>
+            emailUser = bundle.getString("emailUser").toString()
+            pos = bundle.getInt("pos")
         }
-        pos = bundle?.getInt("pos")!!
+
         findViewById<Button>(R.id.btnbuy).setOnClickListener {
             bottomSheet()
         }
+        getCommentFromFirebase()
+        btnSend()
         initData()
         btnBack()
         addCartBook()
         addFavouriteBook()
         Navigation()
         btnimgNavigation()
+    }
+    @SuppressLint("SetTextI18n")
+    private fun btnSend(){
+        edtMess = findViewById(R.id.edtMess)
+        val btnSend = findViewById<Button>(R.id.btnSend)
+        btnSend.setOnClickListener{
+            addCommentFirebase()
+            val message = edtMess.text.toString()
+            if (!message.isEmpty()) {
+                edtMess.text.clear()
+            }
+        }
+    }
+    private fun addCommentFirebase(){
+        val edtsendMessage = findViewById<TextView>(R.id.edtMess).text
+        if(edtsendMessage.isNotEmpty()){
+            val id = dbRefComment.push().key
+            val titleBook = listBook[pos].btitle
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val calendar = Calendar.getInstance().time
+            val currentDateTime = dateFormat.format(calendar)
+            val comment = edtsendMessage.toString()
+
+            val commentOb = CommentModel(id, titleBook, emailUser, comment, currentDateTime)
+            if (id != null) {
+                dbRefComment.child(id).setValue(commentOb)
+            }
+        }
+    }
+    private fun getCommentFromFirebase(){
+        dbRefComment = FirebaseDatabase.getInstance().getReference("Comment")
+        dbRefComment.addValueEventListener(object : ValueEventListener{
+            @SuppressLint("CutPasteId", "SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listComment.clear()
+                if(snapshot.exists()){
+                    for(cmt in snapshot.children){
+                        val cmtData = cmt.getValue(CommentModel::class.java)
+                        if(cmtData != null){
+                            if(cmtData.titleBook.toString() == listBook[pos].btitle.toString()){
+                                listComment.add(cmtData)
+                                count ++
+                            }
+                        }
+                    }
+                    findViewById<TextView>(R.id.txtCountComment).text = "($count)"
+                    mAdapter = RvAdapterComment(listComment)
+                    findViewById<RecyclerView>(R.id.rcvComment).layoutManager =
+                        GridLayoutManager(this@DetailActivity, 1, GridLayoutManager.VERTICAL, false)
+                    findViewById<RecyclerView>(R.id.rcvComment).adapter = mAdapter
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
     private fun Navigation(){
@@ -99,6 +189,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             true
         }
     }
+
     private fun btnimgNavigation(){
         val drawerLayout = findViewById<DrawerLayout>(R.id.draw_layout)
         val navView = findViewById<NavigationView>(R.id.navigation_drawer)
@@ -253,6 +344,8 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
         }
     }
+
+
     private fun taoMaDonHang(): String {
         val soChuSo = 5
         val soChuCai = 3
@@ -280,6 +373,9 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     // Lưu trạng thái yêu thích của cuốn sách
     @SuppressLint("SetTextI18n")
     private fun initData() {
+        contentText = findViewById<TextView>(R.id.txtdetail)
+        readMore = findViewById<TextView>(R.id.readMoreButton)
+        hideLess = findViewById<TextView>(R.id.hidelessButton)
         if (listBook.isNotEmpty() && pos >= 0 && pos < listBook.size) {
             Glide.with(applicationContext)
                 .load(listBook[pos].bimg) // Đường dẫn URL của hình ảnh
@@ -290,12 +386,35 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             findViewById<TextView>(R.id.txtnumpages).text = listBook[pos].bnumpages.toString()
             findViewById<TextView>(R.id.txtloai).text = listBook[pos].bkindOfSach.toString()
             findViewById<TextView>(R.id.txtprice).text = listBook[pos].bprice.toString() + "00 VNĐ"
-            findViewById<TextView>(R.id.txtdetail).text = listBook[pos].bdetail.toString()
+
+            contentText.text = listBook[pos].bdetail.toString()
+            contentText.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener{
+                override fun onPreDraw(): Boolean {
+                    contentText.viewTreeObserver.removeOnPreDrawListener(this)
+                    val lineCount = contentText.lineCount
+                    if (lineCount > contentText.maxLines) {
+                        readMore.visibility = View.VISIBLE
+                    }
+
+                    return true
+                }
+            })
             findViewById<TextView>(R.id.txtdetailtitle).text = "Tóm Tắt Nội Dung"
         } else {
 
         }
     }
+    fun onReadMoreButtonClick(view: View) {
+        contentText.maxLines = Int.MAX_VALUE
+        readMore.visibility = View.GONE
+        hideLess.visibility = View.VISIBLE
+    }
+    fun onHideContentButtonClick(view: View) {
+        contentText.maxLines = 3
+        readMore.visibility = View.VISIBLE
+        hideLess.visibility = View.GONE
+    }
+
     private fun openFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setCustomAnimations(R.anim.endter_from_right, R.anim.exit_to_right, R.anim.endter_from_right, R.anim.exit_to_right)

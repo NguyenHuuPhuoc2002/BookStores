@@ -44,7 +44,7 @@
             android:ems="10"
             android:inputType="text"
             android:text=""
-            android:hint="Phương Thức Thanh Toán"/>
+            android:hint="Phương thức thanh toán"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +78,7 @@
             android:ems="10"
             android:inputType="text"
             android:text=""
-            android:hint="Số Điện Thoại"/>
+            android:hint="Số điện thoại"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +95,7 @@
             android:ems="10"
             android:inputType="text"
             android:text=""
-            android:hint="Địa Chỉ Giao Hàng"/>
+            android:hint="Địa chỉ giao hàng"/>
     </com.google.android.material.textfield.TextInputLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnabatedialog"

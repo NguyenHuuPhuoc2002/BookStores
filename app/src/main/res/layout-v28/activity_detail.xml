@@ -369,34 +369,44 @@
                                 android:layout_marginBottom="5dp"/>
                         </LinearLayout>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rcvComment"
+                        <androidx.core.widget.NestedScrollView
                             android:layout_width="match_parent"
-                            android:layout_height="200dp" />
+                            android:background="@drawable/bg_customcomment"
+                            android:layout_height="200dp">
+
+                            <TextView
+                                android:id="@+id/edtMultiMess"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="18dp"
+                                android:lineHeight="15dp"
+                                android:textIsSelectable="true"
+                                android:text="" />
+
+                        </androidx.core.widget.NestedScrollView>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:gravity="center"
                             android:orientation="horizontal">
                             <EditText
                                 android:id="@+id/edtMess"
-                                android:layout_width="320dp"
+                                android:layout_width="300dp"
                                 android:layout_height="50dp"
                                 android:ems="10"
                                 android:inputType="text"
                                 android:text="" />
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btnSend"
-                                android:layout_width="50dp"
+                                android:layout_width="60dp"
                                 android:layout_marginStart="10dp"
                                 android:textColor="@color/white"
-                                android:background="@drawable/icon_send"
+                                android:background="@drawable/bg_custombtnmua"
                                 android:layout_height="wrap_content"
-                                android:text="" />
+                                android:text="Gửi" />
                         </LinearLayout>
-
                     </LinearLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>

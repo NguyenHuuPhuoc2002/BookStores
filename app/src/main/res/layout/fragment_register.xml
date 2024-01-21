@@ -70,46 +70,56 @@
                         android:text=""
                         android:hint="Email"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginTop="15dp"
-                    app:passwordToggleEnabled="true"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                    app:counterEnabled="true"
+                    app:counterMaxLength="32"
+                    android:layout_marginEnd="20dp"
+                    app:passwordToggleEnabled="true">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtPasswordRegister"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:maxLength="32"
+                        android:hint="Mật khẩu"
                         android:inputType="textPassword"
-                        android:text=""
-                        android:hint="Mật khẩu"/>
+                        android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="1dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="32"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginTop="15dp"
-                    app:passwordToggleEnabled="true"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                    app:passwordToggleEnabled="true">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtRe_EnterPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:maxLength="32"
+                        android:hint="Mật khẩu"
                         android:inputType="textPassword"
-                        android:text=""
-                        android:hint="Nhập lại mật khẩu"/>
+                        android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginTop="30dp"
                     android:orientation="vertical">
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnSigUp"

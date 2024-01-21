@@ -2,18 +2,18 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <gradient android:startColor="@color/black"/>
+            <gradient android:startColor="#000000"
+                android:endColor="#000000"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>
 
-    <item android:bottom="0dp"
-        android:top="0dp"
-        android:left="0dp"
-        android:right="0dp">
+    <item android:bottom="1dp"
+        android:top="1dp"
+        android:left="1dp"
+        android:right="1dp">
         <shape android:shape="rectangle">
-            <gradient android:startColor="#660000"
-                android:endColor="#660033"/>
+            <solid android:color="#FFFFFF"/>
             <corners android:radius="5dp"/>
         </shape>
     </item>

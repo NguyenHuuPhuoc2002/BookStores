@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var dialog: Dialog
     private lateinit var email: String
+    lateinit var emailAcountTitle: String
     private lateinit var dbRef: DatabaseReference
     private lateinit var mListFav: ArrayList<BookModel>
     private lateinit var mListCart: ArrayList<BookCartModel>
@@ -72,12 +73,13 @@ class MainActivity : AppCompatActivity() {
 
         val intent = intent
         val toast = intent.getStringExtra("Login")
+        emailAcountTitle = intent.getStringExtra("emailAcountTitle").toString()
         email = intent.getStringExtra("email").toString()
         Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
         val navigationView = findViewById<NavigationView>(R.id.navigation_drawer)
         val headerView = navigationView.getHeaderView(0)
         val emailTextView = headerView.findViewById<TextView>(R.id.txtemail)
-        emailTextView.text = email.toString()
+        emailTextView.text = emailAcountTitle
 
         //bottom navigation
         binding.btNavigation.setOnItemSelectedListener {  item ->

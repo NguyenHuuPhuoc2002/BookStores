@@ -26,6 +26,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.bookstores.Activity.DetailActivity
 import com.example.bookstores.Activity.Adapter.RvAdapter
 import com.example.bookstores.Activity.Adapter.RvAdapterAds
+import com.example.bookstores.Activity.LoginActivity
+import com.example.bookstores.Activity.MainActivity
 import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.interfaces.onItemClickListener
@@ -38,6 +40,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import me.relex.circleindicator.CircleIndicator3
+import java.lang.ref.WeakReference
 import java.text.Normalizer
 
 class HomeFragment : Fragment() {
@@ -59,6 +62,7 @@ class HomeFragment : Fragment() {
     private lateinit var mListAds: ArrayList<AdsModel>
     private var email: String? = null
     private var isClickLove : Boolean = false
+    private lateinit var activityRef: WeakReference<MainActivity>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +74,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mView = inflater.inflate(R.layout.fragment_home, container, false)
-
+        activityRef = WeakReference(requireActivity() as MainActivity)
         listBook = arrayListOf<BookModel>()
         listComic = arrayListOf<BookModel>()
         mAdapterBook = RvAdapter(listBook)
@@ -176,6 +180,7 @@ class HomeFragment : Fragment() {
     }
     @SuppressLint("CutPasteId")
     private fun bookAdapter(){
+        val activity = activityRef.get()
         mAdapterBook = RvAdapter(listBook)
         mView.findViewById<RecyclerView>(R.id.rcvbook).adapter = mAdapterBook
         mView.findViewById<RecyclerView>(R.id.rcvbook).layoutManager = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL,false)
@@ -191,11 +196,11 @@ class HomeFragment : Fragment() {
                 val bundle = Bundle()
                 val bookList = ArrayList<Parcelable>(listBook)
                 bundle.putParcelableArrayList("bookList", bookList)
+                bundle.putString("emailUser", activity?.emailAcountTitle)
                 bundle.putString("email", email)
                 bundle.putInt("pos", originalPosition)
                 intent.putExtras(bundle)
                 startActivity(intent)
-
             }
         })
         mView.findViewById<TextView>(R.id.txtLoadingData).visibility = View.GONE

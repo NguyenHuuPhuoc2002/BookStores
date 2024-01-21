@@ -20,7 +20,7 @@ import com.example.oder_food_app.Adapter.AdsModel
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class RvAdapterAds (private var listAds: ArrayList<AdsModel>): RecyclerView.Adapter<RvAdapterAds.ViewHolder>(){
+class  RvAdapterAds (private var listAds: ArrayList<AdsModel>): RecyclerView.Adapter<RvAdapterAds.ViewHolder>(){
     private lateinit var mListener: onItemClickListener
     fun setOnItemClickListener(clickListener: onItemClickListener) {
         mListener = clickListener
