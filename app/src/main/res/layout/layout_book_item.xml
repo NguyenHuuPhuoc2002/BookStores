@@ -43,7 +43,7 @@
                     android:layout_marginTop="7dp"
                     android:text="Title Book"
                     android:textColor="@color/black"
-                    android:textSize="17dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
                 <LinearLayout

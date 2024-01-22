@@ -121,7 +121,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Title"
                                 android:textColor="@color/orange"
-                                android:textSize="19dp" />
+                                android:textSize="18dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -144,7 +144,7 @@
                                 android:paddingTop="2dp"
                                 android:text="Tác giả"
                                 android:textColor="@color/orange"
-                                android:textSize="19dp" />
+                                android:textSize="18dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -167,7 +167,7 @@
                                 android:paddingTop="2dp"
                                 android:text="Nhà xuất bản"
                                 android:textColor="@color/orange"
-                                android:textSize="19dp" />
+                                android:textSize="18dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -190,7 +190,7 @@
                                 android:paddingTop="2dp"
                                 android:text="Số trang"
                                 android:textColor="@color/orange"
-                                android:textSize="19dp" />
+                                android:textSize="18dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -213,7 +213,7 @@
                                 android:paddingTop="2dp"
                                 android:text="Loại"
                                 android:textColor="@color/orange"
-                                android:textSize="19dp" />
+                                android:textSize="18dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -236,7 +236,7 @@
                                 android:paddingTop="2dp"
                                 android:text="Price"
                                 android:textColor="@color/orange"
-                                android:textSize="19dp" />
+                                android:textSize="18dp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -286,7 +286,7 @@
                             android:id="@+id/txtdetailtitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="24dp"
+                            android:textSize="22dp"
                             android:gravity="center"
                             android:textColor="@color/black"
                             android:textStyle="bold"
@@ -300,7 +300,7 @@
                             android:layout_marginTop="5dp"
                             android:maxLines="3"
                             android:ellipsize="end"
-                            android:textSize="19dp"
+                            android:textSize="18dp"
                             android:textColor="@color/black"
                             android:text="Chi Tiết" />
                         <TextView
@@ -309,7 +309,7 @@
                             android:layout_gravity="center"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/txtdetail"
-                            android:textSize="19dp"
+                            android:textSize="18dp"
                             android:layout_marginStart="15dp"
                             android:layout_marginEnd="10dp"
                             android:textColor="#F7555E8A"
@@ -354,7 +354,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Bình luận"
-                                android:textSize="20dp"
+                                android:textSize="19dp"
                                 android:textColor="@color/black"
                                 android:layout_marginStart="7dp"
                                 android:layout_marginBottom="5dp"/>
@@ -363,7 +363,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="(0)"
-                                android:textSize="20dp"
+                                android:textSize="19dp"
                                 android:textColor="@color/black"
                                 android:layout_marginStart="7dp"
                                 android:layout_marginBottom="5dp"/>
@@ -372,7 +372,9 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcvComment"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp" />
+                            android:layout_height="250dp"
+                            android:background="@color/white"
+                            android:layout_marginTop="7dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -380,20 +382,27 @@
                             android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:orientation="horizontal">
-                            <EditText
-                                android:id="@+id/edtMess"
-                                android:layout_width="320dp"
-                                android:layout_height="50dp"
-                                android:ems="10"
-                                android:inputType="text"
-                                android:text="" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="vertical">
+                                <EditText
+                                    android:id="@+id/edtMess"
+                                    android:layout_width="320dp"
+                                    android:layout_height="40dp"
+                                    android:padding="7dp"
+                                    android:ems="10"
+                                    android:inputType="text"
+                                    android:text="" />
+                            </LinearLayout>
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btnSend"
-                                android:layout_width="50dp"
+                                android:layout_width="40dp"
                                 android:layout_marginStart="10dp"
                                 android:textColor="@color/white"
                                 android:background="@drawable/icon_send"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:text="" />
                         </LinearLayout>
 

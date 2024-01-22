@@ -59,8 +59,6 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private var pos by Delegates.notNull<Int>()
     private var isClick : Boolean = false
     private var isClickLove : Boolean = false
-    private var send: String? = null
-    private var message: String? = null
     private var count = 0
     private lateinit var dbRefCart: DatabaseReference
     private lateinit var dbRefFavourite: DatabaseReference
@@ -75,8 +73,6 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private lateinit var edtMess: EditText
     private lateinit var emailUser: String
     private lateinit var mAdapter: RvAdapterComment
-
-    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,6 +115,8 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
     @SuppressLint("SetTextI18n")
     private fun btnSend(){
+        count ++
+        findViewById<TextView>(R.id.txtCountComment).text = "($count)"
         edtMess = findViewById(R.id.edtMess)
         val btnSend = findViewById<Button>(R.id.btnSend)
         btnSend.setOnClickListener{
@@ -157,11 +155,11 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                         if(cmtData != null){
                             if(cmtData.titleBook.toString() == listBook[pos].btitle.toString()){
                                 listComment.add(cmtData)
-                                count ++
                             }
                         }
                     }
-                    findViewById<TextView>(R.id.txtCountComment).text = "($count)"
+                    count = listComment.size
+                    findViewById<TextView>(R.id.txtCountComment).text = "(${count})"
                     mAdapter = RvAdapterComment(listComment)
                     findViewById<RecyclerView>(R.id.rcvComment).layoutManager =
                         GridLayoutManager(this@DetailActivity, 1, GridLayoutManager.VERTICAL, false)
