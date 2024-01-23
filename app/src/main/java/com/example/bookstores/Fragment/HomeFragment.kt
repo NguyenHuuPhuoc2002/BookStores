@@ -207,6 +207,7 @@ class HomeFragment : Fragment() {
     }
     @SuppressLint("CutPasteId")
     private fun comicAdapter(){
+        val activity = activityRef.get()
         mAdapterComic = RvAdapter(listComic)
         mView.findViewById<RecyclerView>(R.id.rcvtale).adapter = mAdapterComic
         mView.findViewById<RecyclerView>(R.id.rcvtale).layoutManager = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL,false)
@@ -221,6 +222,7 @@ class HomeFragment : Fragment() {
                 val bundle = Bundle()
                 val bookList = ArrayList<Parcelable>(listComic)
                 bundle.putParcelableArrayList("bookList", bookList)
+                bundle.putString("emailUser", activity?.emailAcountTitle)
                 bundle.putString("email", email)
                 bundle.putInt("pos", originalPosition)
                 intent.putExtras(bundle)

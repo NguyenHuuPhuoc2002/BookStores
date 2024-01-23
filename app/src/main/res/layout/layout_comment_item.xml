@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_customcomment"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,49 +13,55 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
-       <androidx.cardview.widget.CardView
-           android:layout_width="45dp"
-           android:layout_height="45dp"
-           android:layout_gravity="center"
-           app:cardCornerRadius="15dp">
-           <ImageView
-               android:id="@+id/imgAvt"
-               android:layout_width="40dp"
-               android:layout_height="50dp"
-               android:layout_gravity="center"
-               android:src="@drawable/avatar"/>
-       </androidx.cardview.widget.CardView>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvt"
+            android:layout_width="35dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="2dp"
+            android:layout_height="35dp"
+            android:src="@drawable/avatar"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+            tools:ignore="MissingClass,MissingConstraints" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="9dp"
+            android:padding="5dp"
+            android:background="@drawable/bg_customcomment"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/txtEmail"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:textColor="#575555"
-                android:textSize="14dp"
-                android:text="email" />
-            <TextView
-                android:id="@+id/txtComment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_marginBottom="1dp"
-                android:textSize="18dp"
-                android:text="Comment" />
-            <TextView
-                android:id="@+id/txtDateTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#575555"
-                android:textSize="14sp"
-                android:text="DateTime" />
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="#575555"
+                    android:textSize="14dp"
+                    android:text="email" />
+                <TextView
+                    android:id="@+id/txtComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="18dp"
+                    android:text="Comment" />
+                <TextView
+                    android:id="@+id/txtDateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#575555"
+                    android:textSize="14sp"
+                    android:text="DateTime" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>
