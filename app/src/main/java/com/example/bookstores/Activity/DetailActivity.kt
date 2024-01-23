@@ -101,9 +101,8 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             pos = bundle.getInt("pos")
         }
 
-        findViewById<Button>(R.id.btnbuy).setOnClickListener {
-            bottomSheet()
-        }
+
+        bottomSheet()
         getCommentFromFirebase()
         btnSend()
         initData()
@@ -120,6 +119,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         edtMess = findViewById(R.id.edtMess)
         val btnSend = findViewById<Button>(R.id.btnSend)
         btnSend.setOnClickListener{
+            scrollCommentToBottom()
             addCommentFirebase()
             val message = edtMess.text.toString()
             if (!message.isEmpty()) {
@@ -164,6 +164,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     findViewById<RecyclerView>(R.id.rcvComment).layoutManager =
                         GridLayoutManager(this@DetailActivity, 1, GridLayoutManager.VERTICAL, false)
                     findViewById<RecyclerView>(R.id.rcvComment).adapter = mAdapter
+                    scrollCommentToBottom()
                 }
             }
 
@@ -173,7 +174,14 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         })
     }
-
+    private fun scrollCommentToBottom() {
+        val rcvComment = findViewById<RecyclerView>(R.id.rcvComment)
+        val adapter = rcvComment.adapter
+        if (adapter != null && adapter.itemCount > 0) {
+            val lastItemPosition = adapter.itemCount - 1
+            rcvComment.layoutManager?.smoothScrollToPosition(rcvComment, null, lastItemPosition)
+        }
+    }
     private fun Navigation(){
         findViewById<NavigationView>(R.id.navigation_drawer).setNavigationItemSelectedListener {
             when(it.itemId){
@@ -198,62 +206,64 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     @SuppressLint("CutPasteId")
     private fun bottomSheet() {
-        bView = layoutInflater.inflate(R.layout.fragment_new_task_sheet, null)
-        val dialog = BottomSheetDialog(this)
-        dialog.setContentView(bView)
-        dialog.show()
-        val edtname = bView.findViewById<EditText>(R.id.edtname)
-        val edtsdt = bView.findViewById<EditText>(R.id.edtsdt)
-        val edtaddress = bView.findViewById<EditText>(R.id.edtaddress)
-        val edtmethod = bView.findViewById<EditText>(R.id.edtmethod)
-        bView.findViewById<TextView>(R.id.txtsummoney_dialog).text = findViewById<TextView>(R.id.txtprice).text.toString()
-        bView.findViewById<Button>(R.id.btnabatedialog).setOnClickListener {
-            dialogProgress.show()
-            if (edtname.text?.isEmpty() == true || edtsdt.text?.isEmpty() == true
-                || edtaddress.text?.isEmpty() == true || edtmethod.text?.isEmpty() == true
-            ) {
-                dialogProgress.dismiss()
-                if (edtname.text?.isEmpty() == true) {
-                    edtname.error = "Vui lòng nhập họ tên"
-                }
-                if (edtsdt.text?.isEmpty() == true) {
-                    edtsdt.error = "Vui lòng nhập số điện thoại"
-                }
-                if (edtaddress.text?.isEmpty() == true) {
-                    edtaddress.error = "Vui lòng nhập địa chỉ"
-                }
-                if (edtmethod.text?.isEmpty() == true) {
-                    edtmethod.error = "Vui lòng nhập phương thức thanh toán"
-                }
-            } else {
-                val handler = android.os.Handler(Looper.getMainLooper())
-                handler.postDelayed({
+        findViewById<Button>(R.id.btnbuy).setOnClickListener {
+            bView = layoutInflater.inflate(R.layout.fragment_new_task_sheet, null)
+            val dialog = BottomSheetDialog(this)
+            dialog.setContentView(bView)
+            dialog.show()
+            val edtname = bView.findViewById<EditText>(R.id.edtname)
+            val edtsdt = bView.findViewById<EditText>(R.id.edtsdt)
+            val edtaddress = bView.findViewById<EditText>(R.id.edtaddress)
+            val edtmethod = bView.findViewById<EditText>(R.id.edtmethod)
+            bView.findViewById<TextView>(R.id.txtsummoney_dialog).text = findViewById<TextView>(R.id.txtprice).text.toString()
+            bView.findViewById<Button>(R.id.btnabatedialog).setOnClickListener {
+                dialogProgress.show()
+                if (edtname.text?.isEmpty() == true || edtsdt.text?.isEmpty() == true
+                    || edtaddress.text?.isEmpty() == true || edtmethod.text?.isEmpty() == true
+                ) {
                     dialogProgress.dismiss()
-                    val id = dbRefHistory.push().key
-                    val maDon = taoMaDonHang()
-                    val hoTen = edtname.text.toString()
-                    val sdt = edtsdt.text.toString()
-                    val diaChi = edtaddress.text.toString()
-                    val allBook = findViewById<TextView>(R.id.txttitle).text.toString()
+                    if (edtname.text?.isEmpty() == true) {
+                        edtname.error = "Vui lòng nhập họ tên"
+                    }
+                    if (edtsdt.text?.isEmpty() == true) {
+                        edtsdt.error = "Vui lòng nhập số điện thoại"
+                    }
+                    if (edtaddress.text?.isEmpty() == true) {
+                        edtaddress.error = "Vui lòng nhập địa chỉ"
+                    }
+                    if (edtmethod.text?.isEmpty() == true) {
+                        edtmethod.error = "Vui lòng nhập phương thức thanh toán"
+                    }
+                } else {
+                    val handler = android.os.Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        dialogProgress.dismiss()
+                        val id = dbRefHistory.push().key
+                        val maDon = taoMaDonHang()
+                        val hoTen = edtname.text.toString()
+                        val sdt = edtsdt.text.toString()
+                        val diaChi = edtaddress.text.toString()
+                        val allBook = findViewById<TextView>(R.id.txttitle).text.toString()
 
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                    val calendar = Calendar.getInstance().time
-                    val currentDateTime = dateFormat.format(calendar)
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                        val calendar = Calendar.getInstance().time
+                        val currentDateTime = dateFormat.format(calendar)
 
-                    val tongTien = findViewById<TextView>(R.id.txtprice).text.toString()
-                    val thanhToan = edtmethod.text.toString()
-                    val getintent = intent
-                    val email = getintent?.getStringExtra("email")
+                        val tongTien = findViewById<TextView>(R.id.txtprice).text.toString()
+                        val thanhToan = edtmethod.text.toString()
+                        val getintent = intent
+                        val email = getintent?.getStringExtra("email")
 
-                    val book = BookHistoryModel(id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan, email)
-                    dbRefHistory.child(id!!).setValue(book)
-                    openFragment(SuccessfulOrderFragment())
-                    binding.imgback.isEnabled = false
-                    binding.imgaddcart.isEnabled = false
-                    binding.btnbuy.isEnabled = false
-                    binding.imgNav.isEnabled = false
-                    dialog.dismiss()
-                }, 1200)
+                        val book = BookHistoryModel(id, maDon, hoTen, sdt, diaChi, allBook, currentDateTime, tongTien, thanhToan, email)
+                        dbRefHistory.child(id!!).setValue(book)
+                        openFragment(SuccessfulOrderFragment())
+                        binding.imgback.isEnabled = false
+                        binding.imgaddcart.isEnabled = false
+                        binding.btnbuy.isEnabled = false
+                        binding.imgNav.isEnabled = false
+                        dialog.dismiss()
+                    }, 1200)
+                }
             }
         }
     }
