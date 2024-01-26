@@ -111,20 +111,19 @@ class LoginActivity : AppCompatActivity() {
         openFragment(ForgotFragment())
     }
     private fun logIn(email: String, password: String) {
-       firebaseAuth.signInWithEmailAndPassword(email, password)
-           .addOnCompleteListener(this) {task ->
-               if (task.isSuccessful) {
-                   val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                   intent.putExtra("Login", "Đăng nhập thành công !")
-                   intent.putExtra("email", email.replace(".", ""))
-                   intent.putExtra("emailAcountTitle", email)
-                   startActivity(intent)
-                   finish()
-               } else {
-                   dialog.dismiss()
-                   Toast.makeText(this, "Đăng nhập không thành công !", Toast.LENGTH_SHORT).show()
-               }
+       firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) {task ->
+           if (task.isSuccessful) {
+               val intent = Intent(this@LoginActivity, MainActivity::class.java)
+               intent.putExtra("Login", "Đăng nhập thành công !")
+               intent.putExtra("email", email.replace(".", ""))
+               intent.putExtra("emailAcountTitle", email)
+               startActivity(intent)
+               finish()
+           } else {
+               dialog.dismiss()
+               Toast.makeText(this, "Đăng nhập không thành công !", Toast.LENGTH_SHORT).show()
            }
+       }
     }
 
     private fun openFragment(fragment: Fragment) {

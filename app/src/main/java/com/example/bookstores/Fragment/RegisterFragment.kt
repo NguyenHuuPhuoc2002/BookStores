@@ -2,11 +2,7 @@ package com.example.bookstores.Fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.app.ProgressDialog
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +12,11 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import com.example.bookstores.Activity.LoginActivity
-import com.example.bookstores.R
-import com.example.bookstores.interfaces.Model.LoginModel
+import com.example.bookstores.Model.UserModel
 import com.example.bookstores.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import java.lang.ref.WeakReference
 
 class RegisterFragment : Fragment() {
@@ -34,6 +26,7 @@ class RegisterFragment : Fragment() {
     private lateinit var dialog: Dialog
     private lateinit var activityRef: WeakReference<LoginActivity>
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +36,7 @@ class RegisterFragment : Fragment() {
         fragmentManager = parentFragmentManager
         activityRef = WeakReference(requireActivity() as LoginActivity)
         firebaseAuth = FirebaseAuth.getInstance()
+        dbRef = FirebaseDatabase.getInstance().getReference("Users")
 
         val alertDialog = AlertDialog.Builder(context)
         val progressBar = ProgressBar(context)
@@ -90,30 +84,49 @@ class RegisterFragment : Fragment() {
         val edtEmail = binding.edtEmailRegister
         val edtPassWord = binding.edtPasswordRegister
         val edtReEnterPassWord = binding.edtReEnterPassword
+        val edtName = binding.edtNameRegister
+        val edtSdt = binding.edtPhoneNumRegister
         dialog.show()
-        if (edtEmail.text?.isEmpty() == true || edtPassWord.text?.isEmpty() == true
-            || edtReEnterPassWord.text?.isEmpty() == true
-            || !edtReEnterPassWord.text?.toString()?.trim()?.equals(edtPassWord.text.toString().trim())!!
+        if ((edtEmail.text?.isEmpty() == true && edtEmail.text?.isBlank() == true)
+            || (edtPassWord.text?.isEmpty() == true && edtPassWord.text?.isBlank() == true)
+            || (edtReEnterPassWord.text?.isEmpty() == true && edtReEnterPassWord.text?.isBlank() == true)
+            || (edtName.text?.isEmpty() == true && edtName.text?.isBlank() == true)
+            || (edtSdt.text?.isEmpty() == true && edtSdt.text?.isBlank() == true)
+            || (!edtReEnterPassWord.text?.toString()?.trim()?.equals(edtPassWord.text.toString().trim())!!)
         ) {
             if (edtEmail.text?.isEmpty() == true) {
-                edtEmail.error = "Vui lòng nhập địa chỉ email"
+                edtEmail.error = "Vui lòng nhập địa chỉ email!"
             }
             if (edtPassWord.text?.isEmpty() == true) {
-                edtPassWord.error = "Vui lòng nhập mật khẩu"
+                edtPassWord.error = "Vui lòng nhập mật khẩu!"
             }
             if (edtReEnterPassWord.text?.isEmpty() == true) {
-                edtReEnterPassWord.error = "Vui lòng nhập lại mật khẩu"
+                edtReEnterPassWord.error = "Vui lòng nhập lại mật khẩu!"
+            }
+            if (edtName.text?.isEmpty() == true) {
+                edtName.error = "Vui lòng nhập họ tên!"
+            }
+            if (edtSdt.text?.isEmpty() == true) {
+                edtSdt.error = "Vui lòng nhập số điện thoại!"
             }
             if (!edtReEnterPassWord.text?.toString()?.trim()?.equals(edtPassWord.text?.toString()?.trim())!!) {
-                edtReEnterPassWord.error = "Mật khẩu không khớp"
+                edtReEnterPassWord.error = "Mật khẩu không khớp!"
             }
             dialog.dismiss()
         } else{
+            val id = dbRef.push().key
+            val hoTen = edtName.text.toString()
+            val sDT = edtSdt.text.toString()
+            val email = edtEmail.text.toString()
+            val passWord = edtPassWord.text.toString()
+            val reEnterPassWord = edtReEnterPassWord.text.toString()
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         view?.postDelayed({
                             dialog.dismiss()
+                            val user = UserModel(id, hoTen, sDT, email,0)
+                            dbRef.child(id!!).setValue(user)
                             Toast.makeText(context, "Đăng kí thành công!", Toast.LENGTH_SHORT).show()
                             fragmentManager.popBackStack()
                         }, 1500)

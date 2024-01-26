@@ -24,6 +24,7 @@ import com.example.bookstores.Fragment.FavoriteFragment
 import com.example.bookstores.Fragment.HistoryFragment
 import com.example.bookstores.Fragment.HomeFragment
 import com.example.bookstores.Fragment.SuccessfulOrderFragment
+import com.example.bookstores.Model.UserModel
 import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R
 import com.example.bookstores.databinding.ActivityMainBinding
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fragmentManager: FragmentManager
     lateinit var binding: ActivityMainBinding
+    private lateinit var dbRefUsers: DatabaseReference
     private lateinit var dialog: Dialog
     private lateinit var email: String
     lateinit var emailAcountTitle: String
@@ -56,10 +58,10 @@ class MainActivity : AppCompatActivity() {
 
         mListFav = arrayListOf()
         mListCart = arrayListOf()
+        dbRefUsers = FirebaseDatabase.getInstance().getReference("Users")
 
         val alertDialog = AlertDialog.Builder(this)
         val progressBar = ProgressBar(this)
-
         alertDialog.setView(progressBar)
         alertDialog.setTitle("Đang đăng xuất !")
         alertDialog.setCancelable(false)
@@ -68,8 +70,6 @@ class MainActivity : AppCompatActivity() {
         binding.imgClearAllFavourite.visibility = View.GONE
         binding.imgClearAllCart.visibility = View.GONE
         binding.imgClearAllHistory.visibility = View.GONE
-//        binding.txtNumCart.visibility = View.GONE
-//        binding.txtNumFav.visibility = View.GONE
 
         val intent = intent
         val toast = intent.getStringExtra("Login")
@@ -81,7 +81,16 @@ class MainActivity : AppCompatActivity() {
         val emailTextView = headerView.findViewById<TextView>(R.id.txtemail)
         emailTextView.text = emailAcountTitle
 
-        //bottom navigation
+        bottomNavigation()
+        fragmentManager = supportFragmentManager
+        openFragment(HomeFragment())
+        addDatta()
+        btnimgNavigation()
+        Navigation()
+        getSachFav()
+        getSachCart()
+    }
+    private fun bottomNavigation(){
         binding.btNavigation.setOnItemSelectedListener {  item ->
             when(item.itemId){
                 R.id.bt_home -> {
@@ -123,23 +132,12 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        fragmentManager = supportFragmentManager
-        openFragment(HomeFragment())
-//        binding.fab.setOnClickListener {
-//            openFragment(SuccessfulOrderFragment())
-//        }
-        addDatta()
-        btnimgNavigation()
-        Navigation()
-        getSachFav()
-        getSachCart()
     }
-
     override fun onBackPressed(){
         if(binding.drawLayout.isDrawerOpen(GravityCompat.START)){
             binding.drawLayout.closeDrawer(GravityCompat.START)
         }else{
-            super.getOnBackPressedDispatcher().onBackPressed()
+            super.onBackPressedDispatcher.onBackPressed()
         }
     }
     private fun getSachFav() {
@@ -197,6 +195,32 @@ class MainActivity : AppCompatActivity() {
         findViewById<NavigationView>(R.id.navigation_drawer).setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.nav_home -> openFragment(HomeFragment())
+                R.id.nav_admin -> {
+                    dbRefUsers.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.exists()){
+                                for(user in snapshot.children){
+                                    val userData = user.getValue(UserModel::class.java)
+                                    if(userData != null){
+                                        if(userData.role.toString() == "0")
+                                        {
+                                            startActivity(Intent(this@MainActivity, AdminActivity::class.java))
+                                            return
+                                        }else{
+                                            Toast.makeText(this@MainActivity, "Không có quyền truy cập !", Toast.LENGTH_SHORT).show()
+                                            return
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
+                }
                 R.id.nav_out -> {
                     dialog.show()
                     val handler = Handler(Looper.getMainLooper())

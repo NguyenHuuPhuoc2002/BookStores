@@ -104,7 +104,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         bottomSheet()
         getCommentFromFirebase()
-        btnSend()
+        btnSendComment()
         initData()
         btnBack()
         addCartBook()
@@ -113,7 +113,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         btnimgNavigation()
     }
     @SuppressLint("SetTextI18n")
-    private fun btnSend(){
+    private fun btnSendComment(){
         count ++
         findViewById<TextView>(R.id.txtCountComment).text = "($count)"
         edtMess = findViewById(R.id.edtMess)
@@ -122,14 +122,14 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             scrollCommentToBottom()
             addCommentFirebase()
             val message = edtMess.text.toString()
-            if (!message.isEmpty()) {
+            if (!message.isEmpty() ) {
                 edtMess.text.clear()
             }
         }
     }
     private fun addCommentFirebase(){
         val edtsendMessage = findViewById<TextView>(R.id.edtMess).text
-        if(edtsendMessage.isNotEmpty()){
+        if(edtsendMessage.isNotEmpty() && edtsendMessage.isNotBlank()){
             val id = dbRefComment.push().key
             val titleBook = listBook[pos].btitle
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())

@@ -14,19 +14,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <com.example.bookstores.custom_textview.Regular
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="50dp"
+                    android:textSize="40dp"
                     android:text="Hello! New User"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -35,7 +35,6 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center|top"
-                    android:layout_marginTop="20dp"
                     app:srcCompat="@drawable/logo" />
             </LinearLayout>
 
@@ -43,14 +42,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
+                android:layout_marginTop="7dp"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="37dp"
+                    android:textSize="30dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:text="Đăng kí" />
@@ -59,7 +59,39 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="5dp"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtNameRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textEmailAddress"
+                        android:text=""
+                        android:hint="Họ tên"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPhoneNumRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text=""
+                        android:hint="Số điện thoại"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtEmailRegister"
@@ -76,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="32"
                     android:layout_marginEnd="20dp"
@@ -110,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:maxLength="32"
-                        android:hint="Mật khẩu"
+                        android:hint="Nhập lại mật khẩu"
                         android:inputType="textPassword"
                         android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -119,7 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnSigUp"

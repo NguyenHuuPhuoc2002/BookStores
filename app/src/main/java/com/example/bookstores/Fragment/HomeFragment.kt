@@ -59,9 +59,6 @@ class HomeFragment : Fragment() {
     private lateinit var mAdapterComic: RvAdapter
     private lateinit var filteredListBook: ArrayList<BookModel>
     private lateinit var filteredListComic: ArrayList<BookModel>
-    private lateinit var mListAds: ArrayList<AdsModel>
-    private var email: String? = null
-    private var isClickLove : Boolean = false
     private lateinit var activityRef: WeakReference<MainActivity>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +84,6 @@ class HomeFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Gán OnClickListener cho SearchView
         view.findViewById<SearchView>(R.id.search_view).setOnClickListener {
             // Hiển thị bàn phím ảo
@@ -185,7 +181,7 @@ class HomeFragment : Fragment() {
         mView.findViewById<RecyclerView>(R.id.rcvbook).adapter = mAdapterBook
         mView.findViewById<RecyclerView>(R.id.rcvbook).layoutManager = GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL,false)
         mView.findViewById<RecyclerView>(R.id.rcvbook).visibility = View.VISIBLE
-        //code lắng nghe sự kiện
+
         mAdapterBook.setOnItemClickListener(object : onItemClickListener {
             override fun onItemClick(position: Int) {
                 val clickedFood = filteredListBook[position]
