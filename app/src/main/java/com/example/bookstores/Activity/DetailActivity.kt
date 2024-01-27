@@ -80,28 +80,14 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         listComment = arrayListOf<CommentModel>()
-        val alertDialog = AlertDialog.Builder(this)
-        val progressBar = ProgressBar(this)
-
-        alertDialog.setView(progressBar)
-        alertDialog.setTitle("Đang đặt hàng !")
-        alertDialog.setCancelable(false)
-        dialogProgress = alertDialog.create()
 
         dbRefCart = FirebaseDatabase.getInstance().getReference("BookCart")
         dbRefFavourite = FirebaseDatabase.getInstance().getReference("BookFavourite")
         dbRefHistory = FirebaseDatabase.getInstance().getReference("BookHistory")
         dbRefComment = FirebaseDatabase.getInstance().getReference("Comment")
 
-        val intent = intent
-        val bundle = intent.extras
-        if (bundle != null) {
-            listBook = bundle.getParcelableArrayList<BookModel>("bookList") as ArrayList<BookModel>
-            emailUser = bundle.getString("emailUser").toString()
-            pos = bundle.getInt("pos")
-        }
-
-
+        getBundleData()
+        alertDialog()
         bottomSheet()
         getCommentFromFirebase()
         btnSendComment()
@@ -112,6 +98,26 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         Navigation()
         btnimgNavigation()
     }
+
+    private fun getBundleData() {
+        val intent = intent
+        val bundle = intent.extras
+        if (bundle != null) {
+            listBook = bundle.getParcelableArrayList<BookModel>("bookList") as ArrayList<BookModel>
+            emailUser = bundle.getString("emailUser").toString()
+            pos = bundle.getInt("pos")
+        }
+    }
+
+    private fun alertDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        val progressBar = ProgressBar(this)
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đặt hàng !")
+        alertDialog.setCancelable(false)
+        dialogProgress = alertDialog.create()
+    }
+
     @SuppressLint("SetTextI18n")
     private fun btnSendComment(){
         count ++

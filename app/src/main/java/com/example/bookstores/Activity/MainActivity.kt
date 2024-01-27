@@ -60,27 +60,13 @@ class MainActivity : AppCompatActivity() {
         mListCart = arrayListOf()
         dbRefUsers = FirebaseDatabase.getInstance().getReference("Users")
 
-        val alertDialog = AlertDialog.Builder(this)
-        val progressBar = ProgressBar(this)
-        alertDialog.setView(progressBar)
-        alertDialog.setTitle("Đang đăng xuất !")
-        alertDialog.setCancelable(false)
-        dialog = alertDialog.create()
-
         binding.imgClearAllFavourite.visibility = View.GONE
         binding.imgClearAllCart.visibility = View.GONE
         binding.imgClearAllHistory.visibility = View.GONE
 
-        val intent = intent
-        val toast = intent.getStringExtra("Login")
-        emailAcountTitle = intent.getStringExtra("emailAcountTitle").toString()
-        email = intent.getStringExtra("email").toString()
-        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
-        val navigationView = findViewById<NavigationView>(R.id.navigation_drawer)
-        val headerView = navigationView.getHeaderView(0)
-        val emailTextView = headerView.findViewById<TextView>(R.id.txtemail)
-        emailTextView.text = emailAcountTitle
 
+        navHeadGetEmailUser()
+        alertDialog()
         bottomNavigation()
         fragmentManager = supportFragmentManager
         openFragment(HomeFragment())
@@ -90,6 +76,28 @@ class MainActivity : AppCompatActivity() {
         getSachFav()
         getSachCart()
     }
+
+    private fun navHeadGetEmailUser() {
+        val intent = intent
+        val toast = intent.getStringExtra("Login")
+        emailAcountTitle = intent.getStringExtra("emailAcountTitle").toString()
+        email = intent.getStringExtra("email").toString()
+        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
+        val navigationView = findViewById<NavigationView>(R.id.navigation_drawer)
+        val headerView = navigationView.getHeaderView(0)
+        val emailTextView = headerView.findViewById<TextView>(R.id.txtemail)
+        emailTextView.text = emailAcountTitle
+    }
+
+    private fun alertDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        val progressBar = ProgressBar(this)
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đăng xuất !")
+        alertDialog.setCancelable(false)
+        dialog = alertDialog.create()
+    }
+
     private fun bottomNavigation(){
         binding.btNavigation.setOnItemSelectedListener {  item ->
             when(item.itemId){
@@ -204,7 +212,9 @@ class MainActivity : AppCompatActivity() {
                                     if(userData != null){
                                         if(userData.role.toString() == "0")
                                         {
-                                            startActivity(Intent(this@MainActivity, AdminActivity::class.java))
+                                            val intent = Intent(this@MainActivity, AdminActivity::class.java)
+                                            intent.putExtra("emailAcountTitle", emailAcountTitle)
+                                            startActivity(intent)
                                             return
                                         }else{
                                             Toast.makeText(this@MainActivity, "Không có quyền truy cập !", Toast.LENGTH_SHORT).show()
