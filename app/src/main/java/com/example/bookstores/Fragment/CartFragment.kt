@@ -66,14 +66,6 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val alertDialog = AlertDialog.Builder(requireActivity())
-        val progressBar = ProgressBar(requireActivity())
-
-        alertDialog.setView(progressBar)
-        alertDialog.setTitle("Đang đặt hàng !")
-        alertDialog.setCancelable(false)
-        dialogProgress = alertDialog.create()
-
         mView = inflater.inflate(R.layout.fragment_cart, container, false)
         dbRefHistory = FirebaseDatabase.getInstance().getReference("BookHistory")
         dbRefCart = FirebaseDatabase.getInstance().getReference("BookCart")
@@ -86,11 +78,22 @@ class CartFragment : Fragment() {
                 Toast.makeText(requireActivity(), "Vui lòng thêm sách vào giỏ trước khi thành toán !", Toast.LENGTH_SHORT).show()
             }
         }
+        alertDialog()
         getSach()
         clearAll()
 
         return mView
     }
+
+    private fun alertDialog() {
+        val alertDialog = AlertDialog.Builder(requireActivity())
+        val progressBar = ProgressBar(requireActivity())
+        alertDialog.setView(progressBar)
+        alertDialog.setTitle("Đang đặt hàng !")
+        alertDialog.setCancelable(false)
+        dialogProgress = alertDialog.create()
+    }
+
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun clearAll(){
         activityRef = WeakReference(requireActivity() as MainActivity)

@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener
 import me.relex.circleindicator.CircleIndicator3
 import java.lang.ref.WeakReference
 import java.text.Normalizer
+import java.util.regex.Pattern
 
 class HomeFragment : Fragment() {
 
@@ -105,10 +106,10 @@ class HomeFragment : Fragment() {
                     for(book in snapshot.children){
                         val bookData = book.getValue(BookModel::class.java)
                         if (bookData?.bkindOfSach != null) {
-                            val bkindOfSach = bookData.bkindOfSach.trim().toLowerCase()
-                            if (bkindOfSach == "sách") {
+                            val bkindOfSach = removeAccents(bookData.bkindOfSach.trim().toLowerCase())
+                            if (bkindOfSach.equals("sach") ) {
                                 listBook.add(bookData)
-                            }else if(bkindOfSach == "truyện tranh"){
+                            }else if(bkindOfSach == "truyen tranh"){
                                 listComic.add(bookData)
                             }
                         }
@@ -125,6 +126,11 @@ class HomeFragment : Fragment() {
 
             }
         })
+    }
+    private fun removeAccents(input: String): String {
+        val normalized = Normalizer.normalize(input, Normalizer.Form.NFD)
+        val pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+        return pattern.matcher(normalized).replaceAll("")
     }
     private fun searchView() {
         val searchView = mView.findViewById<SearchView>(R.id.search_view)

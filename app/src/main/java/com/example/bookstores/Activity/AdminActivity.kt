@@ -23,6 +23,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bookstores.Activity.Adapter.RvAdapter
 import com.example.bookstores.Adapter.RvAdapterAdmin
 import com.example.bookstores.Fragment.HomeFragment
 import com.example.bookstores.Model.UserModel
@@ -37,6 +38,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.lang.ref.WeakReference
 import java.text.Normalizer
 
 class AdminActivity : AppCompatActivity() {
@@ -53,6 +55,7 @@ class AdminActivity : AppCompatActivity() {
         setContentView(binding.root)
         dbRef = FirebaseDatabase.getInstance().getReference("BookHome")
         listBook = arrayListOf()
+        mAdapter = RvAdapterAdmin(listBook)
 
         navHeadEmailUser()
         alertDialog()
@@ -61,7 +64,15 @@ class AdminActivity : AppCompatActivity() {
         searchView()
         btnimgNavigation()
         Navigation()
+        btnAdd()
     }
+
+    private fun btnAdd() {
+        binding.imgAddBook.setOnClickListener {
+            startActivity(Intent(this@AdminActivity, AdminDetailActivity::class.java))
+        }
+    }
+
     private fun navHeadEmailUser() {
         val intent = intent
         emailAcountTitle = intent.getStringExtra("emailAcountTitle").toString()

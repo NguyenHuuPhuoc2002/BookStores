@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -23,7 +22,6 @@ import com.example.bookstores.Fragment.CartFragment
 import com.example.bookstores.Fragment.FavoriteFragment
 import com.example.bookstores.Fragment.HistoryFragment
 import com.example.bookstores.Fragment.HomeFragment
-import com.example.bookstores.Fragment.SuccessfulOrderFragment
 import com.example.bookstores.Model.UserModel
 import com.example.bookstores.interfaces.Model.BookModel
 import com.example.bookstores.R

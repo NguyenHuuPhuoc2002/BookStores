@@ -32,9 +32,9 @@
                 android:layout_width="250dp"
                 android:layout_height="160dp"
                 android:layout_marginTop="20dp"
-                app:srcCompat="@drawable/img_slide3" />
+                app:srcCompat="@null" />
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button"
+                android:id="@+id/btnChooseImg"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@drawable/bg_custombtnmua"
@@ -60,7 +60,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:hint="Tiêu đề"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:text="" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -81,7 +81,7 @@
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:hint="Tác giả"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:text="" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -102,7 +102,28 @@
                     android:textSize="18dp"
                     android:textColor="@color/black"
                     android:hint="Nhà xuất bản"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
+                    android:text="" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/black"
+                android:layout_marginEnd="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtKindOfSach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:hint="Loại"
+                    android:inputType="text"
                     android:text="" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -123,7 +144,7 @@
                     android:textColor="@color/black"
                     android:hint="Số trang"
                     android:textSize="18dp"
-                    android:inputType="textEmailAddress"
+                    android:inputType="number"
                     android:text="" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,7 +166,7 @@
                     android:hint="Giá"
                     android:textColor="@color/black"
                     android:textSize="18dp"
-                    android:inputType="textEmailAddress"
+                    android:inputType="number"
                     android:text="" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -178,17 +199,31 @@
                     android:background="@null" />
 
             </androidx.core.widget.NestedScrollView>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnUpdate"
-                android:layout_width="300dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_custombtnmua"
-                android:textColor="@color/white"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
-                android:textAllCaps="false"
-                android:textSize="22dp"
-                android:text="Sửa" />
+                android:gravity="center">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddBook"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_custombtnmua"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textSize="20dp"
+                    android:text="Thêm" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnUpdateBook"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_custombtnmua"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textSize="20dp"
+                    android:text="Sửa" />
+            </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
