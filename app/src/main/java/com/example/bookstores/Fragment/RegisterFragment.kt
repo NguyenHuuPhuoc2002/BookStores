@@ -127,8 +127,13 @@ class RegisterFragment : Fragment() {
                             dialog.dismiss()
                             val user = UserModel(id, hoTen, sDT, email,0)
                             dbRef.child(id!!).setValue(user)
-                            Toast.makeText(context, "Đăng kí thành công!", Toast.LENGTH_SHORT).show()
-                            fragmentManager.popBackStack()
+                                .addOnSuccessListener {
+                                    fragmentManager.popBackStack()
+                                    Toast.makeText(context, "Đăng kí thành công!", Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(context, "Đăng kí không thành công!", Toast.LENGTH_SHORT).show()
+                                }
                         }, 1500)
                     } else {
                         dialog.dismiss()
