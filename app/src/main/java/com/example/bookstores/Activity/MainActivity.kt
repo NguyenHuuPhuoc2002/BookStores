@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity() {
                                 for(user in snapshot.children){
                                     val userData = user.getValue(UserModel::class.java)
                                     if(userData != null){
-                                        if(userData.role.toString() == "0")
+                                        if(userData.role.toString() == "1")
                                         {
                                             val intent = Intent(this@MainActivity, AdminActivity::class.java)
                                             intent.putExtra("emailAcountTitle", emailAcountTitle)
