@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.ImageView
@@ -50,7 +51,59 @@ class AdminDetailActivity : AppCompatActivity() {
 
     private fun btnUpdateBook() {
         binding.btnUpdateBook.setOnClickListener {
-            Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
+            val id = listBook[pos].bid
+            val title = binding.edtTitle.text.toString().trim()
+            val imgBook = listBook[pos].bimg
+            val author = binding.edtAuthor.text.toString().trim()
+            val nxb = binding.edtNxb.text.toString().trim()
+            val numPages = binding.edtNumpages.text.toString().trim()
+            val kindOfSach = binding.edtKindOfSach.text.toString().trim()
+            val priceText = binding.edtPrice.text.toString().trim()
+            val price: Double = priceText.toDoubleOrNull() ?: 0.0
+            val content = binding.edtMtContent.text.toString().trim()
+            dialogProgress.show()
+            dialogProgress.setTitle("Đang sửa !")
+            if ((title.isEmpty() || title.isBlank()) || (author.isEmpty() || author.isBlank()) || (nxb.isEmpty() || nxb.isBlank())
+                || (kindOfSach.isEmpty() || kindOfSach.isBlank()) || (numPages.isEmpty() || numPages.isBlank())
+                || (priceText.isEmpty() || priceText.isBlank()) || (content.isEmpty() || content.isBlank())
+            ) {
+                dialogProgress.dismiss()
+                if (title.isEmpty() || title.isBlank()) binding.edtTitle.error = "Nhập tiêu đề !"
+                if (author.isEmpty() || author.isBlank()) binding.edtAuthor.error = "Nhập tác giả !"
+                if (nxb.isEmpty() || nxb.isBlank()) binding.edtNxb.error = "Nhập nhà xuất bản !"
+                if (kindOfSach.isEmpty() || kindOfSach.isBlank()) binding.edtKindOfSach.error = "Nhập loại !"
+                if (numPages.isEmpty() || numPages.isBlank()) binding.edtNumpages.error = "Nhập số trang !"
+                if (priceText.isEmpty() || priceText.isBlank()) binding.edtPrice.error = "Nhập giá !"
+                if (content.isEmpty() || content.isBlank()) binding.edtMtContent.error = "Nhập nội dung !"
+            }else{
+                if (filePath == null) {
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        dialogProgress.dismiss()
+                        val bookInfor = BookModel(id, title, imgBook, author, nxb, numPages, kindOfSach, price, content, null)
+                        dbRef.child(id!!).setValue(bookInfor)
+                        Toast.makeText(this, "Thành công !", Toast.LENGTH_SHORT).show()
+                    },1700)
+                }else{
+                    filePath?.let {
+                        storageRef.child(id!!).putFile(it)
+                            .addOnSuccessListener {task ->
+                                task.metadata!!.reference!!.downloadUrl
+                                    .addOnSuccessListener { url ->
+                                        dialogProgress.dismiss()
+                                        val imgUrl = url.toString()
+                                        val bookInforUrl = BookModel(id, title, imgUrl, author, nxb, numPages, kindOfSach, price, content, null)
+                                        dbRef.child(id).setValue(bookInforUrl)
+                                        Toast.makeText(this, "Thành công !", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .addOnFailureListener {
+                                        dialogProgress.dismiss()
+                                        Toast.makeText(this, "Không thành công !", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+                    }
+                }
+            }
         }
     }
 
@@ -81,14 +134,14 @@ class AdminDetailActivity : AppCompatActivity() {
     }
 
     private fun addDataBook() {
-        val title = binding.edtTitle.text.toString()
-        val author = binding.edtAuthor.text.toString()
-        val nxb = binding.edtNxb.text.toString()
-        val numPages = binding.edtNumpages.text.toString()
-        val kindOfSach = binding.edtKindOfSach.text.toString()
-        val priceText = binding.edtPrice.text.toString()
+        val title = binding.edtTitle.text.toString().trim()
+        val author = binding.edtAuthor.text.toString().trim()
+        val nxb = binding.edtNxb.text.toString().trim()
+        val numPages = binding.edtNumpages.text.toString().trim()
+        val kindOfSach = binding.edtKindOfSach.text.toString().trim()
+        val priceText = binding.edtPrice.text.toString().trim()
         val price: Double = priceText.toDoubleOrNull() ?: 0.0
-        val content = binding.edtMtContent.text.toString()
+        val content = binding.edtMtContent.text.toString().trim()
         dialogProgress.show()
         if ((title.isEmpty() || title.isBlank()) || (author.isEmpty() || author.isBlank()) || (nxb.isEmpty() || nxb.isBlank())
             || (kindOfSach.isEmpty() || kindOfSach.isBlank()) || (numPages.isEmpty() || numPages.isBlank())
@@ -105,19 +158,26 @@ class AdminDetailActivity : AppCompatActivity() {
         } else {
             val bookId = dbRef.push().key!!
             var bookModel: BookModel
-            val handler = android.os.Handler(Looper.getMainLooper())
+            val handler = Handler(Looper.getMainLooper())
             filePath?.let {
                 storageRef.child(bookId).putFile(it)
                     .addOnSuccessListener { task ->
                         task.metadata!!.reference!!.downloadUrl
                             .addOnSuccessListener { url ->
                                 val imaUrl = url.toString()
-                                bookModel = BookModel(bookId, title, imaUrl, author, nxb, numPages, kindOfSach, price, content, null
-                                )
+                                bookModel = BookModel(bookId, title, imaUrl, author, nxb, numPages, kindOfSach, price, content, null)
                                 dbRef.child(bookId).setValue(bookModel)
                                     .addOnCompleteListener {
                                         handler.postDelayed({
                                             dialogProgress.dismiss()
+                                            binding.edtTitle.setText("")
+                                            binding.edtAuthor.setText("")
+                                            binding.edtNxb.setText("")
+                                            binding.edtNumpages.setText("")
+                                            binding.edtKindOfSach.setText("")
+                                            binding.edtPrice.setText("")
+                                            binding.edtMtContent.setText("")
+                                            binding.imgBookAdmin.setImageDrawable(null)
                                             Toast.makeText(this, "Thành công !", Toast.LENGTH_SHORT).show()
                                         },200)
                                     }
@@ -130,13 +190,6 @@ class AdminDetailActivity : AppCompatActivity() {
                             }
                     }
             }
-            binding.edtTitle.setText("")
-            binding.edtAuthor.setText("")
-            binding.edtNxb.setText("")
-            binding.edtNumpages.setText("")
-            binding.edtKindOfSach.setText("")
-            binding.edtPrice.setText("")
-            binding.edtMtContent.setText("")
         }
     }
 

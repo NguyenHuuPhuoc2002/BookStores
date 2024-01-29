@@ -60,7 +60,7 @@ class AdminActivity : AppCompatActivity() {
         navHeadEmailUser()
         alertDialog()
         showKeyboard()
-        getBook()
+        getBooks()
         searchView()
         btnimgNavigation()
         Navigation()
@@ -119,7 +119,7 @@ class AdminActivity : AppCompatActivity() {
         }
     }
 
-    private fun getBook() {
+    private fun getBooks() {
         dbRef.addValueEventListener(object : ValueEventListener{
             @SuppressLint("CutPasteId")
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -131,14 +131,15 @@ class AdminActivity : AppCompatActivity() {
                             listBook.add(bookData)
                         }
                     }
+                    val reversedList = listBook.reversed()
                     filteredListBook = ArrayList(listBook)
-                    mAdapter = RvAdapterAdmin(listBook)
+                    mAdapter = RvAdapterAdmin(reversedList)
                     binding.rcvBook.adapter = mAdapter
                     binding.rcvBook.layoutManager = GridLayoutManager(this@AdminActivity, 2, GridLayoutManager.VERTICAL, false)
                     mAdapter.setOnItemClickListener(object : onItemClickListener{
                         override fun onItemClick(position: Int) {
-                            val clickedFood = filteredListBook[position]
-                            val originalPosition = listBook.indexOf(clickedFood)
+                            val clickedBook = reversedList[position]
+                            val originalPosition = listBook.indexOf(clickedBook)
                             val intent = Intent(this@AdminActivity, AdminDetailActivity::class.java )
                             val bundle = Bundle()
                             val bookList = ArrayList<Parcelable>(listBook)
