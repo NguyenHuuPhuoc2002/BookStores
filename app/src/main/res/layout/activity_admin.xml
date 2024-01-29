@@ -72,5 +72,5 @@
         app:itemTextColor="@color/gray"
         app:itemIconTint="@color/gray"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu_chitiet"/>
+        app:menu="@menu/nav_menuadmin"/>
 </androidx.drawerlayout.widget.DrawerLayout>

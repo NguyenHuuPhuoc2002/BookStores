@@ -99,8 +99,10 @@ class AdminActivity : AppCompatActivity() {
     private fun Navigation(){
         findViewById<NavigationView>(R.id.navigation_drawer).setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.nav_home -> Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
-                R.id.nav_admin -> Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
+                R.id.nav_home -> {
+                   finish()
+                }
+                R.id.nav_aboutapp -> Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
                 R.id.nav_out -> {
                     dialog.show()
                     val handler = Handler(Looper.getMainLooper())

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Trang chính"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Settings"
+            app:itemIconTint="@color/black"
+            android:icon="@drawable/ic_settings" />
+        <item
+            android:id="@+id/nav_aboutapp"
+            android:icon="@drawable/ic_info"
+            android:title="About app" />
+        <item
+            android:id="@+id/nav_admin"
+            android:title=""/>
+        <item
+            android:id="@+id/nav_share"
+            android:title="" />
+
+    </group>
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_out"
+                android:title="Logout"
+                android:icon="@drawable/ic_logout"/>
+        </menu>
+    </item>
+</menu>
