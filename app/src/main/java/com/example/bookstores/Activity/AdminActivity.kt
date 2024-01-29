@@ -48,6 +48,7 @@ class AdminActivity : AppCompatActivity() {
     lateinit var emailAcountTitle: String
     private lateinit var dialog: Dialog
     private lateinit var listBook: ArrayList<BookModel>
+    private lateinit var reversedList: ArrayList<BookModel>
     private lateinit var filteredListBook: ArrayList<BookModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,6 @@ class AdminActivity : AppCompatActivity() {
         setContentView(binding.root)
         dbRef = FirebaseDatabase.getInstance().getReference("BookHome")
         listBook = arrayListOf()
-        mAdapter = RvAdapterAdmin(listBook)
 
         navHeadEmailUser()
         alertDialog()
@@ -99,10 +99,9 @@ class AdminActivity : AppCompatActivity() {
     private fun Navigation(){
         findViewById<NavigationView>(R.id.navigation_drawer).setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.nav_home -> {
-                   finish()
-                }
-                R.id.nav_aboutapp -> Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
+                R.id.nav_home -> finish()
+                R.id.nav_settings -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                R.id.nav_aboutapp -> Toast.makeText(this, "About App", Toast.LENGTH_SHORT).show()
                 R.id.nav_out -> {
                     dialog.show()
                     val handler = Handler(Looper.getMainLooper())
@@ -133,18 +132,18 @@ class AdminActivity : AppCompatActivity() {
                             listBook.add(bookData)
                         }
                     }
-                    val reversedList = listBook.reversed()
-                    filteredListBook = ArrayList(listBook)
+                    reversedList = listBook.reversed() as ArrayList<BookModel>
+                    filteredListBook = ArrayList(reversedList)
                     mAdapter = RvAdapterAdmin(reversedList)
                     binding.rcvBook.adapter = mAdapter
                     binding.rcvBook.layoutManager = GridLayoutManager(this@AdminActivity, 2, GridLayoutManager.VERTICAL, false)
                     mAdapter.setOnItemClickListener(object : onItemClickListener{
                         override fun onItemClick(position: Int) {
-                            val clickedBook = reversedList[position]
-                            val originalPosition = listBook.indexOf(clickedBook)
+                            val clickedBook = filteredListBook[position]
+                            val originalPosition = reversedList.indexOf(clickedBook)
                             val intent = Intent(this@AdminActivity, AdminDetailActivity::class.java )
                             val bundle = Bundle()
-                            val bookList = ArrayList<Parcelable>(listBook)
+                            val bookList = ArrayList<Parcelable>(reversedList)
                             bundle.putParcelableArrayList("bookList", bookList)
                             bundle.putInt("pos", originalPosition)
                             intent.putExtras(bundle)
@@ -181,7 +180,7 @@ class AdminActivity : AppCompatActivity() {
             //chuyển hóa chuỗi loại bỏ dấu để so sánh
             val normalizedQuery = removeDiacritics(query.toLowerCase())
             filteredListBook = ArrayList()
-            for (i in listBook) {
+            for (i in reversedList) {
                 val normalizedTitle = i.btitle?.let { removeDiacritics(it.toLowerCase()) }
                 if (normalizedTitle != null) {
                     if (normalizedTitle.contains(normalizedQuery)) {
