@@ -2,8 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <gradient android:startColor="@color/black"/>
-            <corners android:radius="10dp"/>
+            <solid android:color="@color/white"/>
+            <corners android:radius="40dp" />
         </shape>
     </item>
 
@@ -12,9 +12,9 @@
         android:left="0dp"
         android:right="0dp">
         <shape android:shape="rectangle">
-            <gradient android:startColor="#f5576c"
-                android:endColor="#EEB19D"/>
-            <corners android:radius="5dp"/>
+            <solid android:color="@color/white"/>
+            <corners android:topLeftRadius="40dp"
+                    android:topRightRadius="40dp"/>
         </shape>
     </item>
 </layer-list>

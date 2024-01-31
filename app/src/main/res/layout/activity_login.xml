@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/back01"
+    android:background="@drawable/bg_custom_login"
     tools:context=".Activity.LoginActivity">
     <FrameLayout
         android:layout_width="match_parent"
@@ -32,7 +32,6 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center|top"
-                android:layout_marginTop="10dp"
                 app:srcCompat="@drawable/logo" />
         </LinearLayout>
 
@@ -40,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:layout_gravity="center|bottom"
+            android:background="@drawable/bg_custom_login_2"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/textView8"
