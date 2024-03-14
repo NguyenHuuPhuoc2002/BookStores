@@ -67,8 +67,8 @@
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="270dp"
-                        android:background="@drawable/bg_custom_item_cart"
+                        android:layout_height="200dp"
+                        android:background="@drawable/img"
                         android:layout_margin="5dp"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -81,159 +81,141 @@
                                 android:id="@+id/imglove"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
-                                android:layout_marginTop="200dp"
-                                android:layout_marginStart="-80dp"
+                                android:layout_marginTop="160dp"
+                                android:layout_marginStart="-340dp"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_favorite_border" />
 
-                            <ImageView
-                                android:id="@+id/imgdetail"
-                                android:layout_width="180dp"
-                                android:layout_height="240dp"
-                                android:src="@drawable/img_3" />
                         </RelativeLayout>
                     </LinearLayout>
-
+                    <ImageView
+                        android:id="@+id/imgdetail"
+                        android:layout_width="160dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-170dp"
+                        android:src="@drawable/img_3" />
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
                         android:orientation="vertical">
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Tiêu đề: "
-                                android:textColor="@color/black"
-                                android:textSize="18dp"
-                                android:textStyle="italic" />
-
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/img_pen" />
                             <TextView
                                 android:id="@+id/txttitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Title"
+                                android:gravity="center"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="5dp"
                                 android:textColor="@color/orange"
                                 android:textSize="18dp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Tác giả: "
-                                android:textColor="@color/black"
-                                android:textSize="18dp"
-                                android:textStyle="italic" />
-
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/img_author" />
                             <TextView
                                 android:id="@+id/txtauthor"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="2dp"
+                                android:layout_marginStart="7dp"
+                                android:gravity="center"
                                 android:text="Tác giả"
                                 android:textColor="@color/orange"
                                 android:textSize="18dp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Xuất bản: "
-                                android:textColor="@color/black"
-                                android:textSize="18dp"
-                                android:textStyle="italic" />
-
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/icon_book" />
                             <TextView
                                 android:id="@+id/txtnxb"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="2dp"
+                                android:gravity="center"
+                                android:layout_marginStart="7dp"
                                 android:text="Nhà xuất bản"
                                 android:textColor="@color/orange"
                                 android:textSize="18dp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Số trang: "
-                                android:textColor="@color/black"
-                                android:textSize="18dp"
-                                android:textStyle="italic" />
-
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/img_page" />
                             <TextView
                                 android:id="@+id/txtnumpages"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="2dp"
+                                android:gravity="center"
+                                android:layout_marginStart="7dp"
                                 android:text="Số trang"
                                 android:textColor="@color/orange"
                                 android:textSize="18dp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Thể loại: "
-                                android:textColor="@color/black"
-                                android:textSize="18dp"
-                                android:textStyle="italic" />
-
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/img_classyfi" />
                             <TextView
                                 android:id="@+id/txtloai"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="2dp"
+                                android:layout_marginStart="7dp"
+                                android:gravity="center"
                                 android:text="Loại"
                                 android:textColor="@color/orange"
                                 android:textSize="18dp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Giá: "
-                                android:textColor="@color/black"
-                                android:textSize="18dp"
-                                android:textStyle="italic" />
-
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/img_price" />
                             <TextView
                                 android:id="@+id/txtprice"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="2dp"
+                                android:layout_marginStart="7dp"
+                                android:gravity="center"
                                 android:text="Price"
                                 android:textColor="@color/orange"
                                 android:textSize="18dp" />
@@ -250,24 +232,24 @@
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnbuy"
-                            android:layout_width="300dp"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_custombtnmua"
                             android:text="Mua"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="18dp" />
 
                         <ImageView
                             android:id="@+id/imgaddcart"
                             android:layout_width="50dp"
                             android:layout_height="44dp"
-                            android:padding="5dp"
+                            android:padding="7dp"
                             android:layout_marginStart="15dp"
                             android:layout_gravity="center"
                             android:background="@drawable/bg_custombtnmua"
                             android:src="@drawable/ic_cartt" />
                     </LinearLayout>
-                    <androidx.appcompat.widget.AppCompatCheckedTextView
+                    <!--<androidx.appcompat.widget.AppCompatCheckedTextView
                         android:id="@+id/txtline"
                         android:background="@drawable/bg_custom_line"
                         android:textSize="22dp"
@@ -275,13 +257,21 @@
                         android:layout_marginEnd="7dp"
                         android:layout_marginTop="15dp"
                         android:layout_height="5dp"
-                        android:layout_width="match_parent"/>
+                        android:layout_width="match_parent"/>-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:orientation="vertical">
+                        <androidx.appcompat.widget.AppCompatCheckedTextView
+                            android:id="@+id/txtline"
+                            android:background="@drawable/bg_custom_line"
+                            android:textSize="22dp"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginEnd="7dp"
+                            android:layout_height="5dp"
+                            android:layout_width="match_parent"/>
                         <TextView
                             android:id="@+id/txtdetailtitle"
                             android:layout_width="match_parent"
@@ -289,8 +279,7 @@
                             android:textSize="22dp"
                             android:gravity="center"
                             android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Chi Tiết" />
+                            android:text="Tóm tắt nội dung" />
                         <TextView
                             android:id="@+id/txtdetail"
                             android:layout_width="match_parent"

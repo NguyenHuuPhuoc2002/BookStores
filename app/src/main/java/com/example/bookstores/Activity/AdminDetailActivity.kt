@@ -66,7 +66,7 @@ class AdminDetailActivity : AppCompatActivity() {
             if ((title.isEmpty() || title.isBlank()) || (author.isEmpty() || author.isBlank()) || (nxb.isEmpty() || nxb.isBlank())
                 || (kindOfSach.isEmpty() || kindOfSach.isBlank()) || (numPages.isEmpty() || numPages.isBlank())
                 || (priceText.isEmpty() || priceText.isBlank()) || (content.isEmpty() || content.isBlank())
-            ) {
+            ){
                 dialogProgress.dismiss()
                 if (title.isEmpty() || title.isBlank()) binding.edtTitle.error = "Nhập tiêu đề !"
                 if (author.isEmpty() || author.isBlank()) binding.edtAuthor.error = "Nhập tác giả !"

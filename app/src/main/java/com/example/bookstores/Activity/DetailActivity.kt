@@ -403,7 +403,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     return true
                 }
             })
-            findViewById<TextView>(R.id.txtdetailtitle).text = "Tóm Tắt Nội Dung"
+            //findViewById<TextView>(R.id.txtdetailtitle).text = ""
         } else {
 
         }
